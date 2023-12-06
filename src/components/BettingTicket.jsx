@@ -31,19 +31,20 @@ const Ticket = (props) => {
           <div className="text-center">
             <CardTitle tag="h5">3S Betting</CardTitle>
           </div>
-          <CardSubtitle tag="h6" className="mb-2 text-muted text-center">Betting Company Name</CardSubtitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted text-center">Game ID: {props.gameID}</CardSubtitle>
 
           <ListGroup>
-            {betList.map((bet, index) => (
-              <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
-                <div>
-                   {JSON.stringify(bet.selectedButtons)}
-                </div>
-                <div>
-                  <strong>________</strong> {bet.betAmount}
-                </div>
-              </ListGroupItem>
-            ))}
+          {betList.map((bet, index) => (
+  <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
+    <div>
+      <strong>Selected:</strong> {bet.selectedButtons.map(selected => selected[1]).sort((a, b) => a - b).join(', ')}
+    </div>
+    <div>
+      <strong>________</strong> {bet.betAmount}
+    </div>
+  </ListGroupItem>
+))}
+
           </ListGroup>
 
           <div className="mt-3 d-flex justify-content-between">

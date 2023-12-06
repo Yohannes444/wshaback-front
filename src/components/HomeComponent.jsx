@@ -5,7 +5,7 @@ import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } 
 import  Ticket  from './BettingTicket'
 
 const Home = (props) => {
-    const [selectedButtons, setSelectedButtons] = useState({});
+    const [selectedButtons, setSelectedButtons] = useState([]);
     const [betAmount, setBetAmount] = useState(20);
     const [gameID, setGameID] = useState(1000); 
     const [newBette, setNewBerre] = useState([])
@@ -30,52 +30,79 @@ const Home = (props) => {
       betAmount,
       gameID
     };
-
+  
     // Send the bet object to the Ticket component
     sendToTicket(bet);
-
+  
     // Clear selected buttons
-    setSelectedButtons({});
-    setBetAmount(20);
-
+    clearSelectedButtons();
+  
     // Update styling of the button
     const addButton = document.getElementById('addButton');
     addButton.style.backgroundColor = 'black';
     addButton.style.color = 'white';
     addButton.style.fontWeight = 'bold';
   };
+  
+  // Function to clear selected buttons
+  const clearSelectedButtons = () => {
+    const radioColumns = document.querySelectorAll('.radio-col');
+    radioColumns.forEach((column) => {
+      const buttons = column.querySelectorAll('.radio-button');
+      buttons.forEach((button) => {
+        button.classList.remove('selected');
+      });
+    });
+  
+    // Clear selectedButtons state
+    setSelectedButtons({});
+  };
+  
+  const isSameIndexSelected = (newSelected, columnIndex, index) => {
+    return newSelected.some(
+      (selected) => selected.length > 0 && selected[0] !== columnIndex && selected[1] === index
+    );
+  };
+
   const selectRadioButton = (column, index) => {
     setSelectedButtons((prevSelected) => {
-      const newSelected = { ...prevSelected };
-  
-      newSelected[column] = newSelected[column] || [];
-  
-      if (newSelected[column].length > 0 && newSelected[column][1] === index) {
+      const newSelected = [...prevSelected];
+
+      const selectedButtonIndex = newSelected.findIndex(
+        (selected) => selected.length > 0 && selected[0] === column
+      );
+
+      if (selectedButtonIndex !== -1 && newSelected[selectedButtonIndex][1] === index) {
+        // Deselect the button if it's already selected
         const selectedButton = document.getElementById(`column${column}`).children[index - 1];
         selectedButton.classList.toggle('selected');
-        newSelected[column] = [];
+        newSelected.splice(selectedButtonIndex, 1);
       } else {
-        if (newSelected[column].length > 0) {
-          const prevIndex = newSelected[column][1]; // Use [1] to get the previous index
+        // Deselect the previous button in the same column, if any
+        const prevSelectedInColumn = newSelected.filter((selected) => selected[0] === column);
+        prevSelectedInColumn.forEach((prevSelected) => {
+          const prevIndex = prevSelected[1];
           document.getElementById(`column${column}`).children[prevIndex - 1].classList.remove('selected');
+        });
+
+        // Check if the same index is selected in any column
+        if (isSameIndexSelected(newSelected, column, index)) {
+          console.log("Cannot select the same number in multiple columns.");
+        } else {
+          // Select the new button
+          newSelected.push([column, index]);
+          const selectedButton = document.getElementById(`column${column}`).children[index - 1];
+          selectedButton.classList.add('selected');
         }
-  
-        newSelected[column] = [column, index];
-  
-        document.getElementById(`column${column}`).children[index - 1].classList.add('selected');
       }
-  
-      console.log(`Selected button in column ${column}: ${index}`);
-  
+
+      console.log(`Selected buttons: ${JSON.stringify(newSelected)}`);
+
       return newSelected;
     });
   };
   console.log(selectedButtons);
 
-  
-  
-  
-  
     
 
 const handleGameIDChange= (event)=>{
@@ -89,9 +116,7 @@ const incrementGameID = () => {
     setGameID((prevGameID) => Math.max(prevGameID - 4, 0));
   };
 
-  
-  
-  
+
   
   return (
     <div>
@@ -213,7 +238,7 @@ const incrementGameID = () => {
       </div>
       </Col>
       <Col md={4}>
-            <Ticket newBette={newBette}  />
+            <Ticket newBette={newBette} gameID={gameID} />
           </Col>
         </Row>
     </div>
