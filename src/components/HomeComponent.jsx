@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import './homePage.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } from 'reactstrap';
+import  Ticket  from './BettingTicket'
 
 const Home = (props) => {
     const [selectedButtons, setSelectedButtons] = useState({});
     const [betAmount, setBetAmount] = useState(20);
-    const [gameID, setGameID] = useState(1000);
+    const [gameID, setGameID] = useState(1000); 
+    const [newBette, setNewBerre] = useState([])
 
   const handleAmountChange = (event) => {
     setBetAmount(event.target.value);
@@ -15,38 +17,54 @@ const Home = (props) => {
   const handleButtonClick = (amount) => {
     setBetAmount(amount);
   };
+  const sendToTicket = (bet) => {
+    // Handle the bet data in the parent component
+    console.log('Received bet data:', bet);
+    setNewBerre(bet)
+  };
 
+  const handleAddClick = () => {
+    // Create the bet object
+    const bet = {
+      selectedButtons,
+      betAmount,
+      gameID
+    };
+
+    // Send the bet object to the Ticket component
+    sendToTicket(bet);
+
+    // Clear selected buttons
+    setSelectedButtons({});
+    setBetAmount(20);
+
+    // Update styling of the button
+    const addButton = document.getElementById('addButton');
+    addButton.style.backgroundColor = 'black';
+    addButton.style.color = 'white';
+    addButton.style.fontWeight = 'bold';
+  };
   const selectRadioButton = (column, index) => {
     setSelectedButtons((prevSelected) => {
-      // Create a new object to avoid mutating state directly
       const newSelected = { ...prevSelected };
   
-      // Initialize the array for the column if it doesn't exist
       newSelected[column] = newSelected[column] || [];
   
-      // Check if the same button is clicked again, then toggle the selection
       if (newSelected[column].length > 0 && newSelected[column][1] === index) {
-        // Toggle the selected state
         const selectedButton = document.getElementById(`column${column}`).children[index - 1];
         selectedButton.classList.toggle('selected');
-  
-        // Clear the selection for the column
         newSelected[column] = [];
       } else {
-        // Deselect previously selected button in the same column
         if (newSelected[column].length > 0) {
           const prevIndex = newSelected[column][1]; // Use [1] to get the previous index
           document.getElementById(`column${column}`).children[prevIndex - 1].classList.remove('selected');
         }
   
-        // Update the selected button for the column
         newSelected[column] = [column, index];
   
-        // Add 'selected' class to the newly selected button
         document.getElementById(`column${column}`).children[index - 1].classList.add('selected');
       }
   
-      // Save the selected column and index or perform other actions as needed
       console.log(`Selected button in column ${column}: ${index}`);
   
       return newSelected;
@@ -77,12 +95,9 @@ const incrementGameID = () => {
   
   return (
     <div>
-      
+      <Row>
+          <Col md={8}>
       <div>
-          
-     
-
-
 
     <section id="list-group">
         <div className="container-lg "style={{backgroundColor:'rgb(0,0, 0)'}}>
@@ -148,6 +163,16 @@ const incrementGameID = () => {
             </Col>
             <Col xs="3.8"style={{backgroundColor:'rgb(25,65, 70)'}}>
             <div >
+            <div className="text-center mt-4">
+                  <Button
+                    id="addButton"
+                    color="dark"
+                    onClick={handleAddClick}
+                    className="text-white"
+                  >
+                    ADD
+                  </Button>
+                </div>
               <label htmlFor="betAmount" className="form-label text-white p-3 me-4">
                 Bet Amount
               </label>
@@ -168,7 +193,9 @@ const incrementGameID = () => {
                   >
                     {amount}
                   </Button>
+                  
                 ))}
+          
               </div>
                 
             </div>
@@ -184,6 +211,11 @@ const incrementGameID = () => {
                     }
                   `}</style>
       </div>
+      </Col>
+      <Col md={4}>
+            <Ticket newBette={newBette}  />
+          </Col>
+        </Row>
     </div>
   );
 };
