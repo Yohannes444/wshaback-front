@@ -8,5 +8,7 @@ import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<React.Fragment><App /></React.Fragment>, document.getElementById('root'));
 registerServiceWorker();
+
+

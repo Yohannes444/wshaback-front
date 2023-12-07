@@ -3,15 +3,26 @@ import './homePage.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } from 'reactstrap';
 import  Ticket  from './BettingTicket'
+import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
 
 const Home = (props) => {
     const [selectedButtons, setSelectedButtons] = useState([]);
     const [betAmount, setBetAmount] = useState(20);
     const [gameID, setGameID] = useState(1000); 
-    const [newBette, setNewBerre] = useState([])
+    const [newBette, setNewBette] = useState([])
+    const [isQuinellaActive, setQuinellaActive] = useState(false);
+    const [isExactaActive, setExactaActive] = useState(false);
 
   const handleAmountChange = (event) => {
     setBetAmount(event.target.value);
+  };
+  const handleQunelaClikd = () => {
+    setQuinellaActive(true);
+    setExactaActive(false)
+  };
+  const handleExactCliked = () => {
+    setQuinellaActive(false);
+    setExactaActive(true)
   };
 
   const handleButtonClick = (amount) => {
@@ -20,7 +31,7 @@ const Home = (props) => {
   const sendToTicket = (bet) => {
     // Handle the bet data in the parent component
     console.log('Received bet data:', bet);
-    setNewBerre(bet)
+    setNewBette(bet)
   };
 
   const handleAddClick = () => {
@@ -28,7 +39,8 @@ const Home = (props) => {
     const bet = {
       selectedButtons,
       betAmount,
-      gameID
+      isExactaActive,
+      isQuinellaActive
     };
   
     // Send the bet object to the Ticket component
@@ -36,7 +48,8 @@ const Home = (props) => {
   
     // Clear selected buttons
     clearSelectedButtons();
-  
+    setExactaActive(false)
+    setQuinellaActive(false)
     // Update styling of the button
     const addButton = document.getElementById('addButton');
     addButton.style.backgroundColor = 'black';
@@ -82,7 +95,9 @@ const Home = (props) => {
         const prevSelectedInColumn = newSelected.filter((selected) => selected[0] === column);
         prevSelectedInColumn.forEach((prevSelected) => {
           const prevIndex = prevSelected[1];
-          document.getElementById(`column${column}`).children[prevIndex - 1].classList.remove('selected');
+          const ss= document.getElementById(`column${column}`).children[prevIndex - 1].classList.remove('selected');
+          newSelected.splice(ss,1);
+
         });
 
         // Check if the same index is selected in any column
@@ -97,9 +112,17 @@ const Home = (props) => {
       }
 
       console.log(`Selected buttons: ${JSON.stringify(newSelected)}`);
+      if (newSelected.length === 2) {
+        setQuinellaActive(true);
+      }else{
+        setExactaActive(false)
+        setQuinellaActive(false)
+      }
+
 
       return newSelected;
-    });
+    }
+    );
   };
   console.log(selectedButtons);
 
@@ -151,7 +174,7 @@ const incrementGameID = () => {
             <Col xs="8">
                 <div className="radio-container d-flex">
                     <div className="me-4">
-                        <div className="bg-success fs-3 text-white p-3">win</div>
+                        <div className="bg-success fs-3 text-white p-3">WIN</div>
                         <div className="radio-col" id="column1">
                     <button className="radio-button" onClick={() => selectRadioButton(1, 1)}>1</button>
                     <button className="radio-button" onClick={() => selectRadioButton(1, 2)}>2</button>
@@ -163,7 +186,7 @@ const incrementGameID = () => {
                 </div>
         
                 <div>
-                <div class="bg-primary fs-3 text-white p-3 me-4">pleas</div>
+                <div class="bg-primary fs-3 text-white p-3 me-4">PLACE</div>
                 <div className="radio-col" id="column2">
                     <button className="radio-button" onClick={() => selectRadioButton(2, 1)}>1</button>
                     <button className="radio-button" onClick={() => selectRadioButton(2, 2)}>2</button>
@@ -174,7 +197,7 @@ const incrementGameID = () => {
                 </div>
                 </div>
                 <div>
-                <div class="bg-danger fs-3 text-white p-3 me-4">show</div>
+                <div class="bg-danger fs-3 text-white p-3 me-4">SHOW</div>
                     <div className="radio-col" id="column3">
                     <button className="radio-button" onClick={() => selectRadioButton(3, 1)}>1</button>
                     <button className="radio-button" onClick={() => selectRadioButton(3, 2)}>2</button>
@@ -222,6 +245,26 @@ const incrementGameID = () => {
                 ))}
           
               </div>
+              <div>
+        <Button
+          color={isQuinellaActive ? 'primary' : 'secondary'}
+          onClick={() => {
+            handleQunelaClikd()
+            console.log('QUINELLA bet placed');
+          }}
+        >
+          QUINELLA
+        </Button>
+        <Button
+          color={isExactaActive ? 'primary' : 'secondary'}
+          onClick={() => {
+            handleExactCliked()
+            console.log('EXACTA bet placed');
+          }}
+        >
+          EXACTA
+        </Button>
+      </div>
                 
             </div>
           </Col>
@@ -238,8 +281,15 @@ const incrementGameID = () => {
       </div>
       </Col>
       <Col md={4}>
-            <Ticket newBette={newBette} gameID={gameID} />
+      
+            <Ticket newBette={newBette} ref={el=>(this.tiket=el)} gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
+            <ReactToPrint trigger={()=>{
+            return(<Button>print</Button>)
+          }}
+          content={()=>(this.tiket)}
+          />
           </Col>
+         
         </Row>
     </div>
   );

@@ -1,28 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import moment from 'moment';
-import  { forwardRef } from "react";
 
-
-const Tikete = forwardRef((props, ref) => {
-  const { newBette } = props;
-  const [betList, setBetList] = useState([]);
-
-  useEffect(() => {
-    if (newBette && Object.keys(newBette).length > 0) {
-      // Update bet list when a new bet is received
-      setBetList((prevList) => [...prevList, newBette]);
-    }
-  }, [newBette]);
-
-  const calculateTotalAmount = () => {
-    return betList.reduce((total, bet) => total + bet.betAmount, 0);
-  };
-
-
-
+const Ticket = (props) => {
+  
+    const calculateTotalAmount = () => {
+        return props.betList.reduce((total, bet) => total + bet.betAmount, 0);
+        
+      };
   return (
-    <div className="mt-5"  ref={ref}>
+    <div className="mt-5">
       <Card>
         <CardBody>
           <div className="text-center">
@@ -31,7 +18,7 @@ const Tikete = forwardRef((props, ref) => {
           <CardSubtitle tag="h6" className="mb-2 text-muted text-center">Game ID: {props.gameID}</CardSubtitle>
 
           <ListGroup>
-          {betList.map((bet, index) => {
+          {props.betList.map((bet, index) => {
   // Check if the length of selectedButtons array is 1
   if (bet.selectedButtons.length === 1) {
     const firstElement = bet.selectedButtons[0][0];
@@ -74,44 +61,6 @@ const Tikete = forwardRef((props, ref) => {
     );
   }
 
-  if (bet.isQuinellaActive === true) {
-
-    let displayValue;
-    let correspondingAmount;
-
-    displayValue = "    QUINELLA";
-    correspondingAmount = bet.betAmount;
-    return (
-      <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
-        <div>
-        <strong>{bet.selectedButtons[0][1]},{bet.selectedButtons[1][1]}</strong>
-          {displayValue} 
-        </div>
-        <div>
-        <strong>________</strong> {correspondingAmount}
-      </div>
-      </ListGroupItem>
-    );
-  }
-  if (bet.isExactaActive === true) {
-
-    let displayValue;
-    let correspondingAmount;
-
-    displayValue = "    EXACTA";
-    correspondingAmount = bet.betAmount;
-    return (
-      <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
-        <div>
-          <strong>{bet.selectedButtons[0][1]},{bet.selectedButtons[1][1]}</strong>
-          {displayValue} 
-        </div>
-        <div>
-        <strong>________</strong> {correspondingAmount}
-      </div>
-      </ListGroupItem>
-    );
-  }
   // Default rendering if selectedButtons array length is not 1
   return (
     <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
@@ -127,7 +76,7 @@ const Tikete = forwardRef((props, ref) => {
       </div>
     </ListGroupItem>
   );
-  })}
+})}
 
 
 
@@ -143,10 +92,11 @@ const Tikete = forwardRef((props, ref) => {
             </div>
           </div>
 
+        
         </CardBody>
       </Card>
     </div>
   );
-});
+};
 
-export default Tikete;
+export default Ticket;
