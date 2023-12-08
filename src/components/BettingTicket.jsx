@@ -1,28 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem ,Modal, ModalHeader, ModalBody, ModalFooter, Button, Label, Input } from 'reactstrap';
 import moment from 'moment';
 import  { forwardRef } from "react";
-
+import { FaTrash,FaEdit } from 'react-icons/fa';
 
 const Tikete = forwardRef((props, ref) => {
   const { newBette } = props;
   const [betList, setBetList] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const [newBetAmount, setNewBetAmount] = useState(0);
+  const [totalBetAmount, setTotalBetAmount] = useState(0); // New state for total bet amount
 
+  const openModal = (index) => {
+    setSelectedItemIndex(index);
+    setModalIsOpen(true);
+    console.log(betList[index])
+    setNewBetAmount(betList[index].betAmount);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
+  const saveChanges = () => {
+    if (selectedItemIndex !== null) {
+      setBetList((prevItems) => {
+        const newItems = [...prevItems];
+        newItems[selectedItemIndex].betAmount = newBetAmount;
+        return newItems;
+      });
+      closeModal();
+    }
+  };
+
+ 
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
       // Update bet list when a new bet is received
       setBetList((prevList) => [...prevList, newBette]);
     }
   }, [newBette]);
+  useEffect(() => {
+    if (props.isTiketPrinted ==true) {
+      setBetList([])
+      props.handlePrint()
+    }
+  }, [props.isTiketPrinted, props.handelPrint]);
 
-  const calculateTotalAmount = () => {
-    return betList.reduce((total, bet) => total + bet.betAmount, 0);
+  useEffect(() => {
+    // Recalculate total bet amount whenever items or newBetAmount change
+    var calculateTotalAmount = () => {
+      const total = betList.reduce((acc, item) => acc + item.betAmount, 0);
+      setTotalBetAmount(total);
+    };
+
+    calculateTotalAmount()
+  }, [betList, newBetAmount]);
+  
+
+  const deleteItem = (index) => {
+    setBetList((prevItems) => {
+      // Create a new array without the item at the specified index
+      const newItems = [...prevItems.slice(0, index), ...prevItems.slice(index + 1)];
+      return newItems;
+    });
   };
 
-
-
   return (
-    <div className="mt-5"  ref={ref}>
+    <div className="mt-5"  ref={ref} >
       <Card>
         <CardBody>
           <div className="text-center">
@@ -68,7 +114,10 @@ const Tikete = forwardRef((props, ref) => {
           {displayValue} 
         </div>
         <div>
-        <strong>________</strong> {correspondingAmount}
+        <strong>________</strong> {correspondingAmount}_____
+            <FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
+
+         
       </div>
       </ListGroupItem>
     );
@@ -88,7 +137,8 @@ const Tikete = forwardRef((props, ref) => {
           {displayValue} 
         </div>
         <div>
-        <strong>________</strong> {correspondingAmount}
+        <strong>________</strong> {correspondingAmount}________<FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
+
       </div>
       </ListGroupItem>
     );
@@ -107,7 +157,8 @@ const Tikete = forwardRef((props, ref) => {
           {displayValue} 
         </div>
         <div>
-        <strong>________</strong> {correspondingAmount}
+        <strong>________</strong> {correspondingAmount}______<FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
+
       </div>
       </ListGroupItem>
     );
@@ -116,27 +167,25 @@ const Tikete = forwardRef((props, ref) => {
   return (
     <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
       <div>
-        <strong></strong>{' '}
+        <strong>{' '}
         {bet.selectedButtons
           .sort((a, b) => a[0] - b[0])
           .map(selected => selected[1])
-          .join(', ')}
+          .join(', ')}</strong>
       </div>
       <div>
-        <strong>________</strong> {bet.betAmount}
+        <strong>________</strong> {bet.betAmount}_____<FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
+
       </div>
     </ListGroupItem>
   );
   })}
 
-
-
-
           </ListGroup>
 
           <div className="mt-3 d-flex justify-content-between">
             <div>
-              <strong>Total :</strong> {calculateTotalAmount()}
+              <strong>Total :</strong> {totalBetAmount}
             </div>
             <div>
               <strong>Date:</strong> {moment().format('MMMM Do YYYY, h:mm:ss a')}
@@ -145,6 +194,27 @@ const Tikete = forwardRef((props, ref) => {
 
         </CardBody>
       </Card>
+      <Modal isOpen={modalIsOpen} toggle={closeModal}>
+        <ModalHeader toggle={closeModal}>Edit Bet</ModalHeader>
+        <ModalBody>
+        <Label>
+            Bet Amount:
+            <Input
+              type="number"
+              value={newBetAmount}
+              onChange={(e) => setNewBetAmount(parseInt(e.target.value, 10))}
+            />
+          </Label>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={saveChanges}>
+            Save Changes
+          </Button>
+          <Button color="secondary" onClick={closeModal}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 });

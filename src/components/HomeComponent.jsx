@@ -12,6 +12,7 @@ const Home = (props) => {
     const [newBette, setNewBette] = useState([])
     const [isQuinellaActive, setQuinellaActive] = useState(false);
     const [isExactaActive, setExactaActive] = useState(false);
+    const [isTiketPrinted,setIsTiketPrinted]= useState(false)
 
   const handleAmountChange = (event) => {
     setBetAmount(event.target.value);
@@ -34,6 +35,9 @@ const Home = (props) => {
     setNewBette(bet)
   };
 
+  const handlePrint= () =>{
+    setIsTiketPrinted(!isTiketPrinted)
+  }
   const handleAddClick = () => {
     // Create the bet object
     const bet = {
@@ -51,10 +55,7 @@ const Home = (props) => {
     setExactaActive(false)
     setQuinellaActive(false)
     // Update styling of the button
-    const addButton = document.getElementById('addButton');
-    addButton.style.backgroundColor = 'black';
-    addButton.style.color = 'white';
-    addButton.style.fontWeight = 'bold';
+    
   };
   
   // Function to clear selected buttons
@@ -148,7 +149,8 @@ const incrementGameID = () => {
       <div>
 
     <section id="list-group">
-        <div className="container-lg "style={{backgroundColor:'rgb(0,0, 0)'}}>
+    <div className="container-lg" style={{backgroundImage: 'url("Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTEING</h1>
             <div className="text-center mb-3">
             <div className=" text-center">
@@ -209,9 +211,10 @@ const incrementGameID = () => {
                     </div>
                 </div>
             </Col>
-            <Col xs="3.8"style={{backgroundColor:'rgb(25,65, 70)'}}>
+            <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div >
-            <div className="text-center mt-4">
+            <div className="text-center mt-4"  >
+
                   <Button
                     id="addButton"
                     color="dark"
@@ -221,7 +224,7 @@ const incrementGameID = () => {
                     ADD
                   </Button>
                 </div>
-              <label htmlFor="betAmount" className="form-label text-white p-3 me-4">
+              <label htmlFor="betAmount" id="label" >
                 Bet Amount
               </label>
               <input
@@ -280,17 +283,30 @@ const incrementGameID = () => {
                   `}</style>
       </div>
       </Col>
-      <Col md={4}>
+      <Col md={4} style={{background: 'linear-gradient(to top, rgb(226, 171, 126), rgb(126, 176, 226))'}} >
       
-            <Ticket newBette={newBette} ref={el=>(this.tiket=el)} gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
-            <ReactToPrint trigger={()=>{
-            return(<Button>print</Button>)
-          }}
-          content={()=>(this.tiket)}
-          />
+            <Ticket handlePrint={handlePrint} isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
+            <div onClick={() => handlePrint()}>
+              <ReactToPrint
+                trigger={() => <Button className="greenButton">Print</Button>}
+                content={() => this.tiket} // Make sure this.tiket is a valid reference
+              />
+            </div>
+            
           </Col>
-         
+         <img src=""/>
         </Row>
+        <div style={{backgroundImage: 'url("HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+          <p> this system is provided by yohannes mulat</p>
+          <p>phone number 0979458662 </p>
+          <p>|</p>
+          <p>|</p>
+          <p>|</p>
+          <p>|</p>
+          <p>|</p>
+          <p>|</p>       
+        
+        </div>
     </div>
   );
 };

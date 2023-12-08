@@ -77,9 +77,20 @@
   margin-right: 10%;
   margin-bottom: 30px;
   border-radius: 10px;
+  color: rgb(226, 171, 126);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   font-family: 'Venarda', sans-serif; /* Specify Vedana font and fallback to sans-serif */
 }
+.greenButton {
+  background-color: green;
+}
+#addButton {
+   background-Color :black;
+    color : white;
+    font-Weight : bold;}
+#label {
+       color : white;
+       font-Weight : bold;}
 /* RadioGrid.css */
 .radio-container {
   display: flex;
