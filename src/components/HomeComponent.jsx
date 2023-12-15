@@ -4,6 +4,7 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } from 'reactstrap';
 import  Ticket  from './BettingTicket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
+import jsPDF from 'jspdf';
 
 const Home = (props) => {
     const [selectedButtons, setSelectedButtons] = useState([]);
@@ -26,6 +27,7 @@ const Home = (props) => {
     setExactaActive(true)
   };
 
+
   const handleButtonClick = (amount) => {
     setBetAmount(amount);
   };
@@ -39,6 +41,7 @@ const Home = (props) => {
     setIsTiketPrinted(!isTiketPrinted)
   }
   const handleAddClick = () => {
+    if(selectedButtons.length > 0){
     // Create the bet object
     const bet = {
       selectedButtons,
@@ -55,6 +58,7 @@ const Home = (props) => {
     setExactaActive(false)
     setQuinellaActive(false)
     // Update styling of the button
+  }
     
   };
   
@@ -285,11 +289,12 @@ const incrementGameID = () => {
       </Col>
       <Col md={4} style={{background: 'linear-gradient(to top, rgb(226, 171, 126), rgb(126, 176, 226))'}} >
       
-            <Ticket handlePrint={handlePrint} isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
+            <Ticket handlePrint={handlePrint} isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} id="ticket" gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
             <div onClick={() => handlePrint()}>
               <ReactToPrint
                 trigger={() => <Button className="greenButton">Print</Button>}
                 content={() => this.tiket} // Make sure this.tiket is a valid reference
+                pageStyle="@page { size: 58mm 60mm; margin: 0; }"
               />
             </div>
             

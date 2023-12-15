@@ -69,7 +69,7 @@ const Tikete = forwardRef((props, ref) => {
 
   return (
     <div className="mt-5"  ref={ref} >
-      <Card>
+      <Card id="ticket" >
         <CardBody>
           <div className="text-center">
             <CardTitle tag="h5">3S Betting</CardTitle>
@@ -215,6 +215,7 @@ const Tikete = forwardRef((props, ref) => {
           </Button>
         </ModalFooter>
       </Modal>
+      
     </div>
   );
 });
