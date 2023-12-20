@@ -4,7 +4,7 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } from 'reactstrap';
 import  Ticket  from './BettingTicket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
-import jsPDF from 'jspdf';
+
 
 const Home = (props) => {
     const [selectedButtons, setSelectedButtons] = useState([]);
@@ -27,6 +27,7 @@ const Home = (props) => {
     setExactaActive(true)
   };
 
+  
 
   const handleButtonClick = (amount) => {
     setBetAmount(amount);
@@ -129,19 +130,19 @@ const Home = (props) => {
     }
     );
   };
-  console.log(selectedButtons);
 
     
 
 const handleGameIDChange= (event)=>{
-    setGameID(event.target.value)
+  var newNumber = Number(event.target.value);
+  setGameID(newNumber)
 }
 const incrementGameID = () => {
-    setGameID((prevGameID) => prevGameID + 4);
+    setGameID(() => gameID + 4);
   };
 
   const decrementGameID = () => {
-    setGameID((prevGameID) => Math.max(prevGameID - 4, 0));
+    setGameID(() => Math.max(gameID - 4, 0));
   };
 
 
@@ -289,15 +290,15 @@ const incrementGameID = () => {
       </Col>
       <Col md={4} style={{background: 'linear-gradient(to top, rgb(226, 171, 126), rgb(126, 176, 226))'}} >
       
-            <Ticket handlePrint={handlePrint} isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} id="ticket" gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
+           <Ticket handlePrint={handlePrint} isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} id="ticket" gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
             <div onClick={() => handlePrint()}>
               <ReactToPrint
                 trigger={() => <Button className="greenButton">Print</Button>}
                 content={() => this.tiket} // Make sure this.tiket is a valid reference
-                pageStyle="@page { size: 58mm 60mm; margin: 0; }"
+                pageStyle="@page { size: 60mm 80mm; margin: 0; }" // Set the size property to 60mm by 80mm
               />
             </div>
-            
+
           </Col>
          <img src=""/>
         </Row>

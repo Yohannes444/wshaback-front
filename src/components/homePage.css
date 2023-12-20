@@ -93,8 +93,8 @@
        font-Weight : bold;}
 /* RadioGrid.css */
 .radio-container {
-  display: flex;
-  justify-content: space-around;
+  margin-left: 50%;
+
 }
 
 .radio-col {

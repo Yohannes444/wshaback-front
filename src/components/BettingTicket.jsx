@@ -71,10 +71,10 @@ const Tikete = forwardRef((props, ref) => {
     <div className="mt-5"  ref={ref} >
       <Card id="ticket" >
         <CardBody>
-          <div className="text-center">
+          <div >
             <CardTitle tag="h5">3S Betting</CardTitle>
           </div>
-          <CardSubtitle tag="h6" className="mb-2 text-muted text-center">Game ID: {props.gameID}</CardSubtitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
 
           <ListGroup>
           {betList.map((bet, index) => {
@@ -108,7 +108,7 @@ const Tikete = forwardRef((props, ref) => {
     }
 
     return (
-      <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
+      <ListGroupItem key={index} className="d-flex  align-items-center">
         <div>
           <strong>{bet.selectedButtons[0][1]}</strong>
           {displayValue} 
@@ -131,7 +131,7 @@ const Tikete = forwardRef((props, ref) => {
     displayValue = "    QUINELLA";
     correspondingAmount = bet.betAmount;
     return (
-      <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
+      <ListGroupItem key={index} className="d-flex  align-items-center">
         <div>
         <strong>{bet.selectedButtons[0][1]},{bet.selectedButtons[1][1]}</strong>
           {displayValue} 
@@ -151,7 +151,7 @@ const Tikete = forwardRef((props, ref) => {
     displayValue = "    EXACTA";
     correspondingAmount = bet.betAmount;
     return (
-      <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
+      <ListGroupItem key={index} className="d-flex  align-items-center">
         <div>
           <strong>{bet.selectedButtons[0][1]},{bet.selectedButtons[1][1]}</strong>
           {displayValue} 
@@ -165,7 +165,7 @@ const Tikete = forwardRef((props, ref) => {
   }
   // Default rendering if selectedButtons array length is not 1
   return (
-    <ListGroupItem key={index} className="d-flex justify-content-between align-items-center">
+    <ListGroupItem key={index} className="d-flex  align-items-center">
       <div>
         <strong>{' '}
         {bet.selectedButtons
@@ -183,7 +183,7 @@ const Tikete = forwardRef((props, ref) => {
 
           </ListGroup>
 
-          <div className="mt-3 d-flex justify-content-between">
+          <div className="mt-3  ">
             <div>
               <strong>Total :</strong> {totalBetAmount}
             </div>
