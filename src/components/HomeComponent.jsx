@@ -14,9 +14,10 @@ const Home = (props) => {
     const [isQuinellaActive, setQuinellaActive] = useState(false);
     const [isExactaActive, setExactaActive] = useState(false);
     const [isTiketPrinted,setIsTiketPrinted]= useState(false)
+    const [amount, setAmount] =useState([5, 10, 20, 30, 40, 50,100])
 
   const handleAmountChange = (event) => {
-    setBetAmount(event.target.value);
+    setBetAmount(Number(event.target.value));
   };
   const handleQunelaClikd = () => {
     setQuinellaActive(true);
@@ -39,6 +40,8 @@ const Home = (props) => {
   };
 
   const handlePrint= () =>{
+    const defal= Number(20)
+    setBetAmount(defal)
     setIsTiketPrinted(!isTiketPrinted)
   }
   const handleAddClick = () => {
@@ -218,7 +221,7 @@ const incrementGameID = () => {
             </Col>
             <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div >
-            <div className="text-center mt-4"  >
+            <div>
 
                   <Button
                     id="addButton"
@@ -240,7 +243,7 @@ const incrementGameID = () => {
                 onChange={handleAmountChange}
               />
               <div className="d-flex">
-                {[5, 10, 20, 30, 40, 50,100].map((amount) => (
+                {amount.map((amount) => (
                   <Button
                     key={amount}
                     color={betAmount === amount ? 'primary' : 'orange'}
@@ -290,7 +293,7 @@ const incrementGameID = () => {
       </Col>
       <Col md={4} style={{background: 'linear-gradient(to top, rgb(226, 171, 126), rgb(126, 176, 226))'}} >
       
-           <Ticket handlePrint={handlePrint} isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} id="ticket" gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
+           <Ticket handlePrint={handlePrint}  isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} id="ticket" gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
             <div col={1}    className=" mt-4"  onClick={() => handlePrint()}>
               <ReactToPrint
             trigger={() => <Button className="greenButton form-control">Print</Button>}
@@ -305,7 +308,7 @@ const incrementGameID = () => {
         <div style={{backgroundImage: 'url("HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
-          <p>|</p>
+          <a href="/qunela"><button>next page</button></a>
           <p>|</p>
           <p>|</p>
           <p>|</p>

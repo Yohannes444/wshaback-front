@@ -1,6 +1,5 @@
 import React,{ Component } from 'react';
 import Home from './HomeComponent'
-import { Switch, Route,withRouter } from "react-router-dom";
 import  {connect}  from 'react-redux';
 import { Row, Col } from 'reactstrap'; // or import { Row, Col } from 'tailwindcss';
 
@@ -35,4 +34,4 @@ componentDidMount(){
   
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Main));
+export default Main;
