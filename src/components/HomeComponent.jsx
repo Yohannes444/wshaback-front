@@ -159,7 +159,10 @@ const incrementGameID = () => {
     <section id="list-group">
     <div className="container-lg" style={{backgroundImage: 'url("Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
-            <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
+            <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>  
+            <a href="/keno" className="d-flex">
+              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
+            </a>
             <div className="text-center mb-3">
             <div className=" text-center">
               <h5 htmlFor="gameID" className=" text-white p-3 ">
@@ -308,7 +311,6 @@ const incrementGameID = () => {
         <div style={{backgroundImage: 'url("HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
-          <a href="/qunela"><button>next page</button></a>
           <p>|</p>
           <p>|</p>
           <p>|</p>

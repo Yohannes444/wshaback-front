@@ -16,7 +16,7 @@ class  App extends Component {
             <div className="App">
               <Routes>
                 <Route path="/" element={<Main/>} />
-                <Route path="/qunela" element={<Master2/>} />
+                <Route path="/keno" element={<Master2/>} />
               </Routes>
               
               
