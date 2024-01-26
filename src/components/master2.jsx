@@ -7,7 +7,6 @@ import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
 
 
 const master2 = (props) => {
-    const [selectedButtons, setSelectedButtons] = useState([]);
     const [betAmount, setBetAmount] = useState(20);
     const [gameID, setGameID] = useState(1000); 
     const [newBette, setNewBette] = useState([])
@@ -42,7 +41,8 @@ const master2 = (props) => {
           key={i}
           onClick={() => handleButtonClickK(i)}
           color={selectedButtonsS.includes(i) ? 'primary' : 'warning'}
-          className="rounded-circle mx-1 my-1"
+          className=" mx-1 my-1"
+          
         >
           {i}
         </Button>
@@ -59,6 +59,7 @@ const master2 = (props) => {
   const handleButtonClick = (amount) => {
     setBetAmount(amount);
   };
+  
   const sendToTicket = (bet) => {
     // Handle the bet data in the parent component
     console.log('Received bet data:', bet);
@@ -71,37 +72,64 @@ const master2 = (props) => {
     setIsTiketPrinted(!isTiketPrinted)
   }
   const handleAddClick = () => {
-    if(selectedButtonsS.length > 0){
-    // Create the bet object
-    const bet = {
-      selectedButtonsS,
-      betAmount
-    };
+    if (selectedButtonsS.length > 0) {
+      // Determine the odd based on selectedButtonsS length
+      let odd;
+      switch (selectedButtonsS.length) {
+        case 1:
+          odd = 3.78;
+          break;
+        case 2:
+          odd = 15;
+          break;
+        case 3:
+          odd = 50;
+          break;
+        case 4:
+          odd = 100;
+          break;
+        case 5:
+          odd = 300;
+          break;
+        case 6:
+          odd = 500;
+          break;
+        case 7:
+          odd = 800;
+          break;
+        case 8:
+          odd = 1000;
+          break;
+        default:
+          // Handle other cases as needed
+          break;
+      }
   
-    // Send the bet object to the Ticket component
-    sendToTicket(bet);
-    // Clear selected buttons
-    clearSelectedButtons();
-
-  }};
+      // Calculate the possible win
+      const possibleWin = odd * betAmount;
   
-  // Function to clear selected buttons
-  const clearSelectedButtons = () => {
-    const radioColumns = document.querySelectorAll('.radio-col');
-    radioColumns.forEach((column) => {
-      const buttons = column.querySelectorAll('.radio-button');
-      buttons.forEach((button) => {
-        button.classList.remove('selected');
-      });
-    });
+      // Create the bet object
+      const bet = {
+        selectedButtonsS,
+        betAmount,
+        odd,
+        possibleWin
+      };
   
-    // Clear selectedButtons state
-    setSelectedButtons({});
+      // Send the bet object to the ticket
+      sendToTicket(bet);
+  
+      // Clear selected buttons
+      clearSelectedButtons();
+    }
   };
   
   
-
-    
+  // Function to clear selected buttons
+  const clearSelectedButtons = () => {
+    setSelectedButtonsS([])
+  };
+  
 
 const handleGameIDChange= (event)=>{
   var newNumber = Number(event.target.value);
@@ -196,7 +224,6 @@ const incrementGameID = () => {
                 ))}
           
               </div>
-             
                 
             </div>
           </Col>
@@ -224,7 +251,6 @@ const incrementGameID = () => {
             </div>
 
           </Col>
-         <img src=""/>
         </Row>
         <div style={{backgroundImage: 'url("keno3.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>

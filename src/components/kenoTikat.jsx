@@ -11,6 +11,7 @@ const kenoTikete = forwardRef((props, ref) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const [newBetAmount, setNewBetAmount] = useState(0);
   const [totalBetAmount, setTotalBetAmount] = useState(0); // New state for total bet amount
+  const [totalPossibleWin, setTotalPossibleWin] = useState(0)
 
   const openModal = (index) => {
     setSelectedItemIndex(index);
@@ -38,6 +39,7 @@ const kenoTikete = forwardRef((props, ref) => {
     if (newBette && Object.keys(newBette).length > 0) {
       // Update bet list when a new bet is received
       setBetList((prevList) => [...prevList, newBette]);
+      calculateTotalPossibleWin()
     }
   }, [newBette]);
   useEffect(() => {
@@ -53,7 +55,7 @@ const kenoTikete = forwardRef((props, ref) => {
       const total = betList.reduce((acc, item) => acc + item.betAmount, 0);
       setTotalBetAmount(total);
     };
-
+    calculateTotalPossibleWin()
     calculateTotalAmount()
   }, [betList, newBetAmount]);
   
@@ -65,6 +67,19 @@ const kenoTikete = forwardRef((props, ref) => {
       return newItems;
     });
   };
+
+const calculateTotalPossibleWin = () => {
+  let totalPossibleWin = 0;
+
+  // Iterate through each bet in the array
+  betList.forEach((bet) => {
+    // Ensure the bet object has the 'possibleWin' property
+    if (bet.hasOwnProperty('possibleWin')) {
+      totalPossibleWin += bet.possibleWin;
+    }
+  });
+  setTotalPossibleWin(totalPossibleWin)
+};
 
   return (
     <div className="mt-5"  ref={ref} >
@@ -98,8 +113,10 @@ const kenoTikete = forwardRef((props, ref) => {
 
           <div className="mt-3  ">
             <div>
-              <strong>Total :</strong> {totalBetAmount}
+              <strong>Total Mony Bet :</strong> {totalBetAmount}
+              
             </div>
+            <div><strong>Total Possible Win :</strong>{totalPossibleWin}</div>
             <div>
               <strong>Date:</strong> {moment().format('MMMM Do YYYY, h:mm:ss a')}
             </div>
