@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './homePage.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } from 'reactstrap';
-import  Ticket  from './kenoTikat'
+import  Ticket  from './spinTiikate'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
 
 
-const master2 = (props) => {
+const spinPage = (props) => {
     const [betAmount, setBetAmount] = useState(20);
     const [gameID, setGameID] = useState(1000); 
     const [newBette, setNewBette] = useState([])
@@ -146,23 +146,24 @@ const incrementGameID = () => {
 
   
   return (
-    <div>
+    <div style={{backgroundImage: 'url("spin11.png")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
       <Row>
           <Col md={8}>
       <div>
 
     <section id="list-group">
-    <div className="container-lg" style={{backgroundImage: 'url("keno4.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    <div className="container-lg" >
 
-            <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
+            <h1  className="text-white" style={{ textAlign: 'center' , paddingInline: '10%'}}>3S BETTING</h1>
             <div style={{display: 'flex'}}>
             <a href="/" className="d-flex">
               <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>DOG</button>
             </a>
-            <a href="/spin" className="d-flex">
-              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
+            <a href="/keno" className="d-flex">
+              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
             </a>
             </div>
+            
             <div className="text-center mb-3">
             <div className=" text-center">
               <h5 htmlFor="gameID" className=" text-white p-3 ">
@@ -244,7 +245,7 @@ const incrementGameID = () => {
                   `}</style>
       </div>
       </Col>
-      <Col md={4} style={{background: 'rgb(0,0,0)', backgroundImage: 'url("keno3.png")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}} >
+      <Col md={4} >
       
            <Ticket handlePrint={handlePrint}  isTiketPrinted={isTiketPrinted} newBette={newBette} ref={el=>(this.tiket=el)} id="ticket" gameID={gameID}  />
             <div col={1}    className=" mt-4"  onClick={() => handlePrint()}>
@@ -271,4 +272,8 @@ const incrementGameID = () => {
   );
 };
 
-export default master2;
+export default spinPage;
+
+
+
+<video src="https://mohiogaming.com/storage/video/615250775f1539b907529926fbcaada5.mp4" loop="" muted="" autoplay="autoplay" class="w-full h-full object-cover z-0"></video>

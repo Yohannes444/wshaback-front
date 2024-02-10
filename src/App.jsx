@@ -1,6 +1,7 @@
 import './App.css';
 import Main from './components/MainComponent';
 import Master2 from './components/master2'
+import Spin from './components/spinComponent'
 import React,{ Component } from 'react';
  import { Provider } from 'react-redux';
 import { ConfigureStore } from './redux/configurStore'
@@ -17,6 +18,7 @@ class  App extends Component {
               <Routes>
                 <Route path="/" element={<Main/>} />
                 <Route path="/keno" element={<Master2/>} />
+                <Route path='/spin' element={<Spin/>}/>
               </Routes>
               
               

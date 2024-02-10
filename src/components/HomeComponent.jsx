@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './homePage.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } from 'reactstrap';
+import { Button, Row, Col} from 'reactstrap';
 import  Ticket  from './BettingTicket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
 
 
-const Home = (props) => {
+const Home = () => {
     const [selectedButtons, setSelectedButtons] = useState([]);
     const [betAmount, setBetAmount] = useState(20);
     const [gameID, setGameID] = useState(1000); 
@@ -15,6 +15,7 @@ const Home = (props) => {
     const [isExactaActive, setExactaActive] = useState(false);
     const [isTiketPrinted,setIsTiketPrinted]= useState(false)
     const [amount, setAmount] =useState([5, 10, 20, 30, 40, 50,100])
+    const [selectedAmounts, setSelectedAmounts] = useState([20]);
 
   const handleAmountChange = (event) => {
     setBetAmount(Number(event.target.value));
@@ -30,9 +31,28 @@ const Home = (props) => {
 
   
 
-  const handleButtonClick = (amount) => {
-    setBetAmount(amount);
+  const handleButtonClick = (clickedAmount) => {
+    // Check if the button is already selected
+    if (selectedAmounts.includes(clickedAmount)) {
+      // If selected, remove it from the selectedAmounts
+      setSelectedAmounts((prevSelectedAmounts) =>
+        prevSelectedAmounts.filter((selectedAmount) => selectedAmount !== clickedAmount)
+      );
+    } else {
+      // If not selected, add it to the selectedAmounts
+      setSelectedAmounts((prevSelectedAmounts) => [...prevSelectedAmounts, clickedAmount]);
+    }
+  
+    // Log the updated selectedAmounts after the state has been updated
+    setSelectedAmounts((updatedSelectedAmounts) => {
+      const totalBetAmount = updatedSelectedAmounts.reduce((total, amount) => total + amount, 0);
+      setBetAmount(totalBetAmount)
+      console.log(updatedSelectedAmounts);
+      return updatedSelectedAmounts;
+    });
   };
+  
+  
   const sendToTicket = (bet) => {
     // Handle the bet data in the parent component
     console.log('Received bet data:', bet);
@@ -43,6 +63,7 @@ const Home = (props) => {
     const defal= Number(20)
     setBetAmount(defal)
     setIsTiketPrinted(!isTiketPrinted)
+    setSelectedAmounts([20])
   }
   const handleAddClick = () => {
     if(selectedButtons.length > 0){
@@ -70,14 +91,14 @@ const Home = (props) => {
   const clearSelectedButtons = () => {
     const radioColumns = document.querySelectorAll('.radio-col');
     radioColumns.forEach((column) => {
-      const buttons = column.querySelectorAll('.radio-button');
+      const buttons = column.querySelectorAll('.mr-1');
       buttons.forEach((button) => {
         button.classList.remove('selected');
       });
     });
   
     // Clear selectedButtons state
-    setSelectedButtons({});
+    setSelectedButtons([]);
   };
   
   const isSameIndexSelected = (newSelected, columnIndex, index) => {
@@ -88,51 +109,43 @@ const Home = (props) => {
 
   const selectRadioButton = (column, index) => {
     setSelectedButtons((prevSelected) => {
-      const newSelected = [...prevSelected];
-
+      let newSelected = [...prevSelected];
+  
       const selectedButtonIndex = newSelected.findIndex(
         (selected) => selected.length > 0 && selected[0] === column
       );
-
-      if (selectedButtonIndex !== -1 && newSelected[selectedButtonIndex][1] === index) {
-        // Deselect the button if it's already selected
-        const selectedButton = document.getElementById(`column${column}`).children[index - 1];
-        selectedButton.classList.toggle('selected');
+  
+      // Remove the previously selected button from the same column
+      if (selectedButtonIndex !== -1) {
+        const prevIndex = newSelected[selectedButtonIndex][1];
+        const prevSelectedButton = document.getElementById(`column${column}`).children[prevIndex - 1];
+        prevSelectedButton.classList.remove('selected');
         newSelected.splice(selectedButtonIndex, 1);
-      } else {
-        // Deselect the previous button in the same column, if any
-        const prevSelectedInColumn = newSelected.filter((selected) => selected[0] === column);
-        prevSelectedInColumn.forEach((prevSelected) => {
-          const prevIndex = prevSelected[1];
-          const ss= document.getElementById(`column${column}`).children[prevIndex - 1].classList.remove('selected');
-          newSelected.splice(ss,1);
-
-        });
-
-        // Check if the same index is selected in any column
-        if (isSameIndexSelected(newSelected, column, index)) {
-          console.log("Cannot select the same number in multiple columns.");
-        } else {
-          // Select the new button
-          newSelected.push([column, index]);
-          const selectedButton = document.getElementById(`column${column}`).children[index - 1];
-          selectedButton.classList.add('selected');
-        }
       }
-
+  
+      // Check if the same index is selected in any column
+      if (isSameIndexSelected(newSelected, column, index)) {
+        console.log("Cannot select the same number in multiple columns.");
+      } else {
+        // Select the new button
+        newSelected.push([column, index]);
+        const selectedButton = document.getElementById(`column${column}`).children[index - 1];
+        selectedButton.classList.add('selected');
+      }
+  
       console.log(`Selected buttons: ${JSON.stringify(newSelected)}`);
       if (newSelected.length === 2) {
         setQuinellaActive(true);
-      }else{
-        setExactaActive(false)
-        setQuinellaActive(false)
+      } else {
+        setExactaActive(false);
+        setQuinellaActive(false);
       }
-
-
+  
       return newSelected;
-    }
-    );
+    });
   };
+  
+  
 
     
 
@@ -159,10 +172,15 @@ const incrementGameID = () => {
     <section id="list-group">
     <div className="container-lg" style={{backgroundImage: 'url("Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
-            <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>  
+            <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
+            <div style={{display: 'flex'}}>
+            <a href="/spin" className="d-flex">
+              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
+            </a>
             <a href="/keno" className="d-flex">
               <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
             </a>
+            </div>
             <div className="text-center mb-3">
             <div className=" text-center">
               <h5 htmlFor="gameID" className=" text-white p-3 ">
@@ -189,48 +207,49 @@ const incrementGameID = () => {
                     <div className="me-4">
                         <div className="bg-success fs-3 text-white p-3">WIN</div>
                         <div className="radio-col" id="column1">
-                    <button className="radio-button" onClick={() => selectRadioButton(1, 1)}>1</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(1, 2)}>2</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(1, 3)}>3</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(1, 4)}>4</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(1, 5)}>5</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(1, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 1)}>1</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 2)}>2</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 3)}>3</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 4)}>4</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 5)}>5</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 6)}>6</button>
                 </div>
                 </div>
         
                 <div>
                 <div class="bg-primary fs-3 text-white p-3 me-4">PLACE</div>
                 <div className="radio-col" id="column2">
-                    <button className="radio-button" onClick={() => selectRadioButton(2, 1)}>1</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(2, 2)}>2</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(2, 3)}>3</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(2, 4)}>4</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(2, 5)}>5</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(2, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 1)}>1</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 2)}>2</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 3)}>3</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 4)}>4</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 5)}>5</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 6)}>6</button>
                 </div>
                 </div>
                 <div>
                 <div class="bg-danger fs-3 text-white p-3 me-4">SHOW</div>
                     <div className="radio-col" id="column3">
-                    <button className="radio-button" onClick={() => selectRadioButton(3, 1)}>1</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(3, 2)}>2</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(3, 3)}>3</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(3, 4)}>4</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(3, 5)}>5</button>
-                    <button className="radio-button" onClick={() => selectRadioButton(3, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(3, 1)}>1</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(3, 2)}>2</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(3, 3)}>3</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(3, 4)}>4</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(3, 5)}>5</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(3, 6)}>6</button>
                 </div>
                     </div>
                 </div>
             </Col>
             <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div >
-            <div>
+            <div className="m-4"  >
 
                   <Button
                     id="addButton"
                     color="dark"
                     onClick={handleAddClick}
                     className="text-white"
+                    size="lg"
                   >
                     ADD
                   </Button>
@@ -245,19 +264,17 @@ const incrementGameID = () => {
                 value={betAmount}
                 onChange={handleAmountChange}
               />
-              <div className="d-flex">
+               <div>
                 {amount.map((amount) => (
                   <Button
                     key={amount}
-                    color={betAmount === amount ? 'primary' : 'orange'}
+                    color={selectedAmounts.includes(amount) ? 'primary' : 'orange'}
                     className="me-2"
                     onClick={() => handleButtonClick(amount)}
                   >
                     {amount}
                   </Button>
-                  
                 ))}
-          
               </div>
               <div>
         <Button
@@ -311,6 +328,7 @@ const incrementGameID = () => {
         <div style={{backgroundImage: 'url("HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
+          <p>|</p>
           <p>|</p>
           <p>|</p>
           <p>|</p>
