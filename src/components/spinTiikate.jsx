@@ -6,12 +6,11 @@ import { FaTrash,FaEdit } from 'react-icons/fa';
 
 const SpinTikate = forwardRef((props, ref) => {
   const { newBette } = props;
-  const [betList, setBetList] = useState([]);
+  const [betList, setBetList] = useState({selectedButtonsS:[],betAmount:0});
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const [newBetAmount, setNewBetAmount] = useState(0);
   const [totalBetAmount, setTotalBetAmount] = useState(0); // New state for total bet amount
-  const [totalPossibleWin, setTotalPossibleWin] = useState(0)
 
   const openModal = (index) => {
     setSelectedItemIndex(index);
@@ -38,8 +37,13 @@ const SpinTikate = forwardRef((props, ref) => {
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
       // Update bet list when a new bet is received
-      setBetList((prevList) => [...prevList, newBette]);
-      calculateTotalPossibleWin()
+      setBetList((prevList) => ({
+        ...prevList,
+        selectedButtonsS: newBette.selectedButtonsS,
+        betAmount: newBette.betAmount
+      }));
+      console.log(newBette)
+      console.log(betList)
     }
   }, [newBette]);
   useEffect(() => {
@@ -52,34 +56,28 @@ const SpinTikate = forwardRef((props, ref) => {
   useEffect(() => {
     // Recalculate total bet amount whenever items or newBetAmount change
     var calculateTotalAmount = () => {
-      const total = betList.reduce((acc, item) => acc + item.betAmount, 0);
-      setTotalBetAmount(total);
+      const numberOfSelectedButtons = betList.selectedButtonsS.length;
+      // Calculate the total price
+      const totalPrice = numberOfSelectedButtons * betList.betAmount;
+      setTotalBetAmount(totalPrice);
     };
-    calculateTotalPossibleWin()
     calculateTotalAmount()
   }, [betList, newBetAmount]);
   
 
   const deleteItem = (index) => {
     setBetList((prevItems) => {
-      // Create a new array without the item at the specified index
-      const newItems = [...prevItems.slice(0, index), ...prevItems.slice(index + 1)];
-      return newItems;
+      // Filter out the item at the specified index
+      const newSelectedButtonsS = prevItems.selectedButtonsS.filter((item, i) => i !== index);
+  
+      return {
+        ...prevItems,
+        selectedButtonsS: newSelectedButtonsS
+      };
     });
   };
 
-const calculateTotalPossibleWin = () => {
-  let totalPossibleWin = 0;
 
-  // Iterate through each bet in the array
-  betList.forEach((bet) => {
-    // Ensure the bet object has the 'possibleWin' property
-    if (bet.hasOwnProperty('possibleWin')) {
-      totalPossibleWin += bet.possibleWin;
-    }
-  });
-  setTotalPossibleWin(totalPossibleWin)
-};
 
   return (
     <div className="mt-5"  ref={ref} >
@@ -89,22 +87,27 @@ const calculateTotalPossibleWin = () => {
             <CardTitle tag="h5">3S  Betting</CardTitle>
           </div>
           <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
-
-          <ListGroup>
-          {betList.map((bet, index) => {
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <img src='spinlogo.png' style={{ width: '50px', height: '50px' }} />
+          </div>          <ListGroup>
+          {betList.selectedButtonsS.map((bet, index) => {
             console.log(bet)
             return (
-                  <ListGroupItem key={index} className="d-flex  align-items-center">
+                  <ListGroupItem key={index} >
+                    <div >
+                      <strong>{' '}
+         
+                        
+                        <div className="d-flex  align-items-center">
+                          
+                    <div key={index}>{bet}</div>
                     <div>
-                      <strong>{' '}[
-                      {bet.selectedButtonsS
-                        .map(selected => selected)
-                        .join(', ')}]</strong>
-                    </div>
-                    <div>
-                      <strong>________</strong> {bet.betAmount}_____<FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
+                      ________ {betList.betAmount}_____<FaTrash onClick={() => deleteItem(index)} />
 
+                    </div></div>
+                </strong>
                     </div>
+                    
                   </ListGroupItem>
                 );
   })}
@@ -116,7 +119,6 @@ const calculateTotalPossibleWin = () => {
               <strong>Total Mony Bet :</strong> {totalBetAmount}
               
             </div>
-            <div><strong>Total Possible Win :</strong>{totalPossibleWin}</div>
             <div>
               <strong>Date:</strong> {moment().format('MMMM Do YYYY, h:mm:ss a')}
             </div>

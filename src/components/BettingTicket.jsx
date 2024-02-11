@@ -74,7 +74,9 @@ const Tikete = forwardRef((props, ref) => {
             <CardTitle tag="h5">3S  Betting</CardTitle>
           </div>
           <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
-
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <img src='dogLogo.webp' style={{ width: '50px', height: '50px' }} />
+          </div>  
           <ListGroup>
           {betList.map((bet, index) => {
   // Check if the length of selectedButtons array is 1

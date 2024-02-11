@@ -74,46 +74,10 @@ const spinPage = (props) => {
   const handleAddClick = () => {
     if (selectedButtonsS.length > 0) {
       // Determine the odd based on selectedButtonsS length
-      let odd;
-      switch (selectedButtonsS.length) {
-        case 1:
-          odd = 3.78;
-          break;
-        case 2:
-          odd = 15;
-          break;
-        case 3:
-          odd = 50;
-          break;
-        case 4:
-          odd = 100;
-          break;
-        case 5:
-          odd = 300;
-          break;
-        case 6:
-          odd = 500;
-          break;
-        case 7:
-          odd = 800;
-          break;
-        case 8:
-          odd = 1000;
-          break;
-        default:
-          // Handle other cases as needed
-          break;
-      }
-  
-      // Calculate the possible win
-      const possibleWin = odd * betAmount;
-  
       // Create the bet object
       const bet = {
         selectedButtonsS,
-        betAmount,
-        odd,
-        possibleWin
+        betAmount
       };
   
       // Send the bet object to the ticket
@@ -185,12 +149,47 @@ const incrementGameID = () => {
             </div>
               </div>
             <Row>
-            <Col xs="8">
+            <Col xs="4">
             <div>
                 <div className="button-container">{renderButtons()}</div>
-                <div>
-                    <p>Selected Buttons: {selectedButtonsS.join(', ')}</p>
-                </div>
+                <p style={{color: "white", fontWeight: 'bold'}}>{selectedButtonsS}</p>
+            </div>
+            </Col>
+            <Col xs='1'>
+            <div style={{marginTop: '130px'}}>
+            
+              <Button onClick={()=>handleButtonClickK("ODD")} value="ODD" style={{ 
+              backgroundColor: '#EFA804', fontWeight: 'bold', padding: '10px', borderRadius: '10px' ,
+              borderColor: selectedButtonsS.includes("ODD") ? 'rgb(0,100,250)' : 'warning',
+              borderWidth: selectedButtonsS.includes("ODD") ? '5px' : '1px'
+            }}>ODD</Button>
+              <Button onClick={()=>handleButtonClickK("EVEN")} value="EVEN" style={{ 
+              backgroundColor: '#EFA804', fontWeight: 'bold', padding: '10px', borderRadius: '10px' ,
+              borderColor: selectedButtonsS.includes("EVEN") ? 'rgb(0,100,250)' : 'warning',
+              borderWidth: selectedButtonsS.includes("EVEN") ? '5px' : '1px'
+            }}>EVEN</Button>
+            
+            </div>
+            </Col>
+            <Col xs= '1'>
+            <div style={{marginTop: '100px'}}>
+            
+              <Button onClick={()=>handleButtonClickK("GREEN")} value="GREEN" style={{ backgroundColor: 'rgb(0,250,0)', color: 'white', fontWeight: 'bold', padding: '10px', borderRadius: '10px' ,borderColor: selectedButtonsS.includes("GREEN") ? 'rgb(0,100,250)' : 'warning',borderWidth: selectedButtonsS.includes("GREEN") ? '5px' : '1px'}}>GREEN</Button>
+              <Button onClick={()=>handleButtonClickK("BLACK")} value="BLACK" style={{ backgroundColor: 'rgb(0,0,0)', color: 'white', fontWeight: 'bold', padding: '10px', borderRadius: '10px' ,borderColor: selectedButtonsS.includes("BLACK") ? 'rgb(0,100,250)' : 'warning',borderWidth: selectedButtonsS.includes("BLACK") ? '5px' : '1px'}}>BLACK</Button>            
+              <Button onClick={()=>handleButtonClickK("RED")} value="RED" style={{ backgroundColor: 'rgb(250,0,0)', color: 'white', fontWeight: 'bold', padding: '10px', borderRadius: '10px' ,borderColor: selectedButtonsS.includes("RED") ? 'rgb(0,100,250)' : 'warning',borderWidth: selectedButtonsS.includes("RED") ? '5px' : '1px'}}>RED___</Button>
+            
+           
+            </div>
+            </Col>
+            
+            <Col xs='2'>
+            <div style={{display: 'flex2',marginLeft:"50px", marginTop:"80px"}}>
+            
+              <Button onClick={()=>handleButtonClickK("A")} value="A" style={{ backgroundColor: '#EFA804', color: 'black', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' ,borderColor: selectedButtonsS.includes("A") ? 'rgb(0,100,250)' : 'warning',borderWidth: selectedButtonsS.includes("A") ? '5px' : '1px'}}>A</Button>
+              <Button onClick={()=>handleButtonClickK("B")} value="B" style={{ backgroundColor: '#EFA804', color: 'black', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' ,borderColor: selectedButtonsS.includes("B") ? 'rgb(0,100,250)' : 'warning',borderWidth: selectedButtonsS.includes("B") ? '5px' : '1px'}}>B</Button>
+              <Button onClick={()=>handleButtonClickK("C")} value="C" style={{ backgroundColor: '#EFA804', color: 'black', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' ,borderColor: selectedButtonsS.includes("C") ? 'rgb(0,100,250)' : 'warning',borderWidth: selectedButtonsS.includes("C") ? '5px' : '1px'}}>C</Button>            
+              <Button onClick={()=>handleButtonClickK("D")} value="D" style={{ backgroundColor: '#EFA804', color: 'black', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' ,borderColor: selectedButtonsS.includes("D") ? 'rgb(0,100,250)' : 'warning',borderWidth: selectedButtonsS.includes("D") ? '5px' : '1px'}}>D</Button>
+            
             </div>
             </Col>
             <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
