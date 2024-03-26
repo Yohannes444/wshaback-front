@@ -88,7 +88,7 @@ const SpinTikate = forwardRef((props, ref) => {
           </div>
           <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img src='spinlogo.png' style={{ width: '50px', height: '50px' }} />
+            <h3>SPIN</h3>
           </div>          <ListGroup>
           {betList.selectedButtonsS.map((bet, index) => {
             console.log(bet)

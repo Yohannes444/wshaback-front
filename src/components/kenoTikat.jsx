@@ -90,8 +90,8 @@ const calculateTotalPossibleWin = () => {
           </div>
           <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img src='kenologo.jpeg' style={{ width: '50px', height: '50px' }} />
-          </div>  
+            <h3>KENO</h3>
+            </div>  
           <ListGroup>
           {betList.map((bet, index) => {
             console.log(bet)

@@ -4,9 +4,10 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Row, Col} from 'reactstrap';
 import  Ticket  from './BettingTicket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
+import { useTimer } from 'react-timer-hook';
 
 
-const Home = () => {
+const Home = ({expiryTimestampl}) => {
     const [selectedButtons, setSelectedButtons] = useState([]);
     const [betAmount, setBetAmount] = useState(20);
     const [gameID, setGameID] = useState(1000); 
@@ -161,6 +162,18 @@ const incrementGameID = () => {
     setGameID(() => Math.max(gameID - 4, 0));
   };
 
+  const {
+    totalSeconds,
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({ expiryTimestamp, onExpire: () => console.warn('onExpire called') });
 
   
   return (
@@ -334,7 +347,23 @@ const incrementGameID = () => {
           <p>|</p>
           <p>|</p>
           <p>|</p>       
-        
+          <div style={{textAlign: 'center'}}>
+      <h1>react-timer-hook </h1>
+      <p>Timer Demo</p>
+      <div style={{fontSize: '100px'}}>
+        <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+      </div>
+      <p>{isRunning ? 'Running' : 'Not running'}</p>
+      <button onClick={start}>Start</button>
+      <button onClick={pause}>Pause</button>
+      <button onClick={resume}>Resume</button>
+      <button onClick={() => {
+        // Restarts to 5 minutes timer
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + 300);
+        restart(time)
+      }}>Restart</button>
+    </div>
         </div>
     </div>
   );

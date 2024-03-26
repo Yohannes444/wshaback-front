@@ -75,7 +75,7 @@ const Tikete = forwardRef((props, ref) => {
           </div>
           <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <img src='dogLogo.webp' style={{ width: '50px', height: '50px' }} />
+            <h3>DOG</h3>
           </div>  
           <ListGroup>
           {betList.map((bet, index) => {
