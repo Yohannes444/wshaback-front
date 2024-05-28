@@ -40,12 +40,36 @@ const Tikete = forwardRef((props, ref) => {
       setBetList((prevList) => [...prevList, newBette]);
     }
   }, [newBette]);
+
   useEffect(() => {
-    if (props.isTiketPrinted ==true) {
-      setBetList([])
-      props.handlePrint()
-    }
-  }, [props.isTiketPrinted, props.handelPrint]);
+    const saveTicket = async () => {
+      try {
+        if (props.isTiketPrinted === true) {
+          const url = 'https://localhost:3443/tickets';
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              bets: betList,
+              gameId: props.gameID,
+              win: false, // Assuming the initial value of win is false
+            })
+          });
+          const data = await response.json();
+          console.log('Ticket saved:', data);
+
+          setBetList([]);
+          props.handlePrint();
+        }
+      } catch (error) {
+        console.error('Error saving ticket:', error);
+      }
+    };
+
+    saveTicket();
+  }, [props.isTiketPrinted, props.handlePrint, betList, props.gameID]);
 
   useEffect(() => {
     // Recalculate total bet amount whenever items or newBetAmount change

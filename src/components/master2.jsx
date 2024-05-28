@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './homePage.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import { Button, Container, Row, Col, Card, FormGroup, Label, Input, CardText } from 'reactstrap';
+import { Button,  Row, Col} from 'reactstrap';
 import  Ticket  from './kenoTikat'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
 
@@ -33,6 +33,7 @@ const master2 = (props) => {
     setSelectedButtonsS(sortedSelection);
   };
 
+  
   const renderButtons = () => {
     const buttons = [];
     for (let i = 1; i <= 80; i++) {

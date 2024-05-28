@@ -42,12 +42,35 @@ const kenoTikete = forwardRef((props, ref) => {
       calculateTotalPossibleWin()
     }
   }, [newBette]);
+
   useEffect(() => {
-    if (props.isTiketPrinted ==true) {
-      setBetList([])
-      props.handlePrint()
-    }
+    const saveTicketToDatabase = async () => {
+      if (props.isTiketPrinted) {
+        try {
+          const url = 'https://localhost:3443/kenoTickets';
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              bets: betList,
+              gameId: props.gameID,
+              win: false // Assuming the initial value of win is false
+            })
+          });
+          const data = await response.json();
+          console.log('Ticket saved:', data);
+          setBetList([]);
+          props.handlePrint();
+        } catch (error) {
+          console.error('Error saving ticket:', error);
+        }
+      }
+    };
+    saveTicketToDatabase();
   }, [props.isTiketPrinted, props.handelPrint]);
+
 
   useEffect(() => {
     // Recalculate total bet amount whenever items or newBetAmount change

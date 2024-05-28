@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem ,Modal, ModalHeader, ModalBody, ModalFooter, Button, Label, Input } from 'reactstrap';
 import moment from 'moment';
 import  { forwardRef } from "react";
-import { FaTrash,FaEdit } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
+// import axios from 'axios';
 
 const SpinTikate = forwardRef((props, ref) => {
   const { newBette } = props;
@@ -12,11 +13,11 @@ const SpinTikate = forwardRef((props, ref) => {
   const [newBetAmount, setNewBetAmount] = useState(0);
   const [totalBetAmount, setTotalBetAmount] = useState(0); // New state for total bet amount
 
-  const openModal = (index) => {
-    setSelectedItemIndex(index);
-    setModalIsOpen(true);
-    setNewBetAmount(betList[index].betAmount);
-  };
+  // const openModal = (index) => {
+  //   setSelectedItemIndex(index);
+  //   setModalIsOpen(true);
+  //   setNewBetAmount(betList[index].betAmount);
+  // };
 
   const closeModal = () => {
     setModalIsOpen(false);
@@ -46,12 +47,29 @@ const SpinTikate = forwardRef((props, ref) => {
       console.log(betList)
     }
   }, [newBette]);
+
   useEffect(() => {
-    if (props.isTiketPrinted ==true) {
-      setBetList([])
-      props.handlePrint()
+    const sendBetListToBackend = async () => {
+      try {
+        const url ='https://localhost:3443'
+        // const response = await axios.post(url, betList, {
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   }
+        // });
+        // console.log('Success:', response.data);
+        // Clear bet list and call handlePrint after successfully saving the data
+        setBetList({ selectedButtonsS: [], betAmount: 0 });
+        props.handlePrint();
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    if (props.isTiketPrinted === true) {
+      sendBetListToBackend();
     }
-  }, [props.isTiketPrinted, props.handelPrint]);
+  }, [props.isTiketPrinted, props.handlePrint, betList]);
 
   useEffect(() => {
     // Recalculate total bet amount whenever items or newBetAmount change
