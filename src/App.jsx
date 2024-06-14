@@ -8,6 +8,7 @@ import { ConfigureStore } from './redux/configurStore'
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route } from "react-router-dom";
 import Animation from "./components/horsRasingPage"
+import AnimeDoge from './components/animeDogComponent'
 
  const store = ConfigureStore(); 
 class  App extends Component {
@@ -21,6 +22,7 @@ class  App extends Component {
                 <Route path="/keno" element={<Master2/>} />
                 <Route path='/spin' element={<Spin/>}/>
                 <Route path= '/animation' element={<Animation/>}/>
+                <Route path='/animationDog' element= {<AnimeDoge/>}/>
               </Routes>
               
               

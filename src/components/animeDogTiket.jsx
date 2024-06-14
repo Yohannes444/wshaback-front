@@ -45,7 +45,7 @@ const AnimeDogeTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = 'https://localhost:3443/tickets';
+          const url = 'https://localhost:3443/animationDogs';
           const response = await fetch(url, {
             method: 'POST',
             headers: {

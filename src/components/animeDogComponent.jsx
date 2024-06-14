@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './homePage.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Row, Col} from 'reactstrap';
-import  Ticket  from './BettingTicket'
+import  Ticket  from './animeDogTiket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
 
 
@@ -212,6 +212,10 @@ const incrementGameID = () => {
                     <button className="mr-1"onClick={() => selectRadioButton(1, 4)}>4</button>
                     <button className="mr-1"onClick={() => selectRadioButton(1, 5)}>5</button>
                     <button className="mr-1"onClick={() => selectRadioButton(1, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 7)}>7</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 8)}>8</button>
+
+
                 </div>
                 </div>
         
@@ -224,19 +228,11 @@ const incrementGameID = () => {
                     <button className="mr-1"onClick={() => selectRadioButton(2, 4)}>4</button>
                     <button className="mr-1"onClick={() => selectRadioButton(2, 5)}>5</button>
                     <button className="mr-1"onClick={() => selectRadioButton(2, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 7)}>7</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 8)}>8</button>
+
                 </div>
                 </div>
-                <div>
-                <div class="bg-danger fs-3 text-white p-3 me-4">SHOW</div>
-                    <div className="radio-col" id="column3">
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 1)}>1</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 2)}>2</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 3)}>3</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 4)}>4</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 5)}>5</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 6)}>6</button>
-                </div>
-                    </div>
                 </div>
             </Col>
             <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>

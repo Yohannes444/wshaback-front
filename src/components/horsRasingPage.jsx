@@ -169,7 +169,7 @@ const incrementGameID = () => {
       <div>
 
     <section id="list-group">
-    <div className="container-lg" style={{backgroundImage: 'url("Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    <div className="container-lg" style={{backgroundImage: 'url("horse-race-betting.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
             <div style={{display: 'flex'}}>
@@ -212,6 +212,14 @@ const incrementGameID = () => {
                     <button className="mr-1"onClick={() => selectRadioButton(1, 4)}>4</button>
                     <button className="mr-1"onClick={() => selectRadioButton(1, 5)}>5</button>
                     <button className="mr-1"onClick={() => selectRadioButton(1, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 7)}>7</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 8)}>8</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 9)}>9</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 10)}>10</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 11)}>11</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 12)}>12</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 13)}>13</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 14)}>14</button>
                 </div>
                 </div>
         
@@ -224,6 +232,14 @@ const incrementGameID = () => {
                     <button className="mr-1"onClick={() => selectRadioButton(2, 4)}>4</button>
                     <button className="mr-1"onClick={() => selectRadioButton(2, 5)}>5</button>
                     <button className="mr-1"onClick={() => selectRadioButton(2, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 7)}>7</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 8)}>8</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 9)}>9</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 10)}>10</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 11)}>11</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 12)}>12</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 13)}>13</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 14)}>14</button>
                 </div>
                 </div>
                 </div>
@@ -313,7 +329,7 @@ const incrementGameID = () => {
           </Col>
          <img src=""/>
         </Row>
-        <div style={{backgroundImage: 'url("HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+        <div style={{backgroundImage: 'url("horse.webp")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
           <p>|</p>
