@@ -6,24 +6,28 @@ import React,{ Component } from 'react';
  import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route } from "react-router-dom";
-import Animation from "./components/horsRasingPage"
-
+import Animation from "./components/animation"
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import './index.css'
+import AnimeDoge  from './components/animeDogComponent'
 
  function App() {
     return (
-          <BrowserRouter>
+        <BrowserRouter>
             <div className="App">
               <Routes>
                 <Route path="/" element={<Main/>} />
                 <Route path="/keno" element={<Master2/>} />
                 <Route path='/spin' element={<Spin/>}/>
                 <Route path= '/animation' element={<Animation/>}/>
+                <Route path= '/animedog' element= {<AnimeDoge/>}/>
               </Routes>
               
               
             </div>
           </BrowserRouter>
 
+          
     );
   
 }

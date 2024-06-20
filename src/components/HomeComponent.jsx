@@ -4,6 +4,8 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Row, Col} from 'reactstrap';
 import  Ticket  from './BettingTicket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
+import '../index.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const Home = () => {
@@ -150,8 +152,6 @@ const Home = () => {
   
   
 
-    
-
 const handleGameIDChange= (event)=>{
   var newNumber = Number(event.target.value);
   setGameID(newNumber)
@@ -166,8 +166,9 @@ const incrementGameID = () => {
 
  
   return (
-    <div>
-      <Row>
+    <div >
+      
+      <Row  >
           <Col md={8}>
       <div>
 
@@ -204,7 +205,7 @@ const incrementGameID = () => {
             </div>
               </div>
             <Row>
-            <Col xs="8">
+            <Col md={8} xs="8">
                 <div className="radio-container d-flex">
                     <div className="me-4">
                         <div className="bg-success fs-3 text-white p-3">WIN</div>
@@ -242,9 +243,9 @@ const incrementGameID = () => {
                     </div>
                 </div>
             </Col>
-            <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
-            <div >
-            <div className="m-4"  >
+            <Col md={3}  style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+            <div className="m-4" >
+            <div  >
 
                   <Button
                     id="addButton"

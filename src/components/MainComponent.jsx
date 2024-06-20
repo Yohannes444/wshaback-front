@@ -2,6 +2,8 @@ import React,{ Component } from 'react';
 import Home from './HomeComponent'
 import  {connect}  from 'react-redux';
 import { Row, Col } from 'reactstrap'; // or import { Row, Col } from 'tailwindcss';
+import '../index.css'
+// import '../App.css'
 
 
 const mapStateToProps = state => {
@@ -22,7 +24,8 @@ componentDidMount(){
   render(){
     
     return (
-      <div>
+      <div className="full-window" >
+        
         <Home />
       </div>
     );

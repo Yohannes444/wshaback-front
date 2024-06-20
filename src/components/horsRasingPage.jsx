@@ -213,6 +213,14 @@ const incrementGameID = () => {
                     <button className="mr-1"onClick={() => selectRadioButton(1, 4)}>4</button>
                     <button className="mr-1"onClick={() => selectRadioButton(1, 5)}>5</button>
                     <button className="mr-1"onClick={() => selectRadioButton(1, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 7)}>7</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 8)}>8</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 9)}>9</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 10)}>10</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 11)}>11</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 12)}>12</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 13)}>13</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(1, 14)}>14</button>
                 </div>
                 </div>
         
@@ -225,11 +233,19 @@ const incrementGameID = () => {
                     <button className="mr-1"onClick={() => selectRadioButton(2, 4)}>4</button>
                     <button className="mr-1"onClick={() => selectRadioButton(2, 5)}>5</button>
                     <button className="mr-1"onClick={() => selectRadioButton(2, 6)}>6</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 7)}>7</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 8)}>8</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 9)}>9</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 10)}>10</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 11)}>11</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 12)}>12</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 13)}>13</button>
+                    <button className="mr-1"onClick={() => selectRadioButton(2, 14)}>14</button>
                 </div>
                 </div>
                 </div>
             </Col>
-            <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+            <Col xs="4" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div >
             <div className="m-4"  >
 
