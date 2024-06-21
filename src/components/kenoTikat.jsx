@@ -47,7 +47,7 @@ const kenoTikete = forwardRef((props, ref) => {
     const saveTicketToDatabase = async () => {
       if (props.isTiketPrinted) {
         try {
-          const url = 'https://localhost:3443/kenoTickets';
+          const url = 'http://localhost:5454/keno';
           const response = await fetch(url, {
             method: 'POST',
             headers: {

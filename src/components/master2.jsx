@@ -194,7 +194,7 @@ const incrementGameID = () => {
                 </div>
             </div>
             </Col>
-            <Col xs="3.8" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+            <Col xs="4" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div >
             <div>
 

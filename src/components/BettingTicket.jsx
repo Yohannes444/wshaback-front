@@ -43,7 +43,7 @@ const Tikete = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted) {
-          const url = 'https://localhost:3443/tickets';
+          const url = 'http://localhost:5454/grayhorn';
           const response = await fetch(url, {
             method: 'POST',
             headers: {
