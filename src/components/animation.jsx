@@ -26,8 +26,9 @@ const Animation = () => {
 
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
-        if (prevTimer <= 0) {
+        if (prevTimer <= 1) {
           setShowModal(true);
+          clearInterval(interval);
           const modalInterval = setInterval(() => {
             setModalTimer((prevModalTimer) => {
               if (prevModalTimer <= 1) {
