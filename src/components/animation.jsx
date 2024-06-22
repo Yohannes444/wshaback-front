@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// import './homePage.css';
+import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
 import DogRasing from './animeDogComponent';
 import HorsRasingPage from './horsRasingPage';
-import { Container, Row, Col, Alert } from 'react-bootstrap';
 
 const Animation = () => {
+  const navigate = useNavigate();
   const [showHorseRacing, setShowHorseRacing] = useState(true);
   const [timer, setTimer] = useState(120); // 2 minutes for Horse Racing
 
@@ -27,22 +28,54 @@ const Animation = () => {
     return () => clearInterval(interval);
   }, [showHorseRacing]);
 
+  const handleActionClick = () => {
+    // Navigate to "/spin" route
+    navigate("/spin");
+  };
+
+  const handleAnotherButtonClick = () => {
+    // Navigate to "/Keno" route
+    navigate("/Keno");
+  };
+
   return (
     <div>
-      <Row >
-        <Col>
-          <Alert variant="primary" className="text-center">
-            {`Next switch in ${Math.floor(timer / 60)}:${timer % 60 < 10 ? `0${timer % 60}` : timer % 60} minutes`}
-          </Alert>
-        </Col>
-      </Row>
-      <Row>
-        <Col  md={12}>
-          {showHorseRacing ? <HorsRasingPage  md={12} /> : <DogRasing  md={12} />}
-        </Col>
-      </Row>
+      <div className="fixed-top">
+        <Alert variant="primary" style={{ zIndex: '1000' }}>
+          <Container fluid>
+            <Row className="align-items-center">
+              <Col>
+                <div className="d-flex justify-content-start">
+                  <Button variant="dark" onClick={handleActionClick}>
+                    SPIN
+                  </Button>
+                  <Button variant="dark" style={{ marginLeft: '10px' }} onClick={handleAnotherButtonClick}>
+                    KENO
+                  </Button>
+                </div>
+              </Col>
+              <Col className="text-center">
+                <span style={{ fontSize: '24px', color: 'green', fontWeight: 'bold' }}>
+                  {`Next switch in ${Math.floor(timer / 60)}:${
+                    timer % 60 < 10 ? `0${timer % 60}` : timer % 60
+                  } minutes`}
+                </span>
+              </Col>
+              <Col>
+                {/* Empty column for spacing purposes */}
+              </Col>
+            </Row>
+          </Container>
+        </Alert>
+      </div>
+      <Container fluid>
+        <Row>
+          <Col md={12} style={{ marginTop: '72px' }}>
+            {showHorseRacing ? <HorsRasingPage md={12} /> : <DogRasing md={12} />}
+          </Col>
+        </Row>
+      </Container>
     </div>
-   
   );
 };
 

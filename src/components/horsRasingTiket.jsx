@@ -1,39 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem ,Modal, ModalHeader, ModalBody, ModalFooter, Button, Label, Input } from 'reactstrap';
-import moment from 'moment';
-import  { forwardRef } from "react";
-import { FaTrash,FaEdit } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  ListGroup,
+  ListGroupItem,
+
+} from "reactstrap";
+import moment from "moment";
+import { forwardRef } from "react";
+import { FaTrash } from "react-icons/fa";
+import Barcode from "react-barcode";
 
 const HorsRasingTiket = forwardRef((props, ref) => {
   const { newBette } = props;
   const [betList, setBetList] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const [newBetAmount, setNewBetAmount] = useState(0);
   const [totalBetAmount, setTotalBetAmount] = useState(0); // New state for total bet amount
+  const [ticketID, setTicketID] = useState('');
 
-  const openModal = (index) => {
-    setSelectedItemIndex(index);
-    setModalIsOpen(true);
-    setNewBetAmount(betList[index].betAmount);
-  };
+  console.log(props.newBette.selectedButtons);
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
+  console.log(betList);
 
-  const saveChanges = () => {
-    if (selectedItemIndex !== null) {
-      setBetList((prevItems) => {
-        const newItems = [...prevItems];
-        newItems[selectedItemIndex].betAmount = newBetAmount;
-        return newItems;
-      });
-      closeModal();
-    }
-  };
+
+
+  useEffect(() => {
+    const generateTicketID = () => {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    };
+    setTicketID(generateTicketID());
+  }, []);
 
  
+
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
       // Update bet list when a new bet is received
@@ -45,26 +46,26 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = 'https://localhost:5454/tickets';
+          const url = "https://localhost:5454/tickets";
           const response = await fetch(url, {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               bets: betList,
               gameId: props.gameID,
               win: false, // Assuming the initial value of win is false
-            })
+            }),
           });
           const data = await response.json();
-          console.log('Ticket saved:', data);
+          console.log("Ticket saved:", data);
 
           setBetList([]);
           props.handlePrint();
         }
       } catch (error) {
-        console.error('Error saving ticket:', error);
+        console.error("Error saving ticket:", error);
       }
     };
 
@@ -78,169 +79,111 @@ const HorsRasingTiket = forwardRef((props, ref) => {
       setTotalBetAmount(total);
     };
 
-    calculateTotalAmount()
+    calculateTotalAmount();
   }, [betList, newBetAmount]);
-  
 
   const deleteItem = (index) => {
     setBetList((prevItems) => {
       // Create a new array without the item at the specified index
-      const newItems = [...prevItems.slice(0, index), ...prevItems.slice(index + 1)];
+      const newItems = [
+        ...prevItems.slice(0, index),
+        ...prevItems.slice(index + 1),
+      ];
       return newItems;
     });
   };
 
   return (
-    <div className="mt-5"  ref={ref} >
-      <Card className="font-ticketing text-lg" id="ticket" >
+    <div className="mt-5" ref={ref}>
+      <Card className="font-ticketing text-lg" id="ticket">
         <CardBody>
-          <div >
-            <CardTitle tag="h5">3S  Betting</CardTitle>
+        <div>
+            <CardTitle tag="h3" style={{ marginLeft: '10px' , fontSize:"25px" }}>3S-Betting</CardTitle>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+            <CardTitle tag="p" style={{ marginLeft: '10px', fontSize:"18px" }}>Ticket-Number: {ticketID}</CardTitle>
+            </div>
           </div>
-          <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <h3>DOG</h3>
-          </div>  
+          <CardSubtitle tag="h6" className="mb-2 text-muted ">
+            Game ID: {props.gameID}
+          </CardSubtitle>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <h5>Hourse Racing</h5>
+          </div>
           <ListGroup>
-          {betList.map((bet, index) => {
-  // Check if the length of selectedButtons array is 1
-  if (bet.selectedButtons.length === 1) {
-    const firstElement = bet.selectedButtons[0][0];
+            {betList.map((bet, index) => {
+              console.log(bet);
 
-    let displayValue;
-    let correspondingAmount;
+              if (bet.selectedButtons.length >= 1) {
+                return (
+                  <ListGroupItem
+                    key={index}
+                    className="d-flex flex-column align-items-start"
+                  >
+                    {bet.selectedButtons.map((selectedBtn, btnIndex) => {
+                      const [rank, dogNumber] = selectedBtn;
+                      let displayValue;
 
-    // Use a switch statement or if-else if statements for different cases
-    switch (firstElement) {
-      case 1:
-        displayValue = "    WIN";
-        correspondingAmount = bet.betAmount;
-        break;
-      case 2:
-        displayValue = "    PLACE";
-        correspondingAmount = bet.betAmount;
-        break;
-      case 3:
-        displayValue = "    SHOW";
-        correspondingAmount = bet.betAmount;
-        break;
-      // Add more cases if needed
+                      switch (rank) {
+                        case 1:
+                          displayValue = "WIN";
+                          break;
+                        case 2:
+                          displayValue = "PLACE";
+                          break;
+                        case 3:
+                          displayValue = "SHOW";
+                          break;
+                        default:
+                          displayValue = "UNKNOWN";
+                      }
 
-      default:
-        // Handle the default case
-        displayValue = "UNKNOWN";
-        correspondingAmount = bet.betAmount;
-    }
-
-    return (
-      <ListGroupItem key={index} className="d-flex  align-items-center">
-        <div>
-          <strong>[{bet.selectedButtons[0][1]}] </strong>
-          {displayValue} 
-        </div>
-        <div>
-        <strong>________</strong> {correspondingAmount}_____
-            <FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
-
-         
-      </div>
-      </ListGroupItem>
-    );
-  }
-
-  if (bet.isQuinellaActive === true) {
-
-    let displayValue;
-    let correspondingAmount;
-
-    displayValue = "    QUINELLA";
-    correspondingAmount = bet.betAmount;
-    return (
-      <ListGroupItem key={index} className="d-flex  align-items-center">
-        <div>
-        <strong>[{bet.selectedButtons[0][1]},{bet.selectedButtons[1][1]}] </strong>
-          {displayValue} 
-        </div>
-        <div>
-        <strong>________</strong> {correspondingAmount}________<FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
-
-      </div>
-      </ListGroupItem>
-    );
-  }
-  if (bet.isExactaActive === true) {
-
-    let displayValue;
-    let correspondingAmount;
-
-    displayValue = "    EXACTA";
-    correspondingAmount = bet.betAmount;
-    return (
-      <ListGroupItem key={index} className="d-flex  align-items-center">
-        <div>
-          <strong>[{bet.selectedButtons[0][1]},{bet.selectedButtons[1][1]}]</strong>
-          {displayValue} 
-        </div>
-        <div>
-        <strong>________</strong> {correspondingAmount}______<FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
-
-      </div>
-      </ListGroupItem>
-    );
-  }
-  // Default rendering if selectedButtons array length is not 1
-  return (
-    <ListGroupItem key={index} className="d-flex  align-items-center">
-      <div>
-        <strong>{' '}[
-        {bet.selectedButtons
-          .sort((a, b) => a[0] - b[0])
-          .map(selected => selected[1])
-          .join(', ')}]</strong>
-      </div>
-      <div>
-        <strong>________</strong> {bet.betAmount}_____<FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
-
-      </div>
-    </ListGroupItem>
-  );
-  })}
-
+                      return (
+                        <div
+                          key={btnIndex}
+                          className="d-flex align-items-center mb-2 w-100"
+                        >
+                          <div className="flex-grow-1">
+                            <strong>[{dogNumber}]</strong> {displayValue}
+                            <span className="ml-2">
+                              <strong>________</strong> {bet.betAmount}_____
+                            </span>
+                          </div>
+                          <div className="ml-2">
+                            <FaTrash
+                              onClick={() => deleteItem(index, btnIndex)}
+                              style={{ cursor: "pointer", marginRight: "10px", color: "red" }}
+                            />
+                            {/* <FaEdit onClick={() => openModal(index, btnIndex)} style={{ cursor: 'pointer' }} /> */}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </ListGroupItem>
+                );
+              }
+            })}
           </ListGroup>
 
           <div className="mt-3  ">
             <div>
-              <strong>Total :</strong> {totalBetAmount}
+              <strong>Total :</strong> {totalBetAmount} Birr
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "10px",
+                }}
+              >
+                 <Barcode value={ticketID} width={2} height={30} displayValue={false} />
+              </div>
             </div>
             <div>
-              <strong>Date:</strong> {moment().format('MMMM Do YYYY, h:mm:ss a')}
+              <strong>Date:</strong>{" "}
+              {moment().format("MMMM Do YYYY, h:mm:ss a")}
             </div>
           </div>
-
         </CardBody>
       </Card>
-      <Modal isOpen={modalIsOpen} toggle={closeModal}>
-        <ModalHeader toggle={closeModal}>Edit Bet</ModalHeader>
-        <ModalBody>
-        <Label>
-            Bet Amount:
-            <Input
-              type="number"
-              value={newBetAmount}
-              onChange={(e) => setNewBetAmount(parseInt(e.target.value, 10))}
-            />
-          </Label>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={saveChanges}>
-            Save Changes
-          </Button>
-          <Button color="secondary" onClick={closeModal}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
-      
     </div>
   );
 });

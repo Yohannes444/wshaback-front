@@ -3,6 +3,8 @@ import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem, Butt
 import moment from 'moment';
 
 const Ticket = (props) => {
+
+   console.log(props)
   
     const calculateTotalAmount = () => {
         return props.betList.reduce((total, bet) => total + bet.betAmount, 0);
@@ -19,6 +21,8 @@ const Ticket = (props) => {
 
           <ListGroup>
           {props.betList.map((bet, index) => {
+ 
+
   // Check if the length of selectedButtons array is 1
   if (bet.selectedButtons.length === 1) {
     const firstElement = bet.selectedButtons[0][0];

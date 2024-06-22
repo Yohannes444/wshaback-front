@@ -9,7 +9,8 @@ import { Routes, Route } from "react-router-dom";
 import Animation from "./components/animation"
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import './index.css'
-import AnimeDoge  from './components/animeDogComponent'
+import AnimeDoge  from './components/animeDogComponent';
+import AnimeHourse from "./components/horsRasingPage";
 
  function App() {
     return (
@@ -21,15 +22,12 @@ import AnimeDoge  from './components/animeDogComponent'
                 <Route path='/spin' element={<Spin/>}/>
                 <Route path= '/animation' element={<Animation/>}/>
                 <Route path= '/animedog' element= {<AnimeDoge/>}/>
+                <Route path="/animehourse" element={<AnimeHourse/>}/>
               </Routes>
-              
               
             </div>
           </BrowserRouter>
-
-          
-    );
-  
+    ); 
 }
 
 export default App;

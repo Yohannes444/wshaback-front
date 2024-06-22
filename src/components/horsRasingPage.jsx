@@ -1,4 +1,4 @@
-import React, { useState, useRef }  from 'react';
+import React, { useState, useRef , useEffect}  from 'react';
 import './homePage.css';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Row, Col} from 'reactstrap';
@@ -67,6 +67,7 @@ const HorsRasingPage = () => {
     setSelectedAmounts([20])
   }
   const handleAddClick = () => {
+
     if(selectedButtons.length > 0){
     // Create the bet object
     const bet = {
@@ -90,13 +91,13 @@ const HorsRasingPage = () => {
   
   // Function to clear selected buttons
   const clearSelectedButtons = () => {
-    const radioColumns = document.querySelectorAll('.radio-col');
-    radioColumns.forEach((column) => {
-      const buttons = column.querySelectorAll('.mr-1');
-      buttons.forEach((button) => {
-        button.classList.remove('selected');
-      });
-    });
+    // const radioColumns = document.querySelectorAll('.radio-col');
+    // radioColumns.forEach((column) => {
+    //   const buttons = column.querySelectorAll('.mr-1');
+    //   buttons.forEach((button) => {
+    //     button.classList.remove('selected');
+    //   });
+    // });
   
     // Clear selectedButtons state
     setSelectedButtons([]);
@@ -109,20 +110,26 @@ const HorsRasingPage = () => {
   };
 
   const selectRadioButton = (column, index) => {
+
     setSelectedButtons((prevSelected) => {
       let newSelected = [...prevSelected];
+
+      console.log(newSelected)
+
+
+     
   
       const selectedButtonIndex = newSelected.findIndex(
         (selected) => selected.length > 0 && selected[0] === column
       );
   
       // Remove the previously selected button from the same column
-      if (selectedButtonIndex !== -1) {
-        const prevIndex = newSelected[selectedButtonIndex][1];
-        const prevSelectedButton = document.getElementById(`column${column}`).children[prevIndex - 1];
-        prevSelectedButton.classList.remove('selected');
-        newSelected.splice(selectedButtonIndex, 1);
-      }
+      // if (selectedButtonIndex !== -1) {
+      //   const prevIndex = newSelected[selectedButtonIndex][1];
+      //   const prevSelectedButton = document.getElementById(`column${column}`).children[prevIndex - 1];
+      //   prevSelectedButton.classList.remove('selected');
+      //   newSelected.splice(selectedButtonIndex, 1);
+      // }
   
       // Check if the same index is selected in any column
       if (isSameIndexSelected(newSelected, column, index)) {
@@ -135,16 +142,44 @@ const HorsRasingPage = () => {
       }
   
       console.log(`Selected buttons: ${JSON.stringify(newSelected)}`);
-      if (newSelected.length === 2) {
-        setQuinellaActive(true);
-      } else {
-        setExactaActive(false);
-        setQuinellaActive(false);
-      }
+
+      // if (newSelected.length === 2) {
+      //   setQuinellaActive(false );
+      // } else {
+      //   setExactaActive(false);
+      //   setQuinellaActive(false);
+      // }
   
       return newSelected;
     });
+
+    
+
+
+
   };
+
+  useEffect(() => {
+    if (selectedButtons.length > 0) {
+      console.log("go gogo goggogo gog o googoggo");
+  
+      // Create the bet object
+      const bet = {
+        selectedButtons,
+        betAmount,
+        isExactaActive,
+        isQuinellaActive,
+      };
+  
+      // Send the bet object to the Ticket component
+      sendToTicket(bet);
+  
+      // Clear selected buttons
+      clearSelectedButtons();
+      setExactaActive(false);
+      setQuinellaActive(false);
+    }
+  }, [selectedButtons]);
   
   
 
@@ -173,14 +208,7 @@ const incrementGameID = () => {
     <div className="container-lg" style={{backgroundImage: 'url("Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
-            <div style={{display: 'flex'}}>
-            <a href="/spin" className="d-flex">
-              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
-            </a>
-            <a href="/keno" className="d-flex">
-              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
-            </a>
-            </div>
+           
             <div className="text-center mb-3">
             <div className=" text-center">
               <h5 htmlFor="gameID" className=" text-white p-3 ">
@@ -203,48 +231,49 @@ const incrementGameID = () => {
               </div>
             <Row>
             <Col xs="8">
-                <div className="radio-container d-flex">
-                    <div className="me-4">
-                        <div className="bg-success fs-3 text-white p-3">WIN</div>
-                        <div className="radio-col" id="column1">
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 1)}>1</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 2)}>2</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 3)}>3</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 4)}>4</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 5)}>5</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 6)}>6</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 7)}>7</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 8)}>8</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 9)}>9</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 10)}>10</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 11)}>11</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 12)}>12</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 13)}>13</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 14)}>14</button>
-                </div>
-                </div>
-        
-                <div>
-                <div class="bg-primary fs-3 text-white p-3 me-4">PLACE</div>
-                <div className="radio-col" id="column2">
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 1)}>1</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 2)}>2</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 3)}>3</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 4)}>4</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 5)}>5</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 6)}>6</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 7)}>7</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 8)}>8</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 9)}>9</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 10)}>10</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 11)}>11</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 12)}>12</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 13)}>13</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 14)}>14</button>
-                </div>
-                </div>
-                </div>
-            </Col>
+    <div className="radio-container d-flex">
+        <div className="me-4">
+            <div className="bg-success fs-3 text-white p-3">WIN</div>
+            <div className="radio-col" id="column1">
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 1)}>1</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 2)}>2</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 3)}>3</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 4)}>4</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 5)}>5</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 6)}>6</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 7)}>7</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 8)}>8</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 9)}>9</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 10)}>10</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 11)}>11</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 12)}>12</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 13)}>13</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 14)}>14</button>
+            </div>
+        </div>
+
+        <div>
+            <div className="bg-primary fs-3 text-white p-3 me-4">PLACE</div>
+            <div className="radio-col" id="column2">
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 1)}>1</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 2)}>2</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 3)}>3</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 4)}>4</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 5)}>5</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 6)}>6</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 7)}>7</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 8)}>8</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 9)}>9</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 10)}>10</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 11)}>11</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 12)}>12</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 13)}>13</button>
+                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 14)}>14</button>
+            </div>
+        </div>
+    </div>
+</Col>
+
             <Col xs="4" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div >
             <div className="m-4"  >
@@ -316,8 +345,7 @@ const incrementGameID = () => {
                   `}</style>
       </div>
       </Col>
-      <Col md={4} style={{background: 'linear-gradient(to top, rgb(226, 171, 126), rgb(126, 176, 226))'}} >
-      
+      <Col md={4} style={{background: 'linear-gradient(to top, rgb(226, 171, 126), rgb(126, 176, 226))', marginLeft:"-12px"}} >
            <Ticket handlePrint={handlePrint}  isTiketPrinted={isTiketPrinted} newBette={newBette} ref={tiket} id="ticket" gameID={gameID} isQuinellaActive={isQuinellaActive} isExactaActive={isExactaActive} />
             <div col={1}    className=" mt-4"  onClick={() => handlePrint()}>
               <ReactToPrint

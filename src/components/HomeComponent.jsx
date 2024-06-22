@@ -243,7 +243,7 @@ const incrementGameID = () => {
                     </div>
                 </div>
             </Col>
-            <Col md={3}  style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+            <Col md={2.5}  style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
             <div className="m-4" >
             <div  >
 
