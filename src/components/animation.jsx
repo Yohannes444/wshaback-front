@@ -3,23 +3,49 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
 import DogRasing from './animeDogComponent';
 import HorsRasingPage from './horsRasingPage';
+import ResultModal from './ResultModal';
 
 const Animation = () => {
   const navigate = useNavigate();
-  const [showHorseRacing, setShowHorseRacing] = useState(true);
-  const [timer, setTimer] = useState(120); // 2 minutes for Horse Racing
+  const [showHorseRacing, setShowHorseRacing] = useState(
+    JSON.parse(localStorage.getItem('showHorseRacing')) ?? true
+  );
+  const [timer, setTimer] = useState(240); // 4 minutes
+  const [modalTimer, setModalTimer] = useState(60); // 1 minute for modal
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    const savedStartTime = localStorage.getItem('startTime');
+    const currentTime = new Date().getTime();
+    const savedTimer = savedStartTime ? 240 - Math.floor((currentTime - savedStartTime) / 1000) : 240;
+    setTimer(savedTimer > 0 ? savedTimer : 240);
+
+    if (!savedStartTime) {
+      localStorage.setItem('startTime', currentTime);
+    }
+
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
-        if (prevTimer === 1) {
-          if (showHorseRacing) {
-            setShowHorseRacing(false);
-            return 60; // 1 minute for Dog Racing
-          } else {
-            setShowHorseRacing(true);
-            return 120; // 2 minutes for Horse Racing
-          }
+        if (prevTimer <= 0) {
+          setShowModal(true);
+          const modalInterval = setInterval(() => {
+            setModalTimer((prevModalTimer) => {
+              if (prevModalTimer <= 1) {
+                clearInterval(modalInterval);
+                const nextShowHorseRacing = !showHorseRacing;
+                setShowHorseRacing(nextShowHorseRacing);
+                localStorage.setItem('showHorseRacing', nextShowHorseRacing);
+                const newStartTime = new Date().getTime();
+                localStorage.setItem('startTime', newStartTime);
+                setTimer(240); // reset to 4 minutes
+                setModalTimer(60); // reset modal timer
+                setShowModal(false);
+                return prevModalTimer - 1;
+              }
+              return prevModalTimer - 1;
+            });
+          }, 1000);
+          return 0;
         }
         return prevTimer - 1;
       });
@@ -29,12 +55,10 @@ const Animation = () => {
   }, [showHorseRacing]);
 
   const handleActionClick = () => {
-    // Navigate to "/spin" route
     navigate("/spin");
   };
 
   const handleAnotherButtonClick = () => {
-    // Navigate to "/Keno" route
     navigate("/Keno");
   };
 
@@ -55,10 +79,10 @@ const Animation = () => {
                 </div>
               </Col>
               <Col className="text-center">
-                <span style={{ fontSize: '24px', color: 'green', fontWeight: 'bold' }}>
-                  {`Next switch in ${Math.floor(timer / 60)}:${
-                    timer % 60 < 10 ? `0${timer % 60}` : timer % 60
-                  } minutes`}
+                <span style={{ fontSize: '24px', color: showModal ? 'red' : 'green', fontWeight: 'bold' }}>
+                  {showModal 
+                    ? `Modal closes in 0:${modalTimer < 10 ? `0${modalTimer}` : modalTimer} minutes`
+                    : `Next switch in ${Math.floor(timer / 60)}:${timer % 60 < 10 ? `0${timer % 60}` : timer % 60} minutes`}
                 </span>
               </Col>
               <Col>
@@ -75,6 +99,7 @@ const Animation = () => {
           </Col>
         </Row>
       </Container>
+      <ResultModal show={showModal} style={{ marginTop: '20px' }} />
     </div>
   );
 };
