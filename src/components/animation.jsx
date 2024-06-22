@@ -26,7 +26,7 @@ const Animation = () => {
 
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
-        if (prevTimer <= 1) {
+        if (prevTimer <= 0) {
           setShowModal(true);
           clearInterval(interval);
           const modalInterval = setInterval(() => {
@@ -41,7 +41,7 @@ const Animation = () => {
                 setTimer(240); // reset to 4 minutes
                 setModalTimer(60); // reset modal timer
                 setShowModal(false);
-                return prevModalTimer - 1;
+                return 60;
               }
               return prevModalTimer - 1;
             });
@@ -52,7 +52,9 @@ const Animation = () => {
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, [showHorseRacing]);
 
   const handleActionClick = () => {
