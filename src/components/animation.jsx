@@ -7,55 +7,79 @@ import ResultModal from './ResultModal';
 
 const Animation = () => {
   const navigate = useNavigate();
-  const [showHorseRacing, setShowHorseRacing] = useState(
-    JSON.parse(localStorage.getItem('showHorseRacing')) ?? true
-  );
-  const [timer, setTimer] = useState(240); // 4 minutes
+  const [showHorseRacing, setShowHorseRacing] = useState(true);
+  const [timer, setTimer] = useState(0);
   const [modalTimer, setModalTimer] = useState(60); // 1 minute for modal
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
-    const savedStartTime = localStorage.getItem('startTime');
-    const currentTime = new Date().getTime();
-    const savedTimer = savedStartTime ? 240 - Math.floor((currentTime - savedStartTime) / 1000) : 240;
-    setTimer(savedTimer > 0 ? savedTimer : 240);
+  const calculateTimers = () => {
+    const now = new Date();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
 
-    if (!savedStartTime) {
-      localStorage.setItem('startTime', currentTime);
+    const currentMinute = minutes % 10; // Current position within the 10-minute cycle
+    const currentSecond = currentMinute * 60 + seconds;
+
+    let newTimer = 0;
+    let isModal = false;
+
+    if (currentMinute >= 0 && currentMinute < 4) {
+      // First 4 minutes: showHorseRacing
+      newTimer = (4 * 60) - currentSecond;
+      setShowHorseRacing(true);
+    } else if (currentMinute === 4) {
+      // 5th minute: showModal
+      newTimer = 60 - seconds;
+      isModal = true;
+    } else if (currentMinute >= 5 && currentMinute < 9) {
+      // Next 4 minutes: showDogRasing
+      newTimer = (9 * 60) - currentSecond;
+      setShowHorseRacing(false);
+    } else {
+      // 10th minute: showModal
+      newTimer = 60 - seconds;
+      isModal = true;
     }
+
+    setShowModal(isModal);
+    setTimer(newTimer);
+    if (isModal) {
+      setModalTimer(newTimer);
+    }
+  };
+
+  useEffect(() => {
+    calculateTimers(); // Initial calculation
 
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer <= 0) {
-          setShowModal(true);
-          clearInterval(interval);
-          const modalInterval = setInterval(() => {
-            setModalTimer((prevModalTimer) => {
-              if (prevModalTimer <= 1) {
-                clearInterval(modalInterval);
-                const nextShowHorseRacing = !showHorseRacing;
-                setShowHorseRacing(nextShowHorseRacing);
-                localStorage.setItem('showHorseRacing', nextShowHorseRacing);
-                const newStartTime = new Date().getTime();
-                localStorage.setItem('startTime', newStartTime);
-                setTimer(240); // reset to 4 minutes
-                setModalTimer(60); // reset modal timer
-                setShowModal(false);
-                return 60;
-              }
-              return prevModalTimer - 1;
-            });
-          }, 1000);
+          calculateTimers();
           return 0;
         }
         return prevTimer - 1;
       });
     }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [showHorseRacing]);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (showModal) {
+      const modalInterval = setInterval(() => {
+        setModalTimer((prevModalTimer) => {
+          if (prevModalTimer <= 1) {
+            clearInterval(modalInterval);
+            calculateTimers();
+            return 60;
+          }
+          return prevModalTimer - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(modalInterval);
+    }
+  }, [showModal]);
 
   const handleActionClick = () => {
     navigate("/spin");

@@ -29,5 +29,7 @@ body {
   margin-bottom: 15px;
 }
 
-
+.wide-button {
+  width: 100px; /* Adjust the width as needed */
+}
 
