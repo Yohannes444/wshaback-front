@@ -70,7 +70,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
     <>
       <Modal show={show} backdrop="static" keyboard={false} style={{ marginTop: "60px" }}>
         <Modal.Header>
-          <Modal.Title>{`Save ${lastRenderedComponent} Result`}</Modal.Title>
+          <Modal.Title>{`Insert ${lastRenderedComponent} Result`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
