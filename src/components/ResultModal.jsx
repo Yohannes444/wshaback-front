@@ -85,6 +85,7 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
                     placeholder="Enter Winner number" 
                     value={formData.firstNumber} 
                     onChange={handleInputChange} 
+                    id="firstNumber"  
                   />
                 </Col>
                 <Col>
@@ -93,12 +94,13 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
                     placeholder="Enter winner odd number" 
                     value={formData.firstOdd} 
                     onChange={handleInputChange} 
+                    id="firstOdd" 
                   />
                 </Col>
               </Row>
             </Form.Group>
             <Form.Group controlId="secondNumber">
-              <Form.Label>Second Winner(2)</Form.Label>
+              <Form.Label>Second Winner</Form.Label>
               <Row>
                 <Col>
                   <Form.Control 
@@ -106,6 +108,7 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
                     placeholder="Enter second number" 
                     value={formData.secondNumber} 
                     onChange={handleInputChange} 
+                    id="secondNumber" 
                   />
                 </Col>
                 <Col>
@@ -114,6 +117,7 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
                     placeholder="Enter place odd number" 
                     value={formData.secondOdd} 
                     onChange={handleInputChange} 
+                    id="secondOdd" 
                   />
                 </Col>
               </Row>

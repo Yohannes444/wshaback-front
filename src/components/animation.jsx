@@ -11,6 +11,7 @@ const Animation = () => {
   const [timer, setTimer] = useState(0);
   const [modalTimer, setModalTimer] = useState(60); // 1 minute for modal
   const [showModal, setShowModal] = useState(false);
+  const [lastRenderedComponent, setLastRenderedComponent] = useState('');
 
   const calculateTimers = () => {
     const now = new Date();
@@ -89,6 +90,8 @@ const Animation = () => {
     navigate("/Keno");
   };
 
+  const lastComponentType = showHorseRacing ? 'Horse' : 'Dog';
+
   return (
     <div>
       <div className="fixed-top">
@@ -126,7 +129,7 @@ const Animation = () => {
           </Col>
         </Row>
       </Container>
-      <ResultModal show={showModal} style={{ marginTop: '20px' }} />
+      <ResultModal show={showModal} lastRenderedComponent={lastComponentType} style={{ marginTop: '20px' }} />
     </div>
   );
 };
