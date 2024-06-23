@@ -70,7 +70,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
     <>
       <Modal show={show} backdrop="static" keyboard={false} style={{ marginTop: "60px" }}>
         <Modal.Header>
-          <Modal.Title>Result</Modal.Title>
+          <Modal.Title>{`Save ${lastRenderedComponent} Result`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -89,7 +89,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
                 <Col>
                   <Form.Control
                     type="number"
-                    placeholder="Enter Winner number"
+                    placeholder= {`Enter ${lastRenderedComponent} Winner number`}
                     value={formData.firstNumber}
                     onChange={handleInputChange}
                     id="firstNumber"
@@ -98,7 +98,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
                 <Col>
                   <Form.Control
                     type="number"
-                    placeholder="Enter winner odd number"
+                    placeholder= {`Enter ${lastRenderedComponent} Odd number`}
                     value={formData.firstOdd}
                     onChange={handleInputChange}
                     id="firstOdd"
@@ -112,7 +112,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
                 <Col>
                   <Form.Control
                     type="number"
-                    placeholder="Enter second number"
+                    placeholder= {`Enter ${lastRenderedComponent} Second number`}
                     value={formData.secondNumber}
                     onChange={handleInputChange}
                     id="secondNumber"
@@ -121,7 +121,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
                 <Col>
                   <Form.Control
                     type="number"
-                    placeholder="Enter place odd number"
+                    placeholder= {`Enter ${lastRenderedComponent} Place Odd`}
                     value={formData.secondOdd}
                     onChange={handleInputChange}
                     id="secondOdd"
