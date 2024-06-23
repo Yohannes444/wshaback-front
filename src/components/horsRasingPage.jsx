@@ -233,7 +233,8 @@ const incrementGameID = () => {
             <Col xs="8">
     <div className="radio-container d-flex">
         <div className="me-4">
-            <div className="bg-success fs-3 text-white p-3">WIN</div>
+        <div className="bg-success fs-3 text-white p-3 rounded-pill">WIN</div>
+
             <div className="radio-col" id="column1">
                 <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 1)}>1</button>
                 <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 2)}>2</button>
@@ -253,7 +254,8 @@ const incrementGameID = () => {
         </div>
 
         <div>
-            <div className="bg-primary fs-3 text-white p-3 me-4">PLACE</div>
+        <div className="bg-primary fs-3 text-white p-3 rounded-pill">PLACE</div>
+
             <div className="radio-col" id="column2">
                 <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 1)}>1</button>
                 <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 2)}>2</button>

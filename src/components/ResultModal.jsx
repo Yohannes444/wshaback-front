@@ -3,7 +3,7 @@ import { Modal, Button, Form, Row, Col, Spinner } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ResultModal = ({ show, lastRenderedComponent  }) => {
+const ResultModal = ({ show, lastRenderedComponent }) => {
   console.log(lastRenderedComponent)
   const [formData, setFormData] = useState({
     gameId: '',
@@ -29,12 +29,12 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
     const payload = {
       gameId: formData.gameId,
       First: {
-        dogWinNum: formData.firstNumber,
-        dogWinOdd: formData.firstOdd
+        [`${lastRenderedComponent}PlaceNum`]: formData.firstNumber,
+        [`${lastRenderedComponent}PlaceOdd`]: formData.firstOdd
       },
       Second: {
-        dogPlaceNum: formData.secondNumber,
-        dogPlaceOdd: formData.secondOdd
+        [`${lastRenderedComponent}PlaceNum`]: formData.secondNumber,
+        [`${lastRenderedComponent}PlaceOdd`]: formData.secondOdd
       }
     };
 
@@ -49,6 +49,13 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
 
       if (response.ok) {
         toast.success('Data saved successfully!');
+        setFormData({
+          gameId: '',
+          firstNumber: '',
+          firstOdd: '',
+          secondNumber: '',
+          secondOdd: ''
+        });
       } else {
         toast.error('Failed to save data!');
       }
@@ -61,63 +68,63 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
 
   return (
     <>
-      <Modal show={show} backdrop="static" keyboard={false} style={{ marginTop: "40px" }}>
+      <Modal show={show} backdrop="static" keyboard={false} style={{ marginTop: "60px" }}>
         <Modal.Header>
           <Modal.Title>Result</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="gameId">
-              <Form.Label>GameId</Form.Label>
-              <Form.Control 
-                type="text" 
-                placeholder="Enter GameId" 
-                value={formData.gameId} 
-                onChange={handleInputChange} 
+              <Form.Label style={{ fontWeight: 'bold', backgroundColor: '#d7a022' }}>GameId</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter GameId"
+                value={formData.gameId}
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group controlId="firstNumber">
-              <Form.Label>First Winner</Form.Label>
+              <Form.Label style={{ fontWeight: 'bold', backgroundColor: '#d7a022' }}>First Winner</Form.Label>
               <Row>
                 <Col>
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Enter Winner number" 
-                    value={formData.firstNumber} 
-                    onChange={handleInputChange} 
-                    id="firstNumber"  
+                  <Form.Control
+                    type="number"
+                    placeholder="Enter Winner number"
+                    value={formData.firstNumber}
+                    onChange={handleInputChange}
+                    id="firstNumber"
                   />
                 </Col>
                 <Col>
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Enter winner odd number" 
-                    value={formData.firstOdd} 
-                    onChange={handleInputChange} 
-                    id="firstOdd" 
+                  <Form.Control
+                    type="number"
+                    placeholder="Enter winner odd number"
+                    value={formData.firstOdd}
+                    onChange={handleInputChange}
+                    id="firstOdd"
                   />
                 </Col>
               </Row>
             </Form.Group>
             <Form.Group controlId="secondNumber">
-              <Form.Label>Second Winner</Form.Label>
+              <Form.Label style={{ fontWeight: 'bold', backgroundColor: '#d7a022' }}>Second Winner</Form.Label>
               <Row>
                 <Col>
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Enter second number" 
-                    value={formData.secondNumber} 
-                    onChange={handleInputChange} 
-                    id="secondNumber" 
+                  <Form.Control
+                    type="number"
+                    placeholder="Enter second number"
+                    value={formData.secondNumber}
+                    onChange={handleInputChange}
+                    id="secondNumber"
                   />
                 </Col>
                 <Col>
-                  <Form.Control 
-                    type="number" 
-                    placeholder="Enter place odd number" 
-                    value={formData.secondOdd} 
-                    onChange={handleInputChange} 
-                    id="secondOdd" 
+                  <Form.Control
+                    type="number"
+                    placeholder="Enter place odd number"
+                    value={formData.secondOdd}
+                    onChange={handleInputChange}
+                    id="secondOdd"
                   />
                 </Col>
               </Row>
@@ -125,10 +132,10 @@ const ResultModal = ({ show, lastRenderedComponent  }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button 
-            variant="primary" 
-            onClick={handleSave} 
-            disabled={loading} 
+          <Button
+            variant="primary"
+            onClick={handleSave}
+            disabled={loading}
             style={{ width: '100px' }}
           >
             {loading ? <Spinner animation="border" size="sm" /> : 'Save'}
