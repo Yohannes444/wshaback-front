@@ -39,7 +39,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:4000/gameresult', {
+      const response = await fetch(`http://localhost:4000/gameresult/${lastRenderedComponent}Result`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
