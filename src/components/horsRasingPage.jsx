@@ -138,7 +138,7 @@ const HorsRasingPage = () => {
         // Select the new button
         newSelected.push([column, index]);
         const selectedButton = document.getElementById(`column${column}`).children[index - 1];
-        selectedButton.classList.add('selected');
+        // selectedButton.classList.add('selected');
       }
   
       console.log(`Selected buttons: ${JSON.stringify(newSelected)}`);
@@ -205,12 +205,12 @@ const incrementGameID = () => {
       <div>
 
     <section id="list-group">
-    <div className="container-lg" style={{backgroundImage: 'url("Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    <div className="container-lg" style={{backgroundImage: 'url("hourse2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
            
             <div className="text-center mb-3">
-            <div className=" text-center">
+            <div className=" text-center">  
               <h5 htmlFor="gameID" className=" text-white p-3 ">
                 Game ID
               </h5>
@@ -233,24 +233,30 @@ const incrementGameID = () => {
             <Col xs="8">
     <div className="radio-container d-flex">
         <div className="me-4">
+          
         <div className="bg-success fs-3 text-white p-3 rounded-pill">WIN</div>
-
-            <div className="radio-col" id="column1">
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 1)}>1</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 2)}>2</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 3)}>3</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 4)}>4</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 5)}>5</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 6)}>6</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 7)}>7</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 8)}>8</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 9)}>9</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 10)}>10</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 11)}>11</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 12)}>12</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 13)}>13</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 14)}>14</button>
+        <div className="radio-col" id="column1">
+            <div className="d-flex">
+                <div className="column">
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 1)}>1</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 2)}>2</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 3)}>3</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 4)}>4</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 5)}>5</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 6)}>6</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 7)}>7</button>
+                </div>
+                <div className="column">
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 8)}>8</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 9)}>9</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 10)}>10</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 11)}>11</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 12)}>12</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 13)}>13</button>
+                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 14)}>14</button>
+                </div>
             </div>
+        </div>
         </div>
 
         <div>
@@ -360,7 +366,7 @@ const incrementGameID = () => {
           </Col>
          <img src=""/>
         </Row>
-        <div style={{backgroundImage: 'url("HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+        <div style={{backgroundImage: 'url("hourse3.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
           <p>|</p>

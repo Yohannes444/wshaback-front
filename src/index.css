@@ -33,3 +33,16 @@ body {
   width: 100px; /* Adjust the width as needed */
 }
 
+.radio-container {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.custom-button {
+  margin-bottom: 5px;
+}

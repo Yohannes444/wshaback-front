@@ -77,7 +77,7 @@ const ResultModal = ({ show, lastRenderedComponent }) => {
             <Form.Group controlId="gameId">
               <Form.Label style={{ fontWeight: 'bold', backgroundColor: '#d7a022' }}>GameId</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 placeholder="Enter GameId"
                 value={formData.gameId}
                 onChange={handleInputChange}
