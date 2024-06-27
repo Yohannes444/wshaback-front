@@ -58,7 +58,7 @@ const Topbar = ({ userRole }) => {
       <PersonOutlinedIcon />
       <Box ml={1}>
         <Typography variant="body1" sx={{ color: "black" }}>
-          Welcome,  ${user.firstName}
+          Welcome, 
         </Typography>
       </Box>
     </IconButton>
@@ -66,7 +66,7 @@ const Topbar = ({ userRole }) => {
         {/* Display the username next to the user profile icon */}
         {user && (
           <Typography variant="body2" color="#d7a022" sx={{ mr: 1 }} fontSize={22}>
-            {user.fullName}
+            {user.name}
           </Typography>
         )}
 
@@ -89,7 +89,7 @@ const Topbar = ({ userRole }) => {
               {user && (
                 <>
                   <ListItem>
-                    <ListItemText primary={`Name: ${user.firstName}  ${user.lastName}`} />
+                    <ListItemText primary={`Name: ${user.name} `} />
                   </ListItem>
                   {userRole === "cashier" && (
                     <>

@@ -45,6 +45,8 @@ import Dashboard from "./pages/Dashboard";
 import KegeberewOrders from "./pages/KegeberewOrders";
 import OrderStatusCountDetail from "./pages/OrderDetailDisplay"
 import ErrorPage  from "./pages/404";
+import Main from './components/MainComponent';
+import Animation from "./components/animation"
 
 const App = () => {
   const dispatch = useDispatch();
@@ -78,7 +80,8 @@ const App = () => {
                 <>
                   <Route path="/" element={<Navigate to="/dashboard" />} />
                   <Route path="/dashboard" element={<Dashboard userRole={user.role} />} />
-                  <Route path="/KegeberewOrdersLisit" element={<KegeberewOrders />} />
+                  <Route path="/tryfecta/Home" element={<Main />} />
+                  <Route path="/animation/Home" element={<Animation />} />
                   <Route path="/OrderStatusCounDetail" element={<OrderStatusCountDetail />} />
                 </>
               ) : user.role === "Registral" ? (

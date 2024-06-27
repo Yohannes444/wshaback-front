@@ -54,6 +54,7 @@ const Sidebar = ({ userRole }) => {
   const location = useLocation();
   const [tryFectaOpen, setTryFectaOpen] = useState(false);
   const [kunellaOpen, setKunellaOpen] = useState(false);
+  const [animationOpen, setAnimation] = useState(false);
 
   const handleTryFectaClick = () => {
     setTryFectaOpen(!tryFectaOpen);
@@ -62,6 +63,11 @@ const Sidebar = ({ userRole }) => {
 
   const handleKunellaClick = () => {
     setKunellaOpen(!kunellaOpen);
+    // setTryFectaOpen(false); // Close TryFecta dropdown
+  };
+
+  const handleAnimation = () => {
+    setAnimation(!animationOpen);
     // setTryFectaOpen(false); // Close TryFecta dropdown
   };
 
@@ -155,6 +161,55 @@ const Sidebar = ({ userRole }) => {
                   component={Link}
                   to="/kunella/pay"
                   selected={location.pathname === "/kunella/pay"}
+                  button
+                >
+                  <ListItemText primary="Pay" />
+                </NestedListItem>
+              </List>
+            </Collapse>
+
+
+            <ListItemStyled
+              button
+              onClick={handleAnimation}
+              className={location.pathname.startsWith("/animation") ? SelectedListItem.className : ""}
+            >
+              <ListItemIcon style={{ color: location.pathname.startsWith("/animation") ? "black" : "#d7a022" }}>
+                <SpeedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Animation" />
+              {animationOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemStyled>
+            <Collapse in={animationOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NestedListItem
+                  component={Link}
+                  to="/animation/Dashboard"
+                  selected={location.pathname === "/animation/Dashboard"}
+                  button
+                >
+                  <ListItemText primary="Dashboard" />
+                </NestedListItem>
+                <NestedListItem
+                  component={Link}
+                  to="/animation/Home"
+                  selected={location.pathname === "/animation/Home"}
+                  button
+                >
+                  <ListItemText primary="Home" />
+                </NestedListItem>
+                <NestedListItem
+                  component={Link}
+                  to="/animation/TicketResult"
+                  selected={location.pathname === "/animation/TicketResult"}
+                  button
+                >
+                  <ListItemText primary="Ticket Result" />
+                </NestedListItem>
+                <NestedListItem
+                  component={Link}
+                  to="/animation/pay"
+                  selected={location.pathname === "/animaiton/pay"}
                   button
                 >
                   <ListItemText primary="Pay" />

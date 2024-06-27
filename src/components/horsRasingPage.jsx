@@ -205,7 +205,7 @@ const incrementGameID = () => {
       <div>
 
     <section id="list-group">
-    <div className="container-lg" style={{backgroundImage: 'url("hourse2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    <div className="container-lg" style={{backgroundImage: 'url("/hourse2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
            
