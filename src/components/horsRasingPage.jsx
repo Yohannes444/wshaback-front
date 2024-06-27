@@ -119,7 +119,7 @@ const HorsRasingPage = () => {
 
      
   
-      const selectedButtonIndex = newSelected.findIndex(
+      const selectedButtonIndex = newSelected.findIndex(  
         (selected) => selected.length > 0 && selected[0] === column
       );
   
