@@ -173,7 +173,7 @@ const incrementGameID = () => {
       <div>
 
     <section id="list-group">
-    <div className="container-lg" style={{backgroundImage: 'url("Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    <div className="container-lg" style={{backgroundImage: 'url("/Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
             <div style={{display: 'flex'}}>
@@ -328,7 +328,7 @@ const incrementGameID = () => {
           </Col>
          <img src=""/>
         </Row>
-        <div style={{backgroundImage: 'url("HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+        <div style={{backgroundImage: 'url("/HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
           <p>|</p>

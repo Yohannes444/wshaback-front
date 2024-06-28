@@ -16,7 +16,7 @@ import SpeedIcon from "@mui/icons-material/Speed";
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 
-const drawerWidth = 280;
+const drawerWidth = 200; // Reduced width
 
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   width: drawerWidth,
@@ -131,36 +131,49 @@ const Sidebar = ({ userRole }) => {
             <ListItemStyled
               button
               onClick={handleKunellaClick}
-              className={location.pathname.startsWith("/kunella") ? SelectedListItem.className : ""}
+              className={location.pathname.startsWith("/Keno") ? SelectedListItem.className : ""}
             >
-              <ListItemIcon style={{ color: location.pathname.startsWith("/kunella") ? "black" : "#d7a022" }}>
+              <ListItemIcon style={{ color: location.pathname.startsWith("/Keno") ? "black" : "#d7a022" }}>
                 <SpeedIcon />
               </ListItemIcon>
-              <ListItemText primary="Kunella" />
+              <ListItemText primary="Keno" />
               {kunellaOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItemStyled>
             <Collapse in={kunellaOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <NestedListItem
                   component={Link}
-                  to="/kunella/Dashboard"
-                  selected={location.pathname === "/kunella/Dashboard"}
+                  to="/Keno/Dashboard"
+                  selected={location.pathname === "/Keno/Dashboard"}
                   button
                 >
                   <ListItemText primary="Dashboard" />
-                </NestedListItem>
+                  </NestedListItem>
+        
+
+            
                 <NestedListItem
                   component={Link}
-                  to="/kunella/TicketResult"
-                  selected={location.pathname === "/kunella/TicketResult"}
+                  to="/Keno/Home"
+                  selected={location.pathname === "/Keno/Home"}
+                  button
+                >
+                  <ListItemText primary="Home" />
+                </NestedListItem>
+               
+
+                <NestedListItem
+                  component={Link}
+                  to="/Keno/TicketResult"
+                  selected={location.pathname === "/Keno/TicketResult"}
                   button
                 >
                   <ListItemText primary="Ticket Result" />
                 </NestedListItem>
                 <NestedListItem
                   component={Link}
-                  to="/kunella/pay"
-                  selected={location.pathname === "/kunella/pay"}
+                  to="/Keno/pay"
+                  selected={location.pathname === "/Keno/pay"}
                   button
                 >
                   <ListItemText primary="Pay" />

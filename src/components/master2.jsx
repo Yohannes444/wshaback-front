@@ -154,7 +154,7 @@ const incrementGameID = () => {
       <div>
 
     <section id="list-group">
-    <div className="container-lg" style={{backgroundImage: 'url("keno4.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+    <div className="container-lg" style={{backgroundImage: 'url("/keno4.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
             <div style={{display: 'flex'}}>
@@ -246,7 +246,7 @@ const incrementGameID = () => {
                   `}</style>
       </div>
       </Col>
-      <Col md={4} style={{background: 'rgb(0,0,0)', backgroundImage: 'url("keno3.png")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}} >
+      <Col md={4} style={{background: 'rgb(0,0,0)', backgroundImage: 'url("/keno3.png")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}} >
       
            <Ticket handlePrint={handlePrint}  isTiketPrinted={isTiketPrinted} newBette={newBette} ref={tiket} id="ticket" gameID={gameID}  />
             <div col={1}    className=" mt-4"  onClick={() => handlePrint()}>
@@ -259,7 +259,7 @@ const incrementGameID = () => {
 
           </Col>
         </Row>
-        <div style={{backgroundImage: 'url("keno3.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+        <div style={{backgroundImage: 'url("/keno3.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
           <p>|</p>

@@ -124,12 +124,12 @@ const Animation = () => {
       </div>
       <Container fluid>
         <Row>
-          <Col md={12} style={{ marginTop: '72px', marginLeft:"-12px" }}>
-            {showHorseRacing ? <HorsRasingPage md={12} /> : <DogRasing md={12} />}
+          <Col md={12} style={{ marginTop: '15px', paddingLeft: '0px', paddingRight: '0px' }}>
+            {showHorseRacing ? <HorsRasingPage /> : <HorsRasingPage />}
           </Col>
         </Row>
       </Container>
-      <ResultModal show={showModal} lastRenderedComponent={lastComponentType}  />
+      <ResultModal show={showModal} lastRenderedComponent={lastComponentType} />
     </div>
   );
 };

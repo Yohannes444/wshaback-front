@@ -18,6 +18,16 @@ const HorsRasingPage = () => {
     const [selectedAmounts, setSelectedAmounts] = useState([20]);
     const tiket =useRef();
 
+
+    const buttonStyle = {
+      width: '80px',
+      height: '50px',
+      fontSize: '1.5rem',
+      marginRight: '10px',
+      marginBottom: '10px',
+    };
+
+
   const handleAmountChange = (event) => {
     setBetAmount(Number(event.target.value));
   };
@@ -207,10 +217,10 @@ const incrementGameID = () => {
     <section id="list-group">
     <div className="container-lg" style={{backgroundImage: 'url("/hourse2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
-            <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
+            <h1  className="text-white" style={{ textAlign:'center' }}>3S BETTING</h1>
            
             <div className="text-center mb-3">
-            <div className=" text-center">  
+            <div className=" text-center" >  
               <h5 htmlFor="gameID" className=" text-white p-3 ">
                 Game ID
               </h5>
@@ -230,117 +240,124 @@ const incrementGameID = () => {
             </div>
               </div>
             <Row>
-            <Col xs="8">
+            <Col xs="3">
     <div className="radio-container d-flex">
         <div className="me-4">
           
         <div className="bg-success fs-3 text-white p-3 rounded-pill">WIN</div>
-        <div className="radio-col" id="column1">
+          <div className="radio-col" id="column1">
             <div className="d-flex">
                 <div className="column">
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 1)}>1</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 2)}>2</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 3)}>3</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 4)}>4</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 5)}>5</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 6)}>6</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 7)}>7</button>
+                    <button style={buttonStyle} className="mr-1 mt-2 custom-button" onClick={() => selectRadioButton(1, 1)}>1</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 2)}>2</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 3)}>3</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 4)}>4</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 5)}>5</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 6)}>6</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 7)}>7</button>
                 </div>
-                <div className="column">
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 8)}>8</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 9)}>9</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 10)}>10</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 11)}>11</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 12)}>12</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 13)}>13</button>
-                    <button className="mr-1 custom-button" onClick={() => selectRadioButton(1, 14)}>14</button>
+                <div className="colstyle={buttonStyle} umn">
+                    <button style={buttonStyle} className="mr-1 mt-2 custom-button" onClick={() => selectRadioButton(1, 8)}>8</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 9)}>9</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 10)}>10</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 11)}>11</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 12)}>12</button>
+                    <button style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 13)}>13</button>
+                    <button  style={buttonStyle} className="mr-1 custom-button" onClick={() => selectRadioButton(1, 14)}>14</button>
                 </div>
-            </div>
-        </div>
+              </div>
+             </div>
         </div>
 
         <div>
         <div className="bg-primary fs-3 text-white p-3 rounded-pill">PLACE</div>
 
-            <div className="radio-col" id="column2">
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 1)}>1</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 2)}>2</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 3)}>3</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 4)}>4</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 5)}>5</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 6)}>6</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 7)}>7</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 8)}>8</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 9)}>9</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 10)}>10</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 11)}>11</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 12)}>12</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 13)}>13</button>
-                <button className="mr-1 custom-button" onClick={() => selectRadioButton(2, 14)}>14</button>
-            </div>
+        <div className="radio-col" id="column2">
+            <div className="d-flex">
+                <div className="column">
+                    <button  style={buttonStyle}className="mr-1 mt-2 custom-button" onClick={() => selectRadioButton(2, 1)}>1</button>
+                    <button  style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 2)}>2</button>
+                    <button  style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 3)}>3</button>
+                    <button  style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 4)}>4</button>
+                    <button  style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 5)}>5</button>
+                    <button  style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 6)}>6</button>
+                    <button  style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 7)}>7</button>
+                </div>
+                <div className="column">
+                    <button style={buttonStyle}className="mr-1 mt-2 custom-button" onClick={() => selectRadioButton(2, 8)}>8</button>
+                    <button style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 9)}>9</button>
+                    <button style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 10)}>10</button>
+                    <button style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 11)}>11</button>
+                    <button style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 12)}>12</button>
+                    <button style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 13)}>13</button>
+                    <button style={buttonStyle}className="mr-1 custom-button" onClick={() => selectRadioButton(2, 14)}>14</button>
+                </div>
+              </div>
+             </div>
         </div>
     </div>
 </Col>
 
-            <Col xs="4" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
-            <div >
-            <div className="m-4"  >
-
-                  <Button
-                    id="addButton"
-                    color="dark"
-                    onClick={handleAddClick}
-                    className="text-white"
-                    size="lg"
-                  >
-                    ADD
-                  </Button>
-                </div>
-              <label htmlFor="betAmount" id="label" >
-                Bet Amount
-              </label>
-              <input
-                type="number"
-                id="betAmount"
-                className="form-control mb-2"
-                value={betAmount}
-                onChange={handleAmountChange}
-              />
-               <div>
-                {amount.map((amount) => (
-                  <Button
-                    key={amount}
-                    color={selectedAmounts.includes(amount) ? 'primary' : 'orange'}
-                    className="me-2"
-                    onClick={() => handleButtonClick(amount)}
-                  >
-                    {amount}
-                  </Button>
-                ))}
-              </div>
-              <div>
-        <Button
-          color={isQuinellaActive ? 'primary' : 'secondary'}
-          onClick={() => {
-            handleQunelaClikd()
-            console.log('QUINELLA bet placed');
-          }}
-        >
-          QUINELLA
-        </Button>
-        <Button
-          color={isExactaActive ? 'primary' : 'secondary'}
-          onClick={() => {
-            handleExactCliked()
-            console.log('EXACTA bet placed');
-          }}
-        >
-          EXACTA
-        </Button>
-      </div>
-                
-            </div>
-          </Col>
+<Col xs="13" style={{backgroundImage: 'url("/imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+        <div>
+          <div className="m-4">
+            <Button
+              id="addButton"
+              color="dark"
+              onClick={handleAddClick}
+              className="text-white"
+              size="lg"
+            >
+              ADD
+            </Button>
+          </div>
+          <label htmlFor="betAmount" id="label">
+            Bet Amount
+          </label>
+          <input
+            type="number"
+            id="betAmount"
+            className="form-control mb-2"
+            value={betAmount}
+            onChange={handleAmountChange}
+          />
+          <div>
+            {amount.map((amount) => (
+              <Button
+                key={amount}
+                color={selectedAmounts.includes(amount) ? 'primary' : 'orange'}
+                className="me-2"
+                onClick={() => handleButtonClick(amount)}
+              >
+                {amount}
+              </Button>
+            ))}
+          </div>
+          <div>
+            <Button
+              color={isQuinellaActive ? 'primary' : 'secondary'}
+              onClick={() => {
+                handleQunelaClikd();
+                console.log('QUINELLA bet placed');
+              }}
+            >
+              QUINELLA
+            </Button>
+            <Button
+              color={isExactaActive ? 'primary' : 'secondary'}
+              onClick={() => {
+                handleExactCliked();
+                console.log('EXACTA bet placed');
+              }}
+            >
+              EXACTA
+            </Button>
+          </div>
+        </div>
+      </Col>
+      <Col xs="6">
+        {/* Place other content here if needed */}
+      </Col>
         </Row>
     </div>
     </section>
@@ -366,7 +383,7 @@ const incrementGameID = () => {
           </Col>
          <img src=""/>
         </Row>
-        <div style={{backgroundImage: 'url("hourse3.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+        <div style={{backgroundImage: 'url("/hourse3.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p> this system is provided by yohannes mulat</p>
           <p>phone number 0979458662 </p>
           <p>|</p>
