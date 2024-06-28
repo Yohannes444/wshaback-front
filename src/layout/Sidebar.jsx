@@ -1,207 +1,170 @@
 import React, { useState } from "react";
 import {
   Box,
+  Collapse,
   Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Collapse,
 } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { styled } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import kot from "/assets/kot.jpg";
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import SpeedIcon from "@mui/icons-material/Speed";
-import ChecklistIcon from "@mui/icons-material/Checklist";
-import EditNoteIcon from "@mui/icons-material/EditNote";
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 
 const drawerWidth = 280;
 
-const useStyles = makeStyles((theme) => ({
-  drawer: {
+const DrawerStyled = styled(Drawer)(({ theme }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  '& .MuiDrawer-paper': {
     width: drawerWidth,
-    flexShrink: 0,
-  },
-  drawerPaper: {
-    width: drawerWidth,
-    backgroundColor: "#ccffcc",
+    backgroundColor: "#d3f9d8", // Light green color
     color: "#2c3e50",
-  },
-  logo: {
-    width: "80%",
-    height: "auto",
-    margin: "20px auto",
-  },
-  listItem: {
-    "&:hover": {
-      color: "black",
-      backgroundColor: "#d7a022",
-    },
-  },
-  selectedListItem: {
-    color: "black",
-    backgroundColor: "#d7a022",
-  },
-  nested: {
-    paddingLeft: theme.spacing(4),
   },
 }));
 
-const Sidebar = ({ userRole }) => {
-  const classes = useStyles();
-  const location = useLocation();
-  const [open, setOpen] = useState(false);
+const Logo = styled('img')({
+  width: "80%",
+  height: "auto",
+  margin: "20px auto",
+});
 
-  const handleClick = () => {
-    setOpen(!open);
+const ListItemStyled = styled(ListItem)(({ theme }) => ({
+  '&:hover': {
+    color: "black",
+    backgroundColor: "#d7a022",
+  },
+}));
+
+const SelectedListItem = styled(ListItem)(({ theme }) => ({
+  color: "black",
+  backgroundColor: "#d7a022",
+}));
+
+const NestedListItem = styled(ListItem)(({ theme }) => ({
+  paddingLeft: theme.spacing(4),
+}));
+
+const Sidebar = ({ userRole }) => {
+  const location = useLocation();
+  const [tryFectaOpen, setTryFectaOpen] = useState(false);
+  const [kunellaOpen, setKunellaOpen] = useState(false);
+
+  const handleTryFectaClick = () => {
+    setTryFectaOpen(!tryFectaOpen);
+    // setKunellaOpen(false); // Close Kunella dropdown
+  };
+
+  const handleKunellaClick = () => {
+    setKunellaOpen(!kunellaOpen);
+    // setTryFectaOpen(false); // Close TryFecta dropdown
   };
 
   return (
-    <Drawer
-      variant="permanent"
-      className={classes.drawer}
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-      sx={{ backgroundColor: "grey" }}
-    >
+    <DrawerStyled variant="permanent">
       <List>
         <Box textAlign="center">
-          <img src="/assets/betlogin.png" alt="Logo" className={classes.logo} />
+          <Logo src="/assets/betlogin.png" alt="Logo" />
         </Box>
 
         {userRole === "cashier" && (
           <>
-            <ListItem
-              className={`${classes.listItem} ${
-                location.pathname === "/dashboard" ? classes.selectedListItem : ""
-              }`}
-              component={Link}
-              to="/dashboard"
-              selected={location.pathname === "/dashboard"}
+            <ListItemStyled
               button
-              onClick={handleClick}
+              onClick={handleTryFectaClick}
+              className={location.pathname.startsWith("/tryfecta") ? SelectedListItem.className : ""}
             >
-              <ListItemIcon
-                style={{
-                  color: location.pathname.startsWith("/dashboard")
-                    ? "black"
-                    : "#d7a022",
-                }}
-              >
+              <ListItemIcon style={{ color: location.pathname.startsWith("/tryfecta") ? "black" : "#d7a022" }}>
                 <SpeedIcon />
               </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-              {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={open} timeout="auto" unmountOnExit>
+              <ListItemText primary="TryFecta" />
+              {tryFectaOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemStyled>
+            <Collapse in={tryFectaOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItem
-                  className={`${classes.listItem} ${
-                    location.pathname === "/dash_ljd"
-                      ? classes.selectedListItem
-                      : ""
-                  }`}
+                <NestedListItem
                   component={Link}
-                  to="/dash_ljd"
-                  selected={location.pathname === "/dash_ljd"}
+                  to="/tryfecta/Dashboard"
+                  selected={location.pathname === "/tryfecta/Dashboard"}
                   button
-                  className={classes.nested}
                 >
-                  <ListItemText primary="Dash ljd" />
-                </ListItem>
-                <ListItem
-                  className={`${classes.listItem} ${
-                    location.pathname === "/kjf" ? classes.selectedListItem : ""
-                  }`}
+                  <ListItemText primary="Dashboard" />
+                </NestedListItem>
+                <NestedListItem
                   component={Link}
-                  to="/kjf"
-                  selected={location.pathname === "/kjf"}
+                  to="/tryfecta/Home"
+                  selected={location.pathname === "/tryfecta/Home"}
                   button
-                  className={classes.nested}
                 >
-                  <ListItemText primary="kjf" />
-                </ListItem>
-                <ListItem
-                  className={`${classes.listItem} ${
-                    location.pathname === "/skdfj"
-                      ? classes.selectedListItem
-                      : ""
-                  }`}
+                  <ListItemText primary="Home" />
+                </NestedListItem>
+                <NestedListItem
                   component={Link}
-                  to="/skdfj"
-                  selected={location.pathname === "/skdfj"}
+                  to="/tryfecta/TicketResult"
+                  selected={location.pathname === "/tryfecta/TicketResult"}
                   button
-                  className={classes.nested}
                 >
-                  <ListItemText primary="skdfj" />
-                </ListItem>
-                <ListItem
-                  className={`${classes.listItem} ${
-                    location.pathname === "/pay" ? classes.selectedListItem : ""
-                  }`}
+                  <ListItemText primary="Ticket Result" />
+                </NestedListItem>
+                <NestedListItem
                   component={Link}
-                  to="/pay"
-                  selected={location.pathname === "/pay"}
+                  to="/tryfecta/pay"
+                  selected={location.pathname === "/tryfecta/pay"}
                   button
-                  className={classes.nested}
                 >
-                  <ListItemText primary="pay" />
-                </ListItem>
+                  <ListItemText primary="Pay" />
+                </NestedListItem>
               </List>
             </Collapse>
 
-            <ListItem
-              className={`${classes.listItem} ${
-                location.pathname === "/KegeberewOrdersLisit"
-                  ? classes.selectedListItem
-                  : ""
-              }`}
-              component={Link}
-              to="/KegeberewOrdersLisit"
-              selected={location.pathname === "/KegeberewOrdersLisit"}
+            <ListItemStyled
               button
+              onClick={handleKunellaClick}
+              className={location.pathname.startsWith("/kunella") ? SelectedListItem.className : ""}
             >
-              <ListItemIcon
-                style={{
-                  color: location.pathname === "/KegeberewOrdersLisit"
-                    ? "black"
-                    : "#d7a022",
-                }}
-              >
-                <ChecklistIcon />
+              <ListItemIcon style={{ color: location.pathname.startsWith("/kunella") ? "black" : "#d7a022" }}>
+                <SpeedIcon />
               </ListItemIcon>
-              <ListItemText primary="Order List" />
-            </ListItem>
-
-            <ListItem
-              className={`${classes.listItem} ${
-                location.pathname === "/UpdateOrder"
-                  ? classes.selectedListItem
-                  : ""
-              }`}
-              component={Link}
-              to="/UpdateOrder"
-              selected={location.pathname === "/UpdateOrder"}
-              button
-            >
-              <ListItemIcon
-                style={{
-                  color: location.pathname === "/UpdateOrder"
-                    ? "black"
-                    : "#d7a022",
-                }}
-              >
-                <EditNoteIcon />
-              </ListItemIcon>
-              <ListItemText primary="Update Order" />
-            </ListItem>
+              <ListItemText primary="Kunella" />
+              {kunellaOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemStyled>
+            <Collapse in={kunellaOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <NestedListItem
+                  component={Link}
+                  to="/kunella/Dashboard"
+                  selected={location.pathname === "/kunella/Dashboard"}
+                  button
+                >
+                  <ListItemText primary="Dashboard" />
+                </NestedListItem>
+                <NestedListItem
+                  component={Link}
+                  to="/kunella/TicketResult"
+                  selected={location.pathname === "/kunella/TicketResult"}
+                  button
+                >
+                  <ListItemText primary="Ticket Result" />
+                </NestedListItem>
+                <NestedListItem
+                  component={Link}
+                  to="/kunella/pay"
+                  selected={location.pathname === "/kunella/pay"}
+                  button
+                >
+                  <ListItemText primary="Pay" />
+                </NestedListItem>
+              </List>
+            </Collapse>
           </>
         )}
       </List>
-    </Drawer>
+    </DrawerStyled>
   );
 };
 
