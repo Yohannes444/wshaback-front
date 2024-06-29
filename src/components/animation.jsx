@@ -13,8 +13,20 @@ const Animation = () => {
   const [showModal, setShowModal] = useState(false);
   const [lastRenderedComponent, setLastRenderedComponent] = useState('');
 
-  const calculateTimers = () => {
-    const now = new Date();
+  const fetchServerTime = async () => {
+    try {
+      const response = await fetch('http://localhost:5454/');
+      const data = await response.json();
+      const serverTime = new Date(data.serverTime);
+      return serverTime;
+    } catch (error) {
+      console.error('Failed to fetch server time:', error);
+      return new Date(); // Fallback to local time if server time fetch fails
+    }
+  };
+
+  const calculateTimers = async () => {
+    const now = await fetchServerTime();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
 
@@ -125,7 +137,7 @@ const Animation = () => {
       <Container fluid>
         <Row>
           <Col md={12} style={{ marginTop: '15px', paddingLeft: '0px', paddingRight: '0px' }}>
-            {showHorseRacing ? <HorsRasingPage /> : <HorsRasingPage />}
+            {showHorseRacing ? <HorsRasingPage /> : <DogRasing />}
           </Col>
         </Row>
       </Container>
