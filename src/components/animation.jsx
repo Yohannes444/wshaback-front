@@ -5,13 +5,14 @@ import DogRasing from './animeDogComponent';
 import HorsRasingPage from './horsRasingPage';
 import ResultModal from './ResultModal';
 
+const SERVER_TIME_INTERVAL = 60000; // Fetch server time every 1 minute
+
 const Animation = () => {
   const navigate = useNavigate();
   const [showHorseRacing, setShowHorseRacing] = useState(true);
   const [timer, setTimer] = useState(0);
   const [modalTimer, setModalTimer] = useState(60); // 1 minute for modal
   const [showModal, setShowModal] = useState(false);
-  const [lastRenderedComponent, setLastRenderedComponent] = useState('');
 
   const fetchServerTime = async () => {
     try {
@@ -25,7 +26,7 @@ const Animation = () => {
     }
   };
 
-  const calculateTimers = async () => {
+  const calculateTimers = async (initial = false) => {
     const now = await fetchServerTime();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -59,10 +60,16 @@ const Animation = () => {
     if (isModal) {
       setModalTimer(newTimer);
     }
+
+    if (initial) {
+      setInterval(() => {
+        calculateTimers();
+      }, SERVER_TIME_INTERVAL);
+    }
   };
 
   useEffect(() => {
-    calculateTimers(); // Initial calculation
+    calculateTimers(true); // Initial calculation and start periodic server time fetch
 
     const interval = setInterval(() => {
       setTimer((prevTimer) => {

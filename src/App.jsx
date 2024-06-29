@@ -98,7 +98,7 @@ const App = () => {
                 </>
               ) : null
             ) : (
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<Animation />} />
             )}
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
