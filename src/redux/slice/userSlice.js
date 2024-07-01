@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, postUser } from "../../api/api";
-import { BASE_URL_LOGIN } from "../../api/baseURL";
+import { getBaseURLLogin } from "../../api/baseURL";
 
 // Load user from localStorage
 const loadUserFromLocalStorage = () => {
@@ -69,8 +69,10 @@ export const loginUserAsync = (credentials) => async (dispatch) => {
   }
 };
 
+
+
 export const postUserAsync = createAsyncThunk(
-  `${BASE_URL_LOGIN}user/signup`,
+  `${getBaseURLLogin()}/user/signup`,
   async (userData) => {
     const response = await postUser(userData);
     return response;
