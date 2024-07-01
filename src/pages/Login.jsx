@@ -110,7 +110,7 @@ export default function SignIn() {
             variant="outlined"
             margin="normal"
             fullWidth
-            label="Phone Number"
+            label="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />

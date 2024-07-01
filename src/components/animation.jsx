@@ -4,6 +4,8 @@ import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
 import DogRasing from './animeDogComponent';
 import HorsRasingPage from './horsRasingPage';
 import ResultModal from './ResultModal';
+import {getBaseURLLogin} from "../api/baseURL"
+
 
 const SERVER_TIME_INTERVAL = 60000; // Fetch server time every 1 minute
 
@@ -16,13 +18,16 @@ const Animation = () => {
 
   const fetchServerTime = async () => {
     try {
-      const response = await fetch('http://localhost:5454/');
+      const baseURL = await getBaseURLLogin(); // Fetch the base URL dynamically
+      const response = await fetch(`${baseURL}/`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
-      const serverTime = new Date(data.serverTime);
+      console.log(data)
+      const serverTime = new Date(data.time);
+      // console.log(serverTime)
       return serverTime;
     } catch (error) {
       console.error('Failed to fetch server time:', error);
-      return new Date(); // Fallback to local time if server time fetch fails
+      // return new Date(); // Fallback to local time if server time fetch fails
     }
   };
 
