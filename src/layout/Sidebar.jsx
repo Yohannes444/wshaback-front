@@ -100,7 +100,7 @@ const Sidebar = ({ userRole }) => {
                   button
                 >
                   <ListItemText primary="Dashboard" />
-                </NestedListItem>
+                </NestedListItem> 
                 <NestedListItem
                   component={Link}
                   to="/tryfecta/Home"
@@ -117,6 +117,16 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Ticket Result" />
                 </NestedListItem>
+
+                <NestedListItem
+                  component={Link}
+                  to="/tryfecta/TicketHistroy"
+                  selected={location.pathname === "/tryfecta/TicketHistroy"}
+                  button
+                >
+                  <ListItemText primary="Ticket Histroy" />
+                </NestedListItem> 
+
                 <NestedListItem
                   component={Link}
                   to="/tryfecta/pay"
@@ -125,6 +135,8 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Pay" />
                 </NestedListItem>
+
+               
               </List>
             </Collapse>
 
@@ -170,6 +182,16 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Ticket Result" />
                 </NestedListItem>
+
+                <NestedListItem
+                  component={Link}
+                  to="/Keno/TicketHistroy"
+                  selected={location.pathname === "/Keno/TicketHistroy"}
+                  button
+                >
+                  <ListItemText primary="Ticket Histroy" />
+                </NestedListItem> 
+
                 <NestedListItem
                   component={Link}
                   to="/Keno/pay"
@@ -219,6 +241,25 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Ticket Result" />
                 </NestedListItem>
+
+                <NestedListItem
+                  component={Link}
+                  to="/animation/TicketHistroyDog"
+                  selected={location.pathname === "/animation/TicketHistroyDog"}
+                  button
+                >
+                  <ListItemText primary="Ticket Histroy Dog" />
+                </NestedListItem> 
+
+                <NestedListItem
+                  component={Link}
+                  to="/animation/TicketHistroyHourse"
+                  selected={location.pathname === "/animation/TicketHistroyDogHourse"}
+                  button
+                >
+                  <ListItemText primary="Ticket Histroy Hourse" />
+                </NestedListItem> 
+
                 <NestedListItem
                   component={Link}
                   to="/animation/pay"

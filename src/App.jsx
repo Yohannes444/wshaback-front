@@ -41,11 +41,11 @@ import { initializeUser, selectUser } from "./redux/slice/userSlice";
 import Login from "./pages/Login";
 import Sidebar from "./layout/Sidebar";
 import Topbar from "./layout/Topbar";
-import OrderStatusCountDetail from "./pages/OrderDetailDisplay"
+import OrderStatusCountDetail from "./pages/OrderDetailDisplay";
 import ErrorPage  from "./pages/404";
 import Main from './components/MainComponent';
-import Animation from "./components/animation"
-import Master2 from './components/master2'
+import Animation from "./components/animation";
+import Master2 from './components/master2';
 import PostResultTry from "./components/PostResultTry";
 import PostResultAnime from "./components/PostResultAnime";
 import PostResultKeno from "./components/PostResultKeno";
@@ -92,6 +92,7 @@ const App = () => {
                   <Route path="/animation/TicketResult" element={<PostResultAnime />} />
                   <Route path="/Keno/TicketResult" element={<PostResultKeno />} />
                   <Route path="/animation/pay" element={<TicketHistroy />} />
+                  <Route path="/animation/TicketHistroyDog" element={<TicketHistroy />} />
                 </>
               ) : user.role === "Registral" ? (
                 <>
