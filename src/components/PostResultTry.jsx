@@ -3,7 +3,7 @@ import { Form, Row, Col, Spinner, Button, Card } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ResultModalPage = ({ lastRenderedComponent }) => {
+const ResultModalPage = () => {
   const [formData, setFormData] = useState({
     gameId: '',
     firstNumber: '',
@@ -94,24 +94,26 @@ const ResultModalPage = ({ lastRenderedComponent }) => {
 
   return (
     <div style={{ margin: '60px auto', maxWidth: '800px' }}>
-      <Card style={{ backgroundColor: '#e0e0e0', padding: '20px', height: '47  0px', overflowY: 'auto' }}>
+      <Card style={{ backgroundColor: '#e0e0e0', padding: '20px', height: '470px', overflowY: 'auto' }}>
         <h2>Insert TryFecta Result</h2>
         <Form>
-          <Form.Group controlId="gameId">
-            <Form.Label style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '15px' }}>GameId</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter GameId"
-              value={formData.gameId}
-              onChange={handleInputChange}
-              isInvalid={!!errors.gameId}
-            />
-            <Form.Control.Feedback type="invalid">{errors.gameId}</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group controlId="firstNumber">
-            <Form.Label style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '15px' }}>First Winner</Form.Label>
-            <Row>
-              <Col>
+          <Row>
+            <Col md={12}>
+              <Form.Group controlId="gameId">
+                <Form.Label style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '15px' }}>GameId</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="Enter GameId"
+                  value={formData.gameId}
+                  onChange={handleInputChange}
+                  isInvalid={!!errors.gameId}
+                />
+                <Form.Control.Feedback type="invalid">{errors.gameId}</Form.Control.Feedback>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="firstNumber">
+                <Form.Label style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '15px' }}>First Winner</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Enter tryFecta Winner number"
@@ -120,8 +122,11 @@ const ResultModalPage = ({ lastRenderedComponent }) => {
                   isInvalid={!!errors.firstNumber}
                 />
                 <Form.Control.Feedback type="invalid">{errors.firstNumber}</Form.Control.Feedback>
-              </Col>
-              <Col>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="firstOdd">
+                <Form.Label style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '15px' }}>First Odd</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter tryFecta Odd number"
@@ -130,13 +135,11 @@ const ResultModalPage = ({ lastRenderedComponent }) => {
                   isInvalid={!!errors.firstOdd}
                 />
                 <Form.Control.Feedback type="invalid">{errors.firstOdd}</Form.Control.Feedback>
-              </Col>
-            </Row>
-          </Form.Group>
-          <Form.Group controlId="secondNumber">
-            <Form.Label style={{ fontSize: '20px', fontWeight: 'bold' }}>Second Winner</Form.Label>
-            <Row>
-              <Col>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="secondNumber">
+                <Form.Label style={{ fontSize: '20px', fontWeight: 'bold' }}>Second Winner</Form.Label>
                 <Form.Control
                   type="number"
                   placeholder="Enter tryFecta Second number"
@@ -145,8 +148,11 @@ const ResultModalPage = ({ lastRenderedComponent }) => {
                   isInvalid={!!errors.secondNumber}
                 />
                 <Form.Control.Feedback type="invalid">{errors.secondNumber}</Form.Control.Feedback>
-              </Col>
-              <Col>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group controlId="secondOdd">
+                <Form.Label style={{ fontSize: '20px', fontWeight: 'bold' }}>Second Odd</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter tryFecta Place Odd"
@@ -155,9 +161,9 @@ const ResultModalPage = ({ lastRenderedComponent }) => {
                   isInvalid={!!errors.secondOdd}
                 />
                 <Form.Control.Feedback type="invalid">{errors.secondOdd}</Form.Control.Feedback>
-              </Col>
-            </Row>
-          </Form.Group>
+              </Form.Group>
+            </Col>
+          </Row>
           <Button
             variant="primary"
             onClick={handleSave}

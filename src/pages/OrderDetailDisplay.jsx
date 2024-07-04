@@ -1,13 +1,15 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button"; // Import Button from MUI
+import Button from "@mui/material/Button";
 import * as XLSX from "xlsx";
 import { format } from "date-fns";
 import TextField from "@mui/material/TextField";
-import TableComponent from "./TicketTable"; // Import the new TableComponent
+import TableComponent from "./TicketTable";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const columns = [
   { id: "orderId", label: "Order ID", minWidth: 120 },
@@ -18,10 +20,10 @@ const columns = [
   { id: "status", label: "Status", minWidth: 150 },
 ];
 
-const fetchDataByDate = async (selectedDate) => {
-  const formattedDate = format(selectedDate, "yyyy-MM-dd");
-  const url = `http://localhost:3000/getdatas?date=${formattedDate}`;
-  // const url = `http://localhost:5454/anime-hors`;
+const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
+  const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
+  const formattedEndDate = format(selectedEndDate, "yyyy-MM-dd");
+  const url = `http://localhost:3000/getdatas?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -36,7 +38,6 @@ const fetchDataByDate = async (selectedDate) => {
 };
 
 const fetchDataById = async (ticketID) => {
-  // const url = `http://localhost:3000/getdatas?ticketID=${ticketID}`;
   const url = `http://localhost:5454/anime-hors/${ticketID}`;
   try {
     const response = await fetch(url);
@@ -51,7 +52,21 @@ const fetchDataById = async (ticketID) => {
   }
 };
 
-// Styled Button with black color
+const fetchDataByDropdownValue = async (dropdownValue) => {
+  const url = `http://localhost:3000/${dropdownValue}`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
+
 const BlackButton = styled(Button)(({ theme }) => ({
   color: theme.palette.common.white,
   backgroundColor: theme.palette.common.black,
@@ -61,23 +76,46 @@ const BlackButton = styled(Button)(({ theme }) => ({
 }));
 
 export default function StickyHeadTable() {
-  const [selectedDate, setSelectedDate] = React.useState(null);
+  const [selectedStartDate, setSelectedStartDate] = React.useState(null);
+  const [selectedEndDate, setSelectedDateEndDate] = React.useState(null);
   const [ticketID, setTicketID] = React.useState("");
   const [rows, setRows] = React.useState([]);
+  const [dropdownValue, setDropdownValue] = React.useState("");
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const handleStartDateChange = (date) => {
+    setSelectedStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setSelectedDateEndDate(date);
   };
 
   const handleTicketIDChange = (event) => {
     setTicketID(event.target.value);
   };
 
+  const handleDropdownChange = async (event) => {
+    const value = event.target.value;
+    setDropdownValue(value);
+    const data = await fetchDataByDropdownValue(value);
+    const formattedData = data.map((order) =>
+      createData(
+        order.order_id,
+        order.name,
+        order.order_receiver_phone_number,
+        order.createdAt,
+        order.updatedAt,
+        order.order_status
+      )
+    );
+    setRows(formattedData);
+  };
+
   const handleGetDataByDate = async () => {
-    if (!selectedDate) {
+    if (!selectedStartDate && !selectedEndDate) {
       return;
     }
-    const data = await fetchDataByDate(selectedDate);
+    const data = await fetchDataByDate(selectedStartDate, selectedEndDate);
     const formattedData = data.map((order) =>
       createData(
         order.order_id,
@@ -112,7 +150,6 @@ export default function StickyHeadTable() {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Orders");
 
-    // Set column headers with grey background
     const headers = columns.map((column) => {
       return { v: column.label, s: { fill: { bgColor: { rgb: "CCCCCC" } } } };
     });
@@ -120,7 +157,6 @@ export default function StickyHeadTable() {
       origin: "A1",
     });
 
-    // Generate Excel file and trigger download
     XLSX.writeFile(workbook, "orders.xlsx");
   };
 
@@ -138,10 +174,25 @@ export default function StickyHeadTable() {
       >
         <TextField
           id="date"
-          label="Select Date"
+          label="Select Start Date"
           type="date"
-          value={selectedDate || ""} // Ensure value is not null
-          onChange={(e) => handleDateChange(e.target.value)}
+          value={selectedStartDate || ""}
+          onChange={(e) => handleStartDateChange(e.target.value)}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{ marginRight: "16px", marginLeft: "16px" }}
+          inputProps={{
+            max: format(new Date(), "yyyy-MM-dd"),
+          }}
+        />
+
+        <TextField
+          id="date"
+          label="Select End Date"
+          type="date"
+          value={selectedEndDate || ""}
+          onChange={(e) => handleEndDateChange(e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
@@ -150,9 +201,27 @@ export default function StickyHeadTable() {
             max: format(new Date(), "yyyy-MM-dd"),
           }}
         />
-        <BlackButton variant="contained" onClick={handleGetDataByDate}>
+
+        <BlackButton variant="contained" sx={{ padding: "14px" }} onClick={handleGetDataByDate}>
           Get Data by Date
         </BlackButton>
+
+        <Select
+          value={dropdownValue}
+          onChange={handleDropdownChange}
+          displayEmpty
+          sx={{ marginLeft: "16px", marginRight: "16px" }}
+        >
+          <MenuItem value="" disabled>
+            Select an option
+          </MenuItem>
+          <MenuItem value="dkf">dkf</MenuItem>
+          <MenuItem value="kdjf">kdjf</MenuItem>
+          <MenuItem value="djkjdj">djkjdj</MenuItem>
+          <MenuItem value="jdkjf">jdkjf</MenuItem>
+          <MenuItem value="kfjd">kfjd</MenuItem>
+        </Select>
+
         <div style={{ marginLeft: "16px" }}>
           <TextField
             id="ticketID"
@@ -161,21 +230,27 @@ export default function StickyHeadTable() {
             onChange={handleTicketIDChange}
             sx={{ marginLeft: "16px" }}
           />
-          <BlackButton variant="contained" onClick={handleGetDataById}>
+          <BlackButton variant="contained" sx={{ marginLeft: "15px", padding: "14px" }} onClick={handleGetDataById}>
             Search by ID
           </BlackButton>
         </div>
+
         <div style={{ flex: 1 }} />
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={exportToExcel}
           disabled={rows.length === 0}
+          sx={{ marginRight: "16px", padding: "10px" }}
         >
-          Export to Excel
+          Export to Excel <FileDownloadIcon />
         </Button>
       </div>
       <TableComponent columns={columns} rows={rows} />
     </Paper>
   );
+}
+
+function createData(orderId, customerName, phoneNumber, createdAt, updatedDate, status) {
+  return { orderId, customerName, phoneNumber, createdAt, updatedDate, status };
 }
