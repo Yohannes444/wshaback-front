@@ -12,8 +12,9 @@ async function getPublicIP() {
   }
 }
 
+const ip= process.env.NEXT_PUBLIC_API_URL
+
 async function setBaseURLLogin() {
-  const ip = await getPublicIP();
   if (ip) {
     BASE_URL_LOGIN = `http://${ip}:5454`;
   } else {
