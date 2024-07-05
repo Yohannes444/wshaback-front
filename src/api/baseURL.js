@@ -3,7 +3,10 @@ let BASE_URL_LOGIN;
 
 async function getPublicIP() {
   try {
-    const response = await fetch('http://localHost:5454/api/getLocalIP');
+console.log();
+
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/getLocalIP`);
+    // console.log("response: ",process.env.NEXT_PUBLIC_API_URL)
     const data = await response.json();
     return data.localIP;
   } catch (error) {
@@ -12,11 +15,10 @@ async function getPublicIP() {
   }
 }
 
-const ip= process.env.NEXT_PUBLIC_API_URL
-
 async function setBaseURLLogin() {
+  const ip = await getPublicIP();
   if (ip) {
-    BASE_URL_LOGIN = `http://${ip}:5454`;
+    BASE_URL_LOGIN = import.meta.env.VITE_API_URL;
   } else {
     console.error('Failed to get IP address. Using default BASE_URL_LOGIN.');
     // BASE_URL_LOGIN = 'http://192.168.10.25:5454'; // fallback to default
@@ -27,6 +29,7 @@ async function getBaseURLLogin() {
   if (!BASE_URL_LOGIN) {
     await setBaseURLLogin();
   }
+  console.log("BASE_URL_LOGIN;",BASE_URL_LOGIN)
   return BASE_URL_LOGIN;
 }
 

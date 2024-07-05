@@ -17,9 +17,9 @@ with open(env_file_path, "r") as env_file:
 
 for i, line in enumerate(env_lines):
     if line.startswith("NEXT_PUBLIC_API_URL"):
-        env_lines[i] = f'NEXT_PUBLIC_API_URL=http://{ip_address}:5173\n'
+        env_lines[i] = f'NEXT_PUBLIC_API_URL=http://{ip_address}:5454\n'
 
 with open(env_file_path, "w") as env_file:
     env_file.writelines(env_lines)
 
-print(f"Base URL updated to http://{ip_address}:5173")
+print(f"Base URL updated to http://{ip_address}:5454")
