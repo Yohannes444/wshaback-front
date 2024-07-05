@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { Form, Row, Col, Spinner, Button, Card } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+// import { initializeUser, selectUser } from "./redux/slice/userSlice";
+import { initializeUser, selectUser } from "../redux/slice/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 
-const ResultModalPage = ({ lastRenderedComponent }) => {
+const ResultModalPage = () => {
+  const user = useSelector(selectUser);
   const [formData, setFormData] = useState({
     gameId: '',
     firstNumber: '',
@@ -20,6 +24,9 @@ const ResultModalPage = ({ lastRenderedComponent }) => {
     secondNumber: '',
     secondOdd: ''
   });
+
+  console.log(user._id)
+
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -52,15 +59,25 @@ const ResultModalPage = ({ lastRenderedComponent }) => {
 
     const parsedFormData = {
       gameId: parseInt(formData.gameId),
-      First: {
-        DogPlaceNum: parseInt(formData.firstNumber),
-        DogPlaceOdd: parseFloat(formData.firstOdd)
+      tiketerId: `${user._id}`,
+      // First: {
+      //   DogPlaceNum: parseInt(formData.firstNumber),
+      //   DogPlaceOdd: parseFloat(formData.firstOdd)
+      // },
+      resalt: {
+        first: parseInt(formData.firstNumber),
+        second: parseFloat(formData.firstOdd),
+        third: 3
       },
-      Second: {
-        DogPlaceNum: parseInt(formData.secondNumber),
-        DogPlaceOdd: parseFloat(formData.secondOdd)
-      },
-      type: 'Dog'
+      // Second: {
+      //   DogPlaceNum: parseInt(formData.secondNumber),
+      //   DogPlaceOdd: parseFloat(formData.secondOdd)
+      // },
+      // type: 'Dog'
+      windOdd: 3.0,
+      qunelaOdd: 2.0,
+      exactOdd: 4.0,
+      tryfectaOdd: 5.0
     };
 
     try {
