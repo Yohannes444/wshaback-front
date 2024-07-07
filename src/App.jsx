@@ -50,6 +50,7 @@ import PostResultTry from "./components/PostResultTry";
 import PostResultAnime from "./components/PostResultAnime";
 import PostResultKeno from "./components/PostResultKeno";
 import TicketHistroy from "./pages/OrderDetailDisplay";
+import Dashboard from "./components/Dashboard";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -93,6 +94,7 @@ const App = () => {
                   <Route path="/Keno/TicketResult" element={<PostResultKeno />} />
                   <Route path="/animation/pay" element={<TicketHistroy />} />
                   <Route path="/animation/TicketHistroyDog" element={<TicketHistroy />} />
+                  <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
                 </>
               ) : user.role === "Registral" ? (
                 <>

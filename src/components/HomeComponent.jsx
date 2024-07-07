@@ -172,139 +172,135 @@ const incrementGameID = () => {
           <Col md={8}>
       <div>
 
-    <section id="list-group">
-    <div className="container-lg" style={{backgroundImage: 'url("/Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
-
-            <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
-            <div style={{display: 'flex'}}>
-            <a href="/spin" className="d-flex">
-              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
-            </a>
-            <a href="/keno" className="d-flex">
-              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
-            </a>
-            </div>
-            <div className="text-center mb-3">
-            <div className=" text-center">
-              <h5 htmlFor="gameID" className=" text-white p-3 ">
-                Game ID
-              </h5>
-                <input
-                  type="number"
-                  id="gameID"
-                  className=" mb-2"
-                  value={gameID}
-                  onChange={handleGameIDChange}
-                />
-                <FaPlus
-                  className="text-warning me-2 "
-                  style={{ cursor: 'pointer' }}
-                  onClick={incrementGameID}
-                />
-                <FaMinus className="text-warning" style={{ cursor: 'pointer' }} onClick={decrementGameID} />
-            </div>
-              </div>
-            <Row>
-            <Col md={8} xs="8">
-                <div className="radio-container d-flex">
-                    <div className="me-4">
-                        <div className="bg-success fs-3 text-white p-3">WIN</div>
-                        <div className="radio-col" id="column1">
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 1)}>1</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 2)}>2</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 3)}>3</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 4)}>4</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 5)}>5</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(1, 6)}>6</button>
-                </div>
-                </div>
-        
-                <div>
-                <div class="bg-primary fs-3 text-white p-3 me-4">PLACE</div>
-                <div className="radio-col" id="column2">
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 1)}>1</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 2)}>2</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 3)}>3</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 4)}>4</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 5)}>5</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(2, 6)}>6</button>
-                </div>
-                </div>
-                <div>
-                <div class="bg-danger fs-3 text-white p-3 me-4">SHOW</div>
-                    <div className="radio-col" id="column3">
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 1)}>1</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 2)}>2</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 3)}>3</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 4)}>4</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 5)}>5</button>
-                    <button className="mr-1"onClick={() => selectRadioButton(3, 6)}>6</button>
-                </div>
-                    </div>
-                </div>
-            </Col>
-            <Col md={2.5}  style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
-            <div className="m-4" >
-            <div  >
-
-                  <Button
-                    id="addButton"
-                    color="dark"
-                    onClick={handleAddClick}
-                    className="text-white"
-                    size="lg"
-                  >
-                    ADD
-                  </Button>
-                </div>
-              <label htmlFor="betAmount" id="label" >
-                Bet Amount
-              </label>
-              <input
-                type="number"
-                id="betAmount"
-                className="form-control mb-2"
-                value={betAmount}
-                onChange={handleAmountChange}
-              />
-               <div>
-                {amount.map((amount) => (
-                  <Button
-                    key={amount}
-                    color={selectedAmounts.includes(amount) ? 'primary' : 'orange'}
-                    className="me-2"
-                    onClick={() => handleButtonClick(amount)}
-                  >
-                    {amount}
-                  </Button>
-                ))}
-              </div>
-              <div>
-        <Button
-          color={isQuinellaActive ? 'primary' : 'secondary'}
-          onClick={() => {
-            handleQunelaClikd()
-            console.log('QUINELLA bet placed');
-          }}
-        >
-          QUINELLA
-        </Button>
-        <Button
-          color={isExactaActive ? 'primary' : 'secondary'}
-          onClick={() => {
-            handleExactCliked()
-            console.log('EXACTA bet placed');
-          }}
-        >
-          EXACTA
-        </Button>
+      <section id="list-group">
+  <div className="container-lg" style={{ backgroundImage: 'url("/Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+    <h1 className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex' }}>
+        <a href="/spin" className="d-flex">
+          <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
+        </a>
+        <a href="/keno" className="d-flex">
+          <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
+        </a>
       </div>
-                
-            </div>
-          </Col>
-        </Row>
     </div>
-    </section>
+    <div className="text-center mb-3">
+      <div className="text-center">
+        <h5 htmlFor="gameID" className="text-white p-3">Game ID</h5>
+        <input
+          type="number"
+          id="gameID"
+          className="mb-2"
+          value={gameID}
+          onChange={handleGameIDChange}
+        />
+        <FaPlus
+          className="text-warning me-2"
+          style={{ cursor: 'pointer' }}
+          onClick={incrementGameID}
+        />
+        <FaMinus className="text-warning" style={{ cursor: 'pointer' }} onClick={decrementGameID} />
+      </div>
+    </div>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex' }}>
+        <div className="radio-container d-flex">
+          <div className="me-4">
+            <div className="bg-success fs-3 text-white p-3">WIN</div>
+            <div className="radio-col" id="column1">
+              <button className="mr-1" onClick={() => selectRadioButton(1, 1)}>1</button>
+              <button className="mr-1" onClick={() => selectRadioButton(1, 2)}>2</button>
+              <button className="mr-1" onClick={() => selectRadioButton(1, 3)}>3</button>
+              <button className="mr-1" onClick={() => selectRadioButton(1, 4)}>4</button>
+              <button className="mr-1" onClick={() => selectRadioButton(1, 5)}>5</button>
+              <button className="mr-1" onClick={() => selectRadioButton(1, 6)}>6</button>
+            </div>
+          </div>
+          <div className="me-4">
+            <div className="bg-primary fs-3 text-white p-3">PLACE</div>
+            <div className="radio-col" id="column2">
+              <button className="mr-1" onClick={() => selectRadioButton(2, 1)}>1</button>
+              <button className="mr-1" onClick={() => selectRadioButton(2, 2)}>2</button>
+              <button className="mr-1" onClick={() => selectRadioButton(2, 3)}>3</button>
+              <button className="mr-1" onClick={() => selectRadioButton(2, 4)}>4</button>
+              <button className="mr-1" onClick={() => selectRadioButton(2, 5)}>5</button>
+              <button className="mr-1" onClick={() => selectRadioButton(2, 6)}>6</button>
+            </div>
+          </div>
+          <div className="me-4">
+            <div className="bg-danger fs-3 text-white p-3">SHOW</div>
+            <div className="radio-col" id="column3">
+              <button className="mr-1" onClick={() => selectRadioButton(3, 1)}>1</button>
+              <button className="mr-1" onClick={() => selectRadioButton(3, 2)}>2</button>
+              <button className="mr-1" onClick={() => selectRadioButton(3, 3)}>3</button>
+              <button className="mr-1" onClick={() => selectRadioButton(3, 4)}>4</button>
+              <button className="mr-1" onClick={() => selectRadioButton(3, 5)}>5</button>
+              <button className="mr-1" onClick={() => selectRadioButton(3, 6)}>6</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{ width: '250px', backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+        <div className="m-4">
+          <Button
+            id="addButton"
+            color="dark"
+            onClick={handleAddClick}
+            className="text-white"
+            size="lg"
+            style={{paddingTop:"5px"}}
+          >
+            ADD
+          </Button>
+          <label htmlFor="betAmount" id="label" style={{color: "white", fontStyle:"bold"}} >  Bet Amount</label>
+          <input
+            type="number"
+            id="betAmount"
+            className="form-control mb-2"
+            value={betAmount}
+            onChange={handleAmountChange}
+            style={{paddingTop:"15px"}}
+          />
+          <div>
+            {amount.map((amount) => (
+              <Button
+                key={amount}
+                color={selectedAmounts.includes(amount) ? 'primary' : 'orange'}
+                className="me-2"
+                onClick={() => handleButtonClick(amount)}
+              >
+                {amount}
+              </Button>
+            ))}
+          </div>
+          <div>
+            <Button
+              color={isQuinellaActive ? 'primary' : 'secondary'}
+              onClick={() => {
+                handleQunelaClikd();
+                console.log('QUINELLA bet placed');
+              }}
+            >
+              QUINELLA
+            </Button>
+            <Button
+              color={isExactaActive ? 'primary' : 'secondary'}
+              onClick={() => {
+                handleExactCliked();
+                console.log('EXACTA bet placed');
+              }}
+            >
+              EXACTA
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
     
                 <style jsx>{`
                     .haveree:hover {
