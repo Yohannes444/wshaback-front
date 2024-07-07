@@ -10,7 +10,7 @@ const HoverCard = styled(Card)({
   transition: 'transform 0.3s, box-shadow 0.3s',
   backgroundColor: '#e0f2e9', // Light green background color
   '&:hover': {
-    transform: 'scale(1.05)',
+    transform: 'scale(0.99)',
     boxShadow: '0 10px 20px rgba(0, 128, 0, 0.6)', // Green shadow color
   },
 });
