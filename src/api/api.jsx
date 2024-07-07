@@ -12,6 +12,7 @@ const api = axios.create({
 const setAPIBaseURL = async () => {
   const baseURL = await getBaseURLLogin();
   api.defaults.baseURL = baseURL;
+  console.log("defolt set: ", api.defaults.baseURL)
 };
 
 // Call setAPIBaseURL to set the baseURL when the module is imported
@@ -22,6 +23,7 @@ export const setAuthHeaders = () => {
   const token = localStorage.getItem("token");
   if (token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
   } else {
     delete api.defaults.headers.common["Authorization"];
   }
