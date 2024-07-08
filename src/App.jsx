@@ -107,7 +107,7 @@ const App = () => {
                 </>
               ) : null
             ) : (
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<Pay />} />
             )}
             <Route path="/*" element={<ErrorPage />} />
           </Routes>

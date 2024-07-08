@@ -106,23 +106,48 @@ const Tikete = forwardRef((props, ref) => {
 
                 switch (firstElement) {
                   case 1:
-                    displayValue = "WIN";
+                    displayValue = `WIN[${
+                      bet.selectedButtons
+                        .sort((a, b) => a[0] - b[0])
+                        .map(selected => selected[1])
+                        .join(', ')
+                    }]`;
                     break;
                   case 2:
-                    displayValue = "PLACE";
+                    displayValue = `PLACE[${
+                      bet.selectedButtons
+                        .sort((a, b) => a[0] - b[0])
+                        .map(selected => selected[1])
+                        .join(', ')
+                    }]`;
                     break;
                   case 3:
-                    displayValue = "SHOW";
+                    displayValue = `SHOW[${
+                      bet.selectedButtons
+                        .sort((a, b) => a[0] - b[0])
+                        .map(selected => selected[1])
+                        .join(', ')
+                    }]`;
                     break;
                   default:
                     displayValue = "UNKNOWN";
                 }
                 correspondingAmount = bet.betAmount;
               } else if (bet.isQuinellaActive) {
-                displayValue = "QUINELLA";
+                displayValue = `QUINELLA[${
+                  bet.selectedButtons
+                    .sort((a, b) => a[0] - b[0])
+                    .map(selected => selected[1])
+                    .join(', ')
+                }]`;
                 correspondingAmount = bet.betAmount;
               } else if (bet.isExactaActive) {
-                displayValue = "EXACTA";
+                displayValue = `EXACTA[${
+                  bet.selectedButtons
+                    .sort((a, b) => a[0] - b[0])
+                    .map(selected => selected[1])
+                    .join(', ')
+                }]`;
                 correspondingAmount = bet.betAmount;
               } else {
                 displayValue = `[${
