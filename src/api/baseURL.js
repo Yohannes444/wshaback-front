@@ -5,10 +5,9 @@ async function getPublicIP() {
   try {
 console.log();
 
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/getLocalIP`);
+    const data = import.meta.env.VITE_API_URL;
     // console.log("response: ",process.env.NEXT_PUBLIC_API_URL)
-    const data = await response.json();
-    return data.localIP;
+    return data;
   } catch (error) {
     console.error('Error fetching IP address:', error);
     return null;

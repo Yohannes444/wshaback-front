@@ -10,32 +10,32 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import SpeedIcon from "@mui/icons-material/Speed";
-import ChecklistIcon from '@mui/icons-material/Checklist';
-import EditNoteIcon from '@mui/icons-material/EditNote';
+import ChecklistIcon from "@mui/icons-material/Checklist";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 
 const drawerWidth = 200; // Reduced width
 
 const DrawerStyled = styled(Drawer)(({ theme }) => ({
   width: drawerWidth,
   flexShrink: 0,
-  '& .MuiDrawer-paper': {
+  "& .MuiDrawer-paper": {
     width: drawerWidth,
     backgroundColor: "#d3f9d8", // Light green color
     color: "#2c3e50",
   },
 }));
 
-const Logo = styled('img')({
+const Logo = styled("img")({
   width: "80%",
   height: "auto",
   margin: "20px auto",
 });
 
 const ListItemStyled = styled(ListItem)(({ theme }) => ({
-  '&:hover': {
+  "&:hover": {
     color: "black",
     backgroundColor: "#d7a022",
   },
@@ -52,9 +52,15 @@ const NestedListItem = styled(ListItem)(({ theme }) => ({
 
 const Sidebar = ({ userRole }) => {
   const location = useLocation();
+  const [dashboardOpen, setDashboardOpen] = useState(false);
   const [tryFectaOpen, setTryFectaOpen] = useState(false);
   const [kunellaOpen, setKunellaOpen] = useState(false);
   const [animationOpen, setAnimation] = useState(false);
+
+  const handleDashboardClick = () => {
+    setDashboardOpen(!dashboardOpen);
+    // setKunellaOpen(false); // Close Kunella dropdown
+  };
 
   const handleTryFectaClick = () => {
     setTryFectaOpen(!tryFectaOpen);
@@ -81,11 +87,45 @@ const Sidebar = ({ userRole }) => {
         {userRole === "cashier" && (
           <>
             <ListItemStyled
+        component={Link}
+        to="/dashboard"
+        button
+        className={
+          location.pathname.startsWith("/dashboard")
+            ? SelectedListItem.className
+            : ""
+        }
+      >
+        <ListItemIcon
+          style={{
+            color: location.pathname.startsWith("/dashboard")
+              ? "black"
+              : "#d7a022",
+          }}
+        >
+          <SpeedIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dashboard" />
+      </ListItemStyled>
+
+
+
+            <ListItemStyled
               button
               onClick={handleTryFectaClick}
-              className={location.pathname.startsWith("/tryfecta") ? SelectedListItem.className : ""}
+              className={
+                location.pathname.startsWith("/tryfecta")
+                  ? SelectedListItem.className
+                  : ""
+              }
             >
-              <ListItemIcon style={{ color: location.pathname.startsWith("/tryfecta") ? "black" : "#d7a022" }}>
+              <ListItemIcon
+                style={{
+                  color: location.pathname.startsWith("/tryfecta")
+                    ? "black"
+                    : "#d7a022",
+                }}
+              >
                 <SpeedIcon />
               </ListItemIcon>
               <ListItemText primary="TryFecta" />
@@ -93,14 +133,6 @@ const Sidebar = ({ userRole }) => {
             </ListItemStyled>
             <Collapse in={tryFectaOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem
-                  component={Link}
-                  to="/tryfecta/Dashboard"
-                  selected={location.pathname === "/tryfecta/Dashboard"}
-                  button
-                >
-                  <ListItemText primary="Dashboard" />
-                </NestedListItem> 
                 <NestedListItem
                   component={Link}
                   to="/tryfecta/Home"
@@ -125,7 +157,7 @@ const Sidebar = ({ userRole }) => {
                   button
                 >
                   <ListItemText primary="Ticket Histroy" />
-                </NestedListItem> 
+                </NestedListItem>
 
                 <NestedListItem
                   component={Link}
@@ -135,17 +167,25 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Pay" />
                 </NestedListItem>
-
-               
               </List>
             </Collapse>
 
             <ListItemStyled
               button
               onClick={handleKunellaClick}
-              className={location.pathname.startsWith("/Keno") ? SelectedListItem.className : ""}
+              className={
+                location.pathname.startsWith("/Keno")
+                  ? SelectedListItem.className
+                  : ""
+              }
             >
-              <ListItemIcon style={{ color: location.pathname.startsWith("/Keno") ? "black" : "#d7a022" }}>
+              <ListItemIcon
+                style={{
+                  color: location.pathname.startsWith("/Keno")
+                    ? "black"
+                    : "#d7a022",
+                }}
+              >
                 <SpeedIcon />
               </ListItemIcon>
               <ListItemText primary="Keno" />
@@ -153,17 +193,7 @@ const Sidebar = ({ userRole }) => {
             </ListItemStyled>
             <Collapse in={kunellaOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem
-                  component={Link}
-                  to="/Keno/Dashboard"
-                  selected={location.pathname === "/Keno/Dashboard"}
-                  button
-                >
-                  <ListItemText primary="Dashboard" />
-                  </NestedListItem>
-        
 
-            
                 <NestedListItem
                   component={Link}
                   to="/Keno/Home"
@@ -172,7 +202,6 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Home" />
                 </NestedListItem>
-               
 
                 <NestedListItem
                   component={Link}
@@ -190,7 +219,7 @@ const Sidebar = ({ userRole }) => {
                   button
                 >
                   <ListItemText primary="Ticket Histroy" />
-                </NestedListItem> 
+                </NestedListItem>
 
                 <NestedListItem
                   component={Link}
@@ -203,13 +232,22 @@ const Sidebar = ({ userRole }) => {
               </List>
             </Collapse>
 
-
             <ListItemStyled
               button
               onClick={handleAnimation}
-              className={location.pathname.startsWith("/animation") ? SelectedListItem.className : ""}
+              className={
+                location.pathname.startsWith("/animation")
+                  ? SelectedListItem.className
+                  : ""
+              }
             >
-              <ListItemIcon style={{ color: location.pathname.startsWith("/animation") ? "black" : "#d7a022" }}>
+              <ListItemIcon
+                style={{
+                  color: location.pathname.startsWith("/animation")
+                    ? "black"
+                    : "#d7a022",
+                }}
+              >
                 <SpeedIcon />
               </ListItemIcon>
               <ListItemText primary="Animation" />
@@ -217,14 +255,6 @@ const Sidebar = ({ userRole }) => {
             </ListItemStyled>
             <Collapse in={animationOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <NestedListItem
-                  component={Link}
-                  to="/animation/Dashboard"
-                  selected={location.pathname === "/animation/Dashboard"}
-                  button
-                >
-                  <ListItemText primary="Dashboard" />
-                </NestedListItem>
                 <NestedListItem
                   component={Link}
                   to="/animation/Home"
@@ -249,16 +279,18 @@ const Sidebar = ({ userRole }) => {
                   button
                 >
                   <ListItemText primary="Ticket Histroy Dog" />
-                </NestedListItem> 
+                </NestedListItem>
 
                 <NestedListItem
                   component={Link}
                   to="/animation/TicketHistroyHourse"
-                  selected={location.pathname === "/animation/TicketHistroyDogHourse"}
+                  selected={
+                    location.pathname === "/animation/TicketHistroyDogHourse"
+                  }
                   button
                 >
                   <ListItemText primary="Ticket Histroy Hourse" />
-                </NestedListItem> 
+                </NestedListItem>
 
                 <NestedListItem
                   component={Link}

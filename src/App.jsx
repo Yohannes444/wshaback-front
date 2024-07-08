@@ -52,6 +52,7 @@ import PostResultKeno from "./components/PostResultKeno";
 import TicketHistroy from "./pages/OrderDetailDisplay";
 import Dashboard from "./components/Dashboard";
 import Pay from "./components/Pay";
+import TryAnimation from "./components/TtyFectaAnimation";
 
 
 const App = () => {
@@ -84,14 +85,16 @@ const App = () => {
             {user && user.jwt ? (
               user.role === "cashier" ? (
                 <>
-                  {/* <Route path="/" element={<Navigate to="/dashboard" />} /> */}
-                  {/* <Route path="/dashboard" element={<Dashboard userRole={user.role} />} /> */}
-                  <Route path="/tryfecta/Home" element={<Main />} />
+                  <Route path="/" element={<Navigate to="/dashboard" />} />
+                  <Route path="/dashboard" element={<Dashboard userRole={user.role} />} />
+
+                  <Route path="/tryfecta/Home" element={<TryAnimation />} />
                   <Route path="/tryfecta/TicketResult" element={<PostResultTry />} />
-                  {/* <Route path="/tryfecta/TicketResult" element={<Dashboard userRole={user.role} />} /> */}
+                  <Route path="/tryfecta/TicketHistroy" element={<TicketHistroy />} />
                   <Route path="/animation/Home" element={<Animation />} />
                   <Route path="/OrderStatusCounDetail" element={<OrderStatusCountDetail />} />
                   <Route path="/Keno/Home" element={<Master2 />} />
+                  <Route path="/Keno/TicketHistroy" element={<TicketHistroy />} />
                   <Route path="/animation/TicketResult" element={<PostResultAnime />} />
                   <Route path="/Keno/TicketResult" element={<PostResultKeno />} />
                   <Route path="/animation/pay" element={<TicketHistroy />} />

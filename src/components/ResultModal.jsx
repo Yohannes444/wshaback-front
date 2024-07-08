@@ -1,149 +1,21 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col, Spinner } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// ResultModal.js
 
-const ResultModal = ({ show, lastRenderedComponent }) => {
-  console.log(lastRenderedComponent)
-  const [formData, setFormData] = useState({
-    gameId: '',
-    firstNumber: '',
-    firstOdd: '',
-    secondNumber: '',
-    secondOdd: ''
-  });
+import React from 'react';
+import { Modal } from 'react-bootstrap';
+import './resultCss.css'; // Import the CSS file
 
-  const [loading, setLoading] = useState(false);
-
-  const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value
-    }));
-  };
-
-  const handleSave = async () => {
-    setLoading(true);
-
-    const payload = {
-      gameId: formData.gameId,
-      First: {
-        [`${lastRenderedComponent}PlaceNum`]: formData.firstNumber,
-        [`${lastRenderedComponent}PlaceOdd`]: formData.firstOdd
-      },
-      Second: {
-        [`${lastRenderedComponent}PlaceNum`]: formData.secondNumber,
-        [`${lastRenderedComponent}PlaceOdd`]: formData.secondOdd
-      }
-    };
-
-    try {
-      const response = await fetch(`http://localhost:5454/gameresult/${lastRenderedComponent}Result`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        toast.success('Data saved successfully!');
-        setFormData({
-          gameId: '',
-          firstNumber: '',
-          firstOdd: '',
-          secondNumber: '',
-          secondOdd: ''
-        });
-      } else {
-        toast.error('Failed to save data!');
-      }
-    } catch (error) {
-      toast.error('Error occurred while saving data!');
-    } finally {
-      setLoading(false);
-    }
-  };
-
+const ResultModal = ({ show, lastRenderedComponent, modalTimer }) => {
   return (
-    <>
-      <Modal show={show} backdrop="static" keyboard={false} style={{ marginTop: "60px" }}>
-        <Modal.Header>
-          <Modal.Title>{`Insert ${lastRenderedComponent} Result`}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="gameId">
-              <Form.Label style={{ fontWeight: 'bold', backgroundColor: '#d7a022' }}>GameId</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter GameId"
-                value={formData.gameId}
-                onChange={handleInputChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="firstNumber">
-              <Form.Label style={{ fontWeight: 'bold', backgroundColor: '#d7a022' }}>First Winner</Form.Label>
-              <Row>
-                <Col>
-                  <Form.Control
-                    type="number"
-                    placeholder= {`Enter ${lastRenderedComponent} Winner number`}
-                    value={formData.firstNumber}
-                    onChange={handleInputChange}
-                    id="firstNumber"
-                  />
-                </Col>
-                <Col>
-                  <Form.Control
-                    type="number"
-                    placeholder= {`Enter ${lastRenderedComponent} Odd number`}
-                    value={formData.firstOdd}
-                    onChange={handleInputChange}
-                    id="firstOdd"
-                  />
-                </Col>
-              </Row>
-            </Form.Group>
-            <Form.Group controlId="secondNumber">
-              <Form.Label style={{ fontWeight: 'bold', backgroundColor: '#d7a022' }}>Second Winner</Form.Label>
-              <Row>
-                <Col>
-                  <Form.Control
-                    type="number"
-                    placeholder= {`Enter ${lastRenderedComponent} Second number`}
-                    value={formData.secondNumber}
-                    onChange={handleInputChange}
-                    id="secondNumber"
-                  />
-                </Col>
-                <Col>
-                  <Form.Control
-                    type="number"
-                    placeholder= {`Enter ${lastRenderedComponent} Place Odd`}
-                    value={formData.secondOdd}
-                    onChange={handleInputChange}
-                    id="secondOdd"
-                  />
-                </Col>
-              </Row>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="primary"
-            onClick={handleSave}
-            disabled={loading}
-            style={{ width: '100px' }}
-          >
-            {loading ? <Spinner animation="border" size="sm" /> : 'Save'}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <ToastContainer />
-    </>
+    <Modal show={show} onHide={() => {}} centered>
+      <Modal.Header>
+        {/* <Modal.Title style={{  paddingLeft : '150px' }} >Result Modal</Modal.Title> */}
+      </Modal.Header>
+      <Modal.Body>
+        <div className="circle">
+          0:{modalTimer < 10 ? `0${modalTimer}` : modalTimer}
+        </div>
+      </Modal.Body>
+    </Modal>
   );
 };
 
