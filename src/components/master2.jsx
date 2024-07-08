@@ -194,46 +194,45 @@ const incrementGameID = () => {
                 </div>
             </div>
             </Col>
-            <Col xs="4" style={{backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
-            <div >
-            <div>
+            <div style={{ width: '200px', backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+        <div className="m-4">
+          <Button
+            id="addButton"
+            color="dark"
+            onClick={handleAddClick}
+            className="text-white"
+            size="lg"
+            style={{paddingTop:"5px"}}
+          >
+            ADD
+          </Button>
+          <label htmlFor="betAmount" id="label" style={{color: "white", fontStyle:"bold"}} >  Bet Amount</label>
+          <input
+            type="number"
+            id="betAmount"
+            className="form-control mb-2"
+            value={betAmount}
+            onChange={handleAmountChange}
+            style={{paddingTop:"15px"}}
+          />
+         <div>
+            {amount.map((amount) => (
+              <Button
+                key={amount}
 
-                  <Button
-                    id="addButton"
-                    color="dark"
-                    onClick={handleAddClick}
-                    className="text-white"
-                  >
-                    ADD
-                  </Button>
-                </div>
-              <label htmlFor="betAmount" id="label" >
-                Bet Amount
-              </label>
-              <input
-                type="number"
-                id="betAmount"
-                className="form-control mb-2"
-                value={betAmount}
-                onChange={handleAmountChange}
-              />
-              <div className="d-flex">
-                {amount.map((amount) => (
-                  <Button
-                    key={amount}
-                    color={betAmount === amount ? 'primary' : 'orange'}
-                    className="me-2"
-                    onClick={() => handleButtonClick(amount)}
-                  >
-                    {amount}
-                  </Button>
-                  
-                ))}
-          
-              </div>
-                
-            </div>
-          </Col>
+
+                color={betAmount === amount ? 'primary' : 'secondary'}
+                className="me-2"
+                onClick={() => handleButtonClick(amount)}
+
+                style={{ fontweight: 'bold' }}
+              >
+                {amount}
+              </Button>
+            ))}
+          </div>
+          </div>
+          </div>
         </Row>
     </div>
     </section>
