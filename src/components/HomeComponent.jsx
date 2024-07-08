@@ -262,13 +262,14 @@ const incrementGameID = () => {
             onChange={handleAmountChange}
             style={{paddingTop:"15px"}}
           />
-          <div>
+         <div>
             {amount.map((amount) => (
               <Button
                 key={amount}
-                color={selectedAmounts.includes(amount) ? 'primary' : 'orange'}
+                color={selectedAmounts.includes(amount) ? 'primary' : 'dark'}
                 className="me-2"
                 onClick={() => handleButtonClick(amount)}
+                style={{ fontweight: 'bold' }}
               >
                 {amount}
               </Button>
@@ -325,8 +326,8 @@ const incrementGameID = () => {
          <img src=""/>
         </Row>
         <div style={{backgroundImage: 'url("/HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
-          <p> this system is provided by yohannes mulat</p>
-          <p>phone number 0979458662 </p>
+          <p style={{color:'white', paddingLeft:"10px", fontWeight:"bold", fontSize:"20px"}}> this system is provided by Gizework Marye & yohannes mulat</p>
+          <p style={{color:'red', paddingLeft:"10px", fontWeight:"bold", fontSize:"20px"}}> phone number 0979458662/0929272814 </p>
           <p>|</p>
           <p>|</p>
           <p>|</p>
