@@ -206,7 +206,7 @@ const incrementGameID = () => {
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ display: 'flex' }}>
         <div className="radio-container d-flex">
-          <div className="me-4">
+          <div className="me-1">
             <div className="bg-success fs-3 text-white p-3">WIN</div>
             <div className="radio-col" id="column1">
               <button className="mr-1" onClick={() => selectRadioButton(1, 1)}>1</button>
@@ -217,7 +217,7 @@ const incrementGameID = () => {
               <button className="mr-1" onClick={() => selectRadioButton(1, 6)}>6</button>
             </div>
           </div>
-          <div className="me-4">
+          <div className="me-1">
             <div className="bg-primary fs-3 text-white p-3">PLACE</div>
             <div className="radio-col" id="column2">
               <button className="mr-1" onClick={() => selectRadioButton(2, 1)}>1</button>
@@ -228,7 +228,7 @@ const incrementGameID = () => {
               <button className="mr-1" onClick={() => selectRadioButton(2, 6)}>6</button>
             </div>
           </div>
-          <div className="me-4">
+          <div className="me-1">
             <div className="bg-danger fs-3 text-white p-3">SHOW</div>
             <div className="radio-col" id="column3">
               <button className="mr-1" onClick={() => selectRadioButton(3, 1)}>1</button>
@@ -241,7 +241,7 @@ const incrementGameID = () => {
           </div>
         </div>
       </div>
-      <div style={{ width: '250px', backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+      <div style={{ width: '200px', backgroundImage: 'url("imag")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
         <div className="m-4">
           <Button
             id="addButton"
