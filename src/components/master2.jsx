@@ -158,7 +158,7 @@ const incrementGameID = () => {
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
             <div style={{display: 'flex'}}>
-            <a href="/" className="d-flex">
+            <a href="/animation/Home" className="d-flex">
               <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>DOG</button>
             </a>
             <a href="/spin" className="d-flex">

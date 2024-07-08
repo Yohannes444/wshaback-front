@@ -180,7 +180,7 @@ const incrementGameID = () => {
         <a href="/spin" className="d-flex">
           <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
         </a>
-        <a href="/keno" className="d-flex">
+        <a href="/Keno/Home" className="d-flex">
           <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
         </a>
       </div>

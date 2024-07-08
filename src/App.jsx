@@ -53,6 +53,8 @@ import TicketHistroy from "./pages/OrderDetailDisplay";
 import Dashboard from "./components/Dashboard";
 import Pay from "./components/Pay";
 import TryAnimation from "./components/TtyFectaAnimation";
+import Spin from './components/spinComponent';
+
 
 
 const App = () => {
@@ -96,10 +98,13 @@ const App = () => {
                   <Route path="/Keno/Home" element={<Master2 />} />
                   <Route path="/Keno/TicketHistroy" element={<TicketHistroy />} />
                   <Route path="/animation/TicketResult" element={<PostResultAnime />} />
+                  <Route path="/animation/TicketHistroyHourse" element={<TicketHistroy />} />
                   <Route path="/Keno/TicketResult" element={<PostResultKeno />} />
                   <Route path="/animation/pay" element={<TicketHistroy />} />
                   <Route path="/animation/TicketHistroyDog" element={<TicketHistroy />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
+                  <Route path="/tryfecta/Pay" element={<Pay />} />
+                  <Route path="/spin" element={<Spin />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                 </>
               ) : user.role === "Registral" ? (

@@ -23,7 +23,7 @@ const DrawerStyled = styled(Drawer)(({ theme }) => ({
   flexShrink: 0,
   "& .MuiDrawer-paper": {
     width: drawerWidth,
-    backgroundColor: "#d3f9d8", // Light green color
+    backgroundColor: "#d3f9d8", // Light green color or #efefef (to change to grey color)
     color: "#2c3e50",
   },
 }));

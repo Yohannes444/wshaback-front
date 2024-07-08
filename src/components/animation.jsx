@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
+import ResultModal from './ResultModal';
 import DogRasing from './animeDogComponent';
 import HorsRasingPage from './horsRasingPage';
-import ResultModal from './ResultModal';
-import {getBaseURLLogin} from "../api/baseURL"
-
+import { getBaseURLLogin } from "../api/baseURL";
 
 const SERVER_TIME_INTERVAL = 60000; // Fetch server time every 1 minute
 
@@ -21,7 +20,7 @@ const Animation = () => {
       const baseURL = await getBaseURLLogin(); // Fetch the base URL dynamically
       const response = await fetch(`${baseURL}/`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       const serverTime = new Date(data.time);
       // console.log(serverTime)
       return serverTime;
@@ -153,7 +152,7 @@ const Animation = () => {
           </Col>
         </Row>
       </Container>
-      <ResultModal show={showModal} lastRenderedComponent={lastComponentType} />
+      <ResultModal show={showModal} lastRenderedComponent={lastComponentType} modalTimer={modalTimer} />
     </div>
   );
 };
