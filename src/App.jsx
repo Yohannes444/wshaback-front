@@ -53,6 +53,7 @@ import TicketHistroy from "./pages/OrderDetailDisplay";
 import Dashboard from "./components/Dashboard";
 import Pay from "./components/Pay";
 
+
 const App = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -97,6 +98,7 @@ const App = () => {
                   <Route path="/animation/TicketHistroyDog" element={<TicketHistroy />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
+                  <Route path="/tryfecta/Pay" element={<Pay />} />
                 </>
               ) : user.role === "Registral" ? (
                 <>
