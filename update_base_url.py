@@ -11,13 +11,13 @@ for line in ip_lines:
         ip_address = line.split(":")[1].strip()
 
 # Read and update .env file
-env_file_path = "./frontend/.env"
+env_file_path = "./.env"
 with open(env_file_path, "r") as env_file:
     env_lines = env_file.readlines()
 
 for i, line in enumerate(env_lines):
-    if line.startswith("NEXT_PUBLIC_API_URL"):
-        env_lines[i] = f'NEXT_PUBLIC_API_URL=http://{ip_address}:5454\n'
+    if line.startswith("VITE_API_URL"):
+        env_lines[i] = f'VITE_API_URL=http://{ip_address}:5454\n'
 
 with open(env_file_path, "w") as env_file:
     env_file.writelines(env_lines)
