@@ -97,7 +97,6 @@ const App = () => {
                   <Route path="/animation/pay" element={<TicketHistroy />} />
                   <Route path="/animation/TicketHistroyDog" element={<TicketHistroy />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
-                  <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                 </>
               ) : user.role === "Registral" ? (
