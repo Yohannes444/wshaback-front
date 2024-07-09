@@ -205,15 +205,6 @@ const Sidebar = ({ userRole }) => {
 
                 <NestedListItem
                   component={Link}
-                  to="/Keno/TicketResult"
-                  selected={location.pathname === "/Keno/TicketResult"}
-                  button
-                >
-                  <ListItemText primary="Ticket Result" />
-                </NestedListItem>
-
-                <NestedListItem
-                  component={Link}
                   to="/Keno/TicketHistroy"
                   selected={location.pathname === "/Keno/TicketHistroy"}
                   button
