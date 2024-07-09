@@ -148,7 +148,7 @@ const Animation = () => {
       <Container fluid>
         <Row>
           <Col md={12} style={{ marginTop: '15px', paddingLeft: '0px', paddingRight: '0px' }}>
-            {showHorseRacing ? <HorsRasingPage /> : <DogRasing />}
+            {showHorseRacing ? <HorsRasingPage /> : <HorsRasingPage />}
           </Col>
         </Row>
       </Container>
