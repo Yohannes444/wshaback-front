@@ -48,12 +48,14 @@ import Animation from "./components/animation";
 import Master2 from './components/master2';
 import PostResultTry from "./components/PostResultTry";
 import PostResultAnime from "./components/PostResultAnime";
-import PostResultKeno from "./components/PostResultKeno";
 import TicketHistroy from "./pages/OrderDetailDisplay";
 import Dashboard from "./components/Dashboard";
 import Pay from "./components/Pay";
 import TryAnimation from "./components/TtyFectaAnimation";
 import Spin from './components/spinComponent';
+import KenoTicketHistroy from "./pages/KenoTicketHistroy";
+import DogAnimeTicketHistroy from "./pages/DogAnimeTicketHistroy";
+import HourseAnimeTicketHistroy from "./pages/HourseAnimeTicketHistroy";
 
 
 
@@ -96,12 +98,11 @@ const App = () => {
                   <Route path="/animation/Home" element={<Animation />} />
                   <Route path="/OrderStatusCounDetail" element={<OrderStatusCountDetail />} />
                   <Route path="/Keno/Home" element={<Master2 />} />
-                  <Route path="/Keno/TicketHistroy" element={<TicketHistroy />} />
+                  <Route path="/Keno/TicketHistroy" element={<KenoTicketHistroy />} />
                   <Route path="/animation/TicketResult" element={<PostResultAnime />} />
-                  <Route path="/animation/TicketHistroyHourse" element={<TicketHistroy />} />
-                  <Route path="/Keno/TicketResult" element={<PostResultKeno />} />
+                  <Route path="/animation/TicketHistroyHourse" element={<HourseAnimeTicketHistroy />} />
                   <Route path="/animation/pay" element={<TicketHistroy />} />
-                  <Route path="/animation/TicketHistroyDog" element={<TicketHistroy />} />
+                  <Route path="/animation/TicketHistroyDog" element={<DogAnimeTicketHistroy />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                   <Route path="/spin" element={<Spin />} />

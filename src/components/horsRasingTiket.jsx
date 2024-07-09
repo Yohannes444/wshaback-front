@@ -20,6 +20,10 @@ const HorsRasingTiket = forwardRef((props, ref) => {
   const [totalBetAmount, setTotalBetAmount] = useState(0);
   const [ticketID, setTicketID] = useState('');
 
+  console.log(props.newBette.selectedButtons)
+
+  console.log(betList)
+
   useEffect(() => {
     const generateTicketID = () => {
       return Math.floor(100000 + Math.random() * 900000).toString();
@@ -30,6 +34,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
       setBetList((prevList) => [...prevList, newBette]);
+
     }
   }, [newBette]);
 
@@ -37,7 +42,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = "https://localhost:5454/tickets";
+          const url = "http://localhost:545/anime-hors";
           const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -46,7 +51,8 @@ const HorsRasingTiket = forwardRef((props, ref) => {
             body: JSON.stringify({
               bets: betList,
               gameId: props.gameID,
-              win: false,
+              tiketId: 54564,
+              tiketerId: "dfjhdhds4fd6d",
             }),
           });
           const data = await response.json();

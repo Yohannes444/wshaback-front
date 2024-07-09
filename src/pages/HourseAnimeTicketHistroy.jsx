@@ -179,7 +179,7 @@ export default function StickyHeadTable() {
         component="div"
         sx={{ padding: "16px", fontWeight: "bold" }}
       >
-        TryFecta Ticket History Page
+       Hourse Ticket History Page
       </Typography>
       <div
         style={{ display: "flex", alignItems: "center", marginBottom: "16px" }}
