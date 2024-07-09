@@ -285,12 +285,23 @@ const Sidebar = ({ userRole }) => {
 
                 <NestedListItem
                   component={Link}
-                  to="/animation/pay"
-                  selected={location.pathname === "/animaiton/pay"}
+                  to="/animation/payHourse"
+                  selected={location.pathname === "/animaiton/payHourse"}
                   button
                 >
-                  <ListItemText primary="Pay" />
+                  <ListItemText primary="Pay Hourse" />
                 </NestedListItem>
+
+
+                <NestedListItem
+                  component={Link}
+                  to="/animation/payDog"
+                  selected={location.pathname === "/animaiton/payDog"}
+                  button
+                >
+                  <ListItemText primary="Pay Dog" />
+                </NestedListItem>
+
               </List>
             </Collapse>
           </>
