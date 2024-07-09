@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
-import MainHome from "./MainComponent";
 import ResultModal from './ResultModal';
+import DogRasing from './animeDogComponent';
+import HorsRasingPage from './horsRasingPage';
+import MainHome from "./MainComponent";
 import { getBaseURLLogin } from "../api/baseURL";
 
 const SERVER_TIME_INTERVAL = 60000; // Fetch server time every 1 minute
@@ -13,23 +15,28 @@ const Animation = () => {
   const [timer, setTimer] = useState(0);
   const [modalTimer, setModalTimer] = useState(60); // 1 minute for modal
   const [showModal, setShowModal] = useState(false);
+  const isFetching = useRef(false); // Track ongoing fetch with useRef
 
-  const fetchServerTime = async () => {
+  const fetchServerTime = useCallback(async () => {
+    if (isFetching.current) return; // Skip if a fetch is already in progress
+
+    isFetching.current = true;
     try {
       const baseURL = await getBaseURLLogin(); // Fetch the base URL dynamically
       const response = await fetch(`${baseURL}/`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
       console.log(data);
       const serverTime = new Date(data.time);
-      // console.log(serverTime)
       return serverTime;
     } catch (error) {
       console.error('Failed to fetch server time:', error);
       // return new Date(); // Fallback to local time if server time fetch fails
+    } finally {
+      isFetching.current = false;
     }
-  };
+  }, []);
 
-  const calculateTimers = async (initial = false) => {
+  const calculateTimers = useCallback(async (initial = false) => {
     const now = await fetchServerTime();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
@@ -69,7 +76,7 @@ const Animation = () => {
         calculateTimers();
       }, SERVER_TIME_INTERVAL);
     }
-  };
+  }, [fetchServerTime]);
 
   useEffect(() => {
     calculateTimers(true); // Initial calculation and start periodic server time fetch
@@ -85,7 +92,7 @@ const Animation = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [calculateTimers]);
 
   useEffect(() => {
     if (showModal) {
@@ -102,7 +109,7 @@ const Animation = () => {
 
       return () => clearInterval(modalInterval);
     }
-  }, [showModal]);
+  }, [showModal, calculateTimers]);
 
   const handleActionClick = () => {
     navigate("/spin");
@@ -134,7 +141,7 @@ const Animation = () => {
                 <span style={{ fontSize: '24px', color: showModal ? 'red' : 'green', fontWeight: 'bold' }}>
                   {showModal 
                     ? `Modal closes in 0:${modalTimer < 10 ? `0${modalTimer}` : modalTimer} minutes`
-                    : `You have ${Math.floor(timer / 60)}:${timer % 60 < 10 ? `0${timer % 60}` : timer % 60} minutes remaining`}
+                    : `Next switch in ${Math.floor(timer / 60)}:${timer % 60 < 10 ? `0${timer % 60}` : timer % 60} minutes`}
                 </span>
               </Col>
               <Col>
