@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import TableComponent from "./TicketTable";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Select from "@mui/material/Select";
+import axios from 'axios';
 import MenuItem from "@mui/material/MenuItem";
 
 const columns = [
@@ -23,7 +24,7 @@ const columns = [
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
   const formattedEndDate = format(selectedEndDate, "yyyy-MM-dd");
-  const url = `http://localhost:3000/getdatas?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `http://localhost:5454/grayhorn/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -38,7 +39,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataById = async (ticketID) => {
-  const url = `http://localhost:5454/anime-hors/${ticketID}`;
+  const url = `http://localhost:5454/grayhorn/filter?gameId=${encodeURIComponent(ticketID)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -52,20 +53,31 @@ const fetchDataById = async (ticketID) => {
   }
 };
 
+
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `http://localhost:3000/${dropdownValue}`;
+  const url = `http://localhost:5454/grayhorn/filter`; // Update with your endpoint
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    const params = {};
+    params[dropdownValue] = true; // Dynamically create the object with key-value pair
+
+    const response = await axios.get(url, {
+      params: params
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Failed to fetch data");
     }
-    const data = await response.json();
-    return data;
   } catch (error) {
     console.error("Error fetching data:", error);
     return [];
   }
 };
+
+
+
+
 
 const BlackButton = styled(Button)(({ theme }) => ({
   color: theme.palette.common.white,
@@ -202,8 +214,8 @@ export default function StickyHeadTable() {
           }}
         />
 
-        <BlackButton variant="contained" sx={{ padding: "14px" }} onClick={handleGetDataByDate}>
-          Get Data by Date
+        <BlackButton variant="contained" sx={{ padding: "5px" }} onClick={handleGetDataByDate}>
+          Get Data
         </BlackButton>
 
         <Select
@@ -215,11 +227,8 @@ export default function StickyHeadTable() {
           <MenuItem value="" disabled>
             Select an option
           </MenuItem>
-          <MenuItem value="dkf">dkf</MenuItem>
-          <MenuItem value="kdjf">kdjf</MenuItem>
-          <MenuItem value="djkjdj">djkjdj</MenuItem>
-          <MenuItem value="jdkjf">jdkjf</MenuItem>
-          <MenuItem value="kfjd">kfjd</MenuItem>
+          <MenuItem value="payd">Paied</MenuItem>
+          <MenuItem value="canceled">Canceled</MenuItem>
         </Select>
 
         <div style={{ marginLeft: "16px" }}>
