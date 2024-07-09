@@ -3,8 +3,11 @@ import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem, Moda
 import moment from 'moment';
 import { forwardRef } from "react";
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import { initializeUser, selectUser } from "../redux/slice/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const Tikete = forwardRef((props, ref) => {
+  const user = useSelector(selectUser);
   const { newBette } = props;
   const [betList, setBetList] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -53,6 +56,7 @@ const Tikete = forwardRef((props, ref) => {
               bets: betList,
               gameId: props.gameID,
               win: false,
+              tiketerId: "user._id"
             })
           });
           const data = await response.json();
