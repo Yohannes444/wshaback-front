@@ -38,8 +38,8 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   }
 };
 
-const fetchDataById = async (ticketID) => {
-  const url = `http://localhost:5454/grayhorn/filter?gameId=${encodeURIComponent(ticketID)}`;
+const fetchDataByGameId = async (gameId) => {
+  const url = `http://localhost:5454/grayhorn/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -90,7 +90,7 @@ const BlackButton = styled(Button)(({ theme }) => ({
 export default function StickyHeadTable() {
   const [selectedStartDate, setSelectedStartDate] = React.useState(null);
   const [selectedEndDate, setSelectedDateEndDate] = React.useState(null);
-  const [ticketID, setTicketID] = React.useState("");
+  const [gameId, setGameId] = React.useState("");
   const [rows, setRows] = React.useState([]);
   const [dropdownValue, setDropdownValue] = React.useState("");
 
@@ -102,8 +102,8 @@ export default function StickyHeadTable() {
     setSelectedDateEndDate(date);
   };
 
-  const handleTicketIDChange = (event) => {
-    setTicketID(event.target.value);
+  const handlegameIdChange = (event) => {
+    setGameId(event.target.value);
   };
 
   const handleDropdownChange = async (event) => {
@@ -142,10 +142,10 @@ export default function StickyHeadTable() {
   };
 
   const handleGetDataById = async () => {
-    if (!ticketID) {
+    if (!gameId) {
       return;
     }
-    const data = await fetchDataById(ticketID);
+    const data = await fetchDataByGameId(gameId);
     const formattedData = createData(
       data.order_id,
       data.name,
@@ -231,16 +231,16 @@ export default function StickyHeadTable() {
           <MenuItem value="canceled">Canceled</MenuItem>
         </Select>
 
-        <div style={{ marginLeft: "16px" }}>
+        <div style={{ marginLeft: "14px" }}>
           <TextField
-            id="ticketID"
-            label="Enter Ticket ID"
-            value={ticketID}
-            onChange={handleTicketIDChange}
+            id="GameID"
+            label="Enter Game ID"
+            value={gameId}
+            onChange={handlegameIdChange}
             sx={{ marginLeft: "16px" }}
           />
-          <BlackButton variant="contained" sx={{ marginLeft: "15px", padding: "14px" }} onClick={handleGetDataById}>
-            Search by ID
+          <BlackButton variant="contained" sx={{ marginLeft: "15px", padding: "10px", marginTop:'5px'}} onClick={handleGetDataById}>
+            Search by GameID
           </BlackButton>
         </div>
 
