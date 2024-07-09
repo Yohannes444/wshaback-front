@@ -33,7 +33,6 @@ const Animation = () => {
     const now = await fetchServerTime();
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
-
     const currentMinute = minutes % 10; // Current position within the 10-minute cycle
     const currentSecond = currentMinute * 60 + seconds;
 
