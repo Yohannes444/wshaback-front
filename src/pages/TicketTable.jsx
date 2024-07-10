@@ -13,6 +13,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 import TablePagination from '@mui/material/TablePagination';
+import moment from 'moment'; // Import moment for date formatting
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,9 +37,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 function TableComponent({ columns, rows }) {
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  console.log(rows)
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleViewInvoice = (row) => {
     navigate(`/ticketInvoice`, { state: { ticket: row } });
@@ -57,8 +56,13 @@ function TableComponent({ columns, rows }) {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const renderCellContent = (column, value) => {
+    console.log(column)
     if (column.id === 'payd' || column.id === 'canceled') {
-      return value ? <CheckIcon sx={{color: "green"}}/> : <ClearIcon sx={{color: "red"}}/>;
+      return value ? <CheckIcon sx={{ color: "green" }} /> : <ClearIcon sx={{ color: "red" }} />;
+    }
+    // Format date fields
+    if (column.id === 'createdAt' || column.id === 'updatedDate') {
+      return moment(value).format('MM/DD/YYYY');
     }
     return value;
   };

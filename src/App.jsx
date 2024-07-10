@@ -6,14 +6,14 @@ import { initializeUser, selectUser } from "./redux/slice/userSlice";
 import Login from "./pages/Login";
 import Sidebar from "./layout/Sidebar";
 import Topbar from "./layout/Topbar";
-import OrderStatusCountDetail from "./pages/OrderDetailDisplay";
+import OrderStatusCountDetail from "./pages/TryFectaTicketHistroy";
 import ErrorPage  from "./pages/404";
 import Main from './components/MainComponent';
 import Animation from "./components/animation";
 import Master2 from './components/master2';
 import PostResultTry from "./components/PostResultTry";
 import PostResultAnime from "./components/PostResultAnime";
-import TicketHistroy from "./pages/OrderDetailDisplay";
+import TryFectaTicketHistroy from "./pages/TryFectaTicketHistroy";
 import Dashboard from "./components/Dashboard";
 import Pay from "./components/Pay";
 import TryAnimation from "./components/TtyFectaAnimation";
@@ -64,7 +64,7 @@ const App = () => {
 
                   <Route path="/tryfecta/Home" element={<TryAnimation />} />
                   <Route path="/tryfecta/TicketResult" element={<PostResultTry />} />
-                  <Route path="/tryfecta/TicketHistroy" element={<TicketHistroy />} />
+                  <Route path="/tryfecta/TicketHistroy" element={<TryFectaTicketHistroy />} />
                   <Route path="/animation/Home" element={<Animation />} />
                   <Route path="/OrderStatusCounDetail" element={<OrderStatusCountDetail />} />
                   <Route path="/Keno/Home" element={<Master2 />} />
