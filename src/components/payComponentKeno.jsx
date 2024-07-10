@@ -20,7 +20,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`http://localhost:5454/keno/pay?tiketId=${code}`, {
+    fetch(`http://localhost:5454/keno/tiketId/${code}`, {
       method: 'POST',
     })
       .then(response => response.json())
