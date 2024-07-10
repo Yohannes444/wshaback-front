@@ -13,10 +13,10 @@ import axios from 'axios';
 import MenuItem from "@mui/material/MenuItem";
 
 const columns = [
-  { id: "gameId", label: "Game ID", minWidth: 120 },
-  { id: "ticketId", label: "Ticket ID", minWidth: 170 },
-  { id: "payd", label: "Pay status", minWidth: 170 },
-  { id: "canceled", label: "Cancelled", minWidth: 170 },
+  { id: "gameId", label: "Game ID", minWidth: 100 },
+  { id: "ticketId", label: "Ticket ID", minWidth: 120 },
+  { id: "payd", label: "Pay status", minWidth: 100 },
+  { id: "canceled", label: "Cancelled", minWidth: 100 },
   { id: "createdAt", label: "Created At", minWidth: 170 },
   { id: "updatedDate", label: "Order Updated Date", minWidth: 170 },
   { id: "totalPrize", label: "Total Prize", minWidth: 150 },
