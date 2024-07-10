@@ -173,7 +173,7 @@ const incrementGameID = () => {
       <div>
 
       <section id="list-group">
-  <div className="container-lg" style={{ backgroundImage: 'url("/Top_Landing_Pge.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
+  <div className="container-lg" style={{ backgroundImage: 'url("/dog1.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
     <h1 className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
       <div style={{ display: 'flex' }}>
@@ -325,9 +325,9 @@ const incrementGameID = () => {
           </Col>
          <img src=""/>
         </Row>
-        <div style={{backgroundImage: 'url("/HowtoWager_DogsAcross_1500x400.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+        <div style={{backgroundImage: 'url("/dog2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
           <p style={{color:'white', paddingLeft:"10px", fontWeight:"bold", fontSize:"20px"}}> this system is provided by Gizework Marye & yohannes mulat</p>
-          <p style={{color:'red', paddingLeft:"10px", fontWeight:"bold", fontSize:"20px"}}> phone number 0979458662/0929272814 </p>
+          <p style={{color:'white',marginTop:"40px", paddingLeft:"10px", fontWeight:"bold", fontSize:"20px"}}> phone number 0979458662/0929272814 </p>
           <p>|</p>
           <p>|</p>
           <p>|</p>
