@@ -112,6 +112,7 @@ export default function StickyHeadTable() {
     const value = event.target.value;
     setDropdownValue(value);
     const data = await fetchDataByDropdownValue(value);
+    console.log("data:",data)
     const formattedData = data.map((ticket) =>
       createData(
         ticket.gameId,
@@ -152,6 +153,7 @@ export default function StickyHeadTable() {
       return;
     }
     const data = await fetchDataByGameId(gameId);
+    console.log("data",data)
     const formattedData = createData(
       data.gameId,
       data.tiketId,

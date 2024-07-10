@@ -152,17 +152,20 @@ export default function StickyHeadTable() {
       return;
     }
     const data = await fetchDataByGameId(gameId);
-    const formattedData = createData(
-      data.gameId,
-      data.tiketId,
-      data.payd,
-      data.canceled,
-      data.createdAt,
-      data.updatedAt,
-      data.totslPrize,
-      data.tiketerId.name
+    console.log("data",data)
+    const formattedData = data.map((ticket) =>
+      createData(
+        ticket.gameId,
+        ticket.tiketId,
+        ticket.payd,
+        ticket.canceled,
+        ticket.createdAt,
+        ticket.updatedAt,
+        ticket.totslPrize,
+        ticket.tiketerId.name
+      )
     );
-    setRows([formattedData]);
+    setRows(formattedData);
   };
 
   const exportToExcel = () => {
