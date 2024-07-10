@@ -55,7 +55,7 @@ const Tikete = forwardRef((props, ref) => {
             body: JSON.stringify({
               bets: betList,
               gameId: props.gameID,
-              win: false,
+              tiketId: 545416,
               tiketerId: "user._id"
             })
           });

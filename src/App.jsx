@@ -56,6 +56,9 @@ import Spin from './components/spinComponent';
 import KenoTicketHistroy from "./pages/KenoTicketHistroy";
 import DogAnimeTicketHistroy from "./pages/DogAnimeTicketHistroy";
 import HourseAnimeTicketHistroy from "./pages/HourseAnimeTicketHistroy";
+import PayAnime from "./components/PayAnime";
+import PayKeno from "./components/PayKeno";
+import payAnimeDog from "./components/PayAnimeDog";
 
 
 
@@ -98,10 +101,12 @@ const App = () => {
                   <Route path="/animation/Home" element={<Animation />} />
                   <Route path="/OrderStatusCounDetail" element={<OrderStatusCountDetail />} />
                   <Route path="/Keno/Home" element={<Master2 />} />
+                  <Route path="/Keno/pay" element={<PayKeno />} />
                   <Route path="/Keno/TicketHistroy" element={<KenoTicketHistroy />} />
                   <Route path="/animation/TicketResult" element={<PostResultAnime />} />
                   <Route path="/animation/TicketHistroyHourse" element={<HourseAnimeTicketHistroy />} />
-                  <Route path="/animation/pay" element={<TicketHistroy />} />
+                  <Route path="/animation/payHourse" element={<PayAnime />} />
+                  <Route path="/animation/payDog" element={<payAnimeDog />} />
                   <Route path="/animation/TicketHistroyDog" element={<DogAnimeTicketHistroy />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
@@ -115,7 +120,7 @@ const App = () => {
                 </>
               ) : null
             ) : (
-              <Route path="/" element={<Pay />} />
+              <Route path="/" element={<Login />} />
             )}
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
