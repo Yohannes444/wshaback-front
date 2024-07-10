@@ -5,6 +5,8 @@ import { forwardRef } from "react";
 import { FaTrash, FaEdit } from 'react-icons/fa';
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import Barcode from "react-barcode";
+
 
 const Tikete = forwardRef((props, ref) => {
   const user = useSelector(selectUser);
@@ -14,7 +16,14 @@ const Tikete = forwardRef((props, ref) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
   const [newBetAmount, setNewBetAmount] = useState(0);
   const [totalBetAmount, setTotalBetAmount] = useState(0);
+  const [ticketID, setTicketID] = useState('');
 
+  useEffect(() => {
+    const generateTicketID = () => {
+      return Math.floor(1000000 + Math.random() * 900000).toString();
+    };
+    setTicketID(generateTicketID());
+  }, []);
   const openModal = (index) => {
     setSelectedItemIndex(index);
     setModalIsOpen(true);
@@ -55,8 +64,8 @@ const Tikete = forwardRef((props, ref) => {
             body: JSON.stringify({
               bets: betList,
               gameId: props.gameID,
-              tiketId: 545416,
-              tiketerId: "user._id"
+              tiketId: ticketID,
+              tiketerId: user._id
             })
           });
           const data = await response.json();
@@ -93,8 +102,11 @@ const Tikete = forwardRef((props, ref) => {
     <div className="mt-5" ref={ref}>
       <Card className="font-ticketing text-lg" id="ticket">
         <CardBody>
-          <div>
-            <CardTitle tag="h5">3S Betting</CardTitle>
+        <div>
+            <CardTitle tag="h3" style={{ marginLeft: '10px', fontSize: "25px" }}>3S-Betting</CardTitle>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+              <CardTitle tag="p" style={{ marginLeft: '10px', fontSize: "18px" }}>Ticket-Number: {ticketID}</CardTitle>
+            </div>
           </div>
           <CardSubtitle tag="h6" className="mb-2 text-muted">Game ID: {props.gameID}</CardSubtitle>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -179,7 +191,10 @@ const Tikete = forwardRef((props, ref) => {
 
           <div className="mt-3">
             <div>
-              <strong>Total:</strong> {totalBetAmount}
+              <strong>Total:</strong> {totalBetAmount} Birr
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+                <Barcode value={ticketID} width={2} height={30} displayValue={false} />
+              </div>
             </div>
             <div>
               <strong>Date:</strong> {moment().format('MMMM Do YYYY, h:mm:ss a')}
