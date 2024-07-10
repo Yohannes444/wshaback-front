@@ -38,6 +38,8 @@ function TableComponent({ columns, rows }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  console.log(rows)
+
   const handleViewInvoice = (row) => {
     navigate(`/ticketInvoice`, { state: { ticket: row } });
   };

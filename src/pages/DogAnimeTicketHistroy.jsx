@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -24,9 +25,10 @@ const columns = [
 ];
 
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
-  const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
-  const formattedEndDate = format(selectedEndDate, "yyyy-MM-dd");
-  const url = `http://localhost:5454/grayhorn/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  // const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
+  const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
+  const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
+  const url = `http://localhost:5454/animeDog/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -41,7 +43,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `http://localhost:5454/grayhorn/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `http://localhost:5454/anime-dog/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -55,9 +57,8 @@ const fetchDataByGameId = async (gameId) => {
   }
 };
 
-
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `http://localhost:5454/grayhorn/filter`; // Update with your endpoint
+  const url = `http://localhost:5454/anime-dog/filter`; // Update with your endpoint
   try {
     const params = {};
     params[dropdownValue] = true; // Dynamically create the object with key-value pair
@@ -77,9 +78,20 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
   }
 };
 
-
-
-
+const fetchDefaultData = async () => {
+  const url = `http://localhost:5454/anime-dog`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return [];
+  }
+};
 
 const BlackButton = styled(Button)(({ theme }) => ({
   color: theme.palette.common.white,
@@ -95,6 +107,27 @@ export default function StickyHeadTable() {
   const [gameId, setGameId] = React.useState("");
   const [rows, setRows] = React.useState([]);
   const [dropdownValue, setDropdownValue] = React.useState("");
+
+  useEffect(() => {
+    const loadDefaultData = async () => {
+      const data = await fetchDefaultData();
+      const formattedData = data.map((ticket) =>
+        createData(
+          ticket.gameId,
+          ticket.tiketId,
+          ticket.payd,
+          ticket.canceled,
+          ticket.createdAt,
+          ticket.updatedAt,
+          ticket.totslPrize,
+          ticket.tiketerId.name,
+          ticket.bets
+        )
+      );
+      setRows(formattedData);
+    };
+    loadDefaultData();
+  }, []);
 
   const handleStartDateChange = (date) => {
     setSelectedStartDate(date);
@@ -112,7 +145,7 @@ export default function StickyHeadTable() {
     const value = event.target.value;
     setDropdownValue(value);
     const data = await fetchDataByDropdownValue(value);
-    console.log("data:",data)
+    console.log(data);
     const formattedData = data.map((ticket) =>
       createData(
         ticket.gameId,
@@ -122,7 +155,8 @@ export default function StickyHeadTable() {
         ticket.createdAt,
         ticket.updatedAt,
         ticket.totslPrize,
-        ticket.tiketerId.name
+        ticket.tiketerId.name,
+        ticket.bets
       )
     );
     setRows(formattedData);
@@ -133,6 +167,8 @@ export default function StickyHeadTable() {
       return;
     }
     const data = await fetchDataByDate(selectedStartDate, selectedEndDate);
+    console.log(data);
+
     const formattedData = data.map((ticket) =>
       createData(
         ticket.gameId,
@@ -142,7 +178,8 @@ export default function StickyHeadTable() {
         ticket.createdAt,
         ticket.updatedAt,
         ticket.totslPrize,
-        ticket.tiketerId.name
+        ticket.tiketerId.name,
+        ticket.bets
       )
     );
     setRows(formattedData);
@@ -153,24 +190,27 @@ export default function StickyHeadTable() {
       return;
     }
     const data = await fetchDataByGameId(gameId);
-    console.log("data",data)
-    const formattedData = createData(
-      data.gameId,
-      data.tiketId,
-      data.payd,
-      data.canceled,
-      data.createdAt,
-      data.updatedAt,
-      data.totslPrize,
-      data.tiketerId.name
+    console.log("data", data);
+    const formattedData = data.map((ticket) =>
+      createData(
+        ticket.gameId,
+        ticket.tiketId,
+        ticket.payd,
+        ticket.canceled,
+        ticket.createdAt,
+        ticket.updatedAt,
+        ticket.totslPrize,
+        ticket.tiketerId.name,
+        ticket.bets
+      )
     );
-    setRows([formattedData]);
+    setRows(formattedData);
   };
 
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(rows);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Orders");
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Tickets");
 
     const headers = columns.map((column) => {
       return { v: column.label, s: { fill: { bgColor: { rgb: "CCCCCC" } } } };
@@ -189,7 +229,7 @@ export default function StickyHeadTable() {
         component="div"
         sx={{ padding: "16px", fontWeight: "bold" }}
       >
-       Dog Ticket History Page
+        Dog Ticket History Page
       </Typography>
       <div
         style={{ display: "flex", alignItems: "center", marginBottom: "16px" }}
@@ -235,9 +275,9 @@ export default function StickyHeadTable() {
           sx={{ marginLeft: "16px", marginRight: "16px" }}
         >
           <MenuItem value="" disabled>
-            Select an option
+            Filter
           </MenuItem>
-          <MenuItem value="payd">Paied</MenuItem>
+          <MenuItem value="payd">Paid</MenuItem>
           <MenuItem value="canceled">Canceled</MenuItem>
         </Select>
 
@@ -247,7 +287,7 @@ export default function StickyHeadTable() {
             label="Enter Game ID"
             value={gameId}
             onChange={handlegameIdChange}
-            sx={{ marginLeft: "16px" }}
+            sx={{ marginLeft: "10px" }}
           />
           <BlackButton variant="contained" sx={{ marginLeft: "15px", padding: "10px", marginTop:'5px'}} onClick={handleGetDataById}>
             Search by GameID
@@ -265,11 +305,17 @@ export default function StickyHeadTable() {
           Export to Excel <FileDownloadIcon />
         </Button>
       </div>
-      <TableComponent columns={columns} rows={rows} />
+      {rows.length > 0 ? (
+        <TableComponent columns={columns} rows={rows} />
+      ) : (
+        <Typography variant="h6" component="div" sx={{ padding: "16px", textAlign: "center" }}>
+          No data available
+        </Typography>
+      )}
     </Paper>
   );
 }
 
-function createData(gameId, tiketId, payd,canceled, createdAt, updatedDate, totslPrize, ticketerName) {
-  return { gameId, tiketId, payd, createdAt,canceled, updatedDate, totslPrize,ticketerName };
+function createData(gameId, tiketId, payd, canceled, createdAt, updatedDate, totslPrize, ticketerName, bets) {
+  return { gameId, tiketId, payd, canceled, createdAt, updatedDate, totslPrize, ticketerName, bets };
 }
