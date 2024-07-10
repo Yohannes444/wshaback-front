@@ -23,8 +23,9 @@ import DogAnimeTicketHistroy from "./pages/DogAnimeTicketHistroy";
 import HourseAnimeTicketHistroy from "./pages/HourseAnimeTicketHistroy";
 import PayAnime from "./components/PayAnime";
 import PayKeno from "./components/PayKeno";
-import payAnimeDog from "./components/PayAnimeDog";
+import PayAnimeDog from "./components/PayAnimeDog";
 import TicketInvoice from "./pages/TicketInvoice";
+import DogAnime from "./components/animeDogComponent";
 
 
 
@@ -72,7 +73,7 @@ const App = () => {
                   <Route path="/animation/TicketResult" element={<PostResultAnime />} />
                   <Route path="/animation/TicketHistroyHourse" element={<HourseAnimeTicketHistroy />} />
                   <Route path="/animation/payHourse" element={<PayAnime />} />
-                  <Route path="/animation/payDog" element={<payAnimeDog />} />
+                  <Route path="/animation/payDog" element={<PayAnimeDog />} />
                   <Route path="/animation/TicketHistroyDog" element={<DogAnimeTicketHistroy />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
@@ -80,7 +81,7 @@ const App = () => {
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                   <Route path="/ticketInvoice" element={<TicketInvoice />} />
                 </>
-              ) : user.role === "Registral" ? (
+              ) : user.role === "Manager" ? (
                 <>
                   <Route path="/" element={<Navigate to="/dashboard" />} />
                   <Route path="/dashboard" element={<Dashboard userRole={user.role} />} />

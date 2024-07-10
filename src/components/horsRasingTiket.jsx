@@ -11,8 +11,11 @@ import moment from "moment";
 import { forwardRef } from "react";
 import { FaTrash } from "react-icons/fa";
 import Barcode from "react-barcode";
+import { initializeUser, selectUser } from "../redux/slice/userSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const HorsRasingTiket = forwardRef((props, ref) => {
+  const user = useSelector(selectUser);
   const { newBette } = props;
   const [betList, setBetList] = useState([]);
   const [betAmounts, setBetAmounts] = useState({});
@@ -52,7 +55,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
               bets: betList,
               gameId: props.gameID,
               tiketId: 54564,
-              tiketerId: "dfjhdhds4fd6d",
+              tiketerId: user._id,
             }),
           });
           const data = await response.json();
