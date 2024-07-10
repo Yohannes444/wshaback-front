@@ -14,12 +14,13 @@ import MenuItem from "@mui/material/MenuItem";
 
 const columns = [
   { id: "gameId", label: "Game ID", minWidth: 100 },
-  { id: "ticketId", label: "Ticket ID", minWidth: 120 },
-  { id: "payd", label: "Pay status", minWidth: 100 },
-  { id: "canceled", label: "Cancelled", minWidth: 100 },
+  { id: "tiketId", label: "Ticket ID", minWidth: 120 },
+  { id: "payd", label: "Pay status", minWidth: 50 },
+  { id: "canceled", label: "Cancelled", minWidth: 50 },
   { id: "createdAt", label: "Created At", minWidth: 170 },
   { id: "updatedDate", label: "Order Updated Date", minWidth: 170 },
-  { id: "totalPrize", label: "Total Prize", minWidth: 150 },
+  { id: "totslPrize", label: "Total Prize", minWidth: 150 },
+  { id: "ticketerName", label: "Ticketer Name", minWidth: 100 },
 ];
 
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
@@ -114,12 +115,13 @@ export default function StickyHeadTable() {
     const formattedData = data.map((ticket) =>
       createData(
         ticket.gameId,
-        ticket.ticketId,
+        ticket.tiketId,
         ticket.payd,
         ticket.canceled,
         ticket.createdAt,
         ticket.updatedAt,
-        ticket.totslPrize
+        ticket.totslPrize,
+        ticket.tiketerId.name
       )
     );
     setRows(formattedData);
@@ -133,12 +135,13 @@ export default function StickyHeadTable() {
     const formattedData = data.map((ticket) =>
       createData(
         ticket.gameId,
-        ticket.ticketId,
+        ticket.tiketId,
         ticket.payd,
         ticket.canceled,
         ticket.createdAt,
         ticket.updatedAt,
-        ticket.totslPrize
+        ticket.totslPrize,
+        ticket.tiketerId.name
       )
     );
     setRows(formattedData);
@@ -151,12 +154,13 @@ export default function StickyHeadTable() {
     const data = await fetchDataByGameId(gameId);
     const formattedData = createData(
       data.gameId,
-      data.ticketId,
+      data.tiketId,
       data.payd,
       data.canceled,
       data.createdAt,
       data.updatedAt,
-      data.totslPrize
+      data.totslPrize,
+      data.tiketerId.name
     );
     setRows([formattedData]);
   };
@@ -264,6 +268,6 @@ export default function StickyHeadTable() {
   );
 }
 
-function createData(orderId, customerName, phoneNumber, createdAt, updatedDate, status) {
-  return { orderId, customerName, phoneNumber, createdAt, updatedDate, status };
+function createData(gameId, tiketId, payd,canceled, createdAt, updatedDate, totslPrize, ticketerName) {
+  return { gameId, tiketId, payd, createdAt,canceled, updatedDate, totslPrize,ticketerName };
 }

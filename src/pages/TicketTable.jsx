@@ -9,8 +9,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import CheckIcon from '@mui/icons-material/Check';
+import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
-
+import TablePagination from '@mui/material/TablePagination';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,49 +35,86 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 function TableComponent({ columns, rows }) {
   const navigate = useNavigate();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const handleViewInvoice = (orderId) => {
-    navigate(`/ticketInvoice/${orderId}`);
+  const handleViewInvoice = (row) => {
+    navigate(`/ticketInvoice`, { state: { ticket: row } });
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  const renderCellContent = (column, value) => {
+    if (column.id === 'payd' || column.id === 'canceled') {
+      return value ? <CheckIcon sx={{color: "green"}}/> : <ClearIcon sx={{color: "red"}}/>;
+    }
+    return value;
   };
 
   return (
-    <TableContainer sx={{ margin: '0 0px', maxHeight: 500 }}>
-      <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 700 }}>
-        <TableHead>
-          <TableRow>
-            {columns.map((column) => (
-              <StyledTableCell
-                key={column.id}
-                align="center" // Align center for column headers
-                style={{ minWidth: column.minWidth }}
-              >
-                {column.label}
-              </StyledTableCell>
-            ))}
-            <StyledTableCell align="center">Actions</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.orderId}>
+    <Paper>
+      <TableContainer sx={{ margin: '0 0px', maxHeight: 500 }}>
+        <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 700 }}>
+          <TableHead>
+            <TableRow>
               {columns.map((column) => (
-                <StyledTableCell key={column.id} align="center">
-                  {row[column.id]}
+                <StyledTableCell
+                  key={column.id}
+                  align="center" // Align center for column headers
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
                 </StyledTableCell>
               ))}
-              <StyledTableCell align="center">
-                <IconButton
-                  aria-label="view"
-                  onClick={() => handleViewInvoice(row.orderId)}
-                >
-                  <VisibilityIcon />
-                </IconButton>
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              <StyledTableCell align="center">Actions</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+              <StyledTableRow hover role="checkbox" tabIndex={-1} key={row.orderId}>
+                {columns.map((column) => (
+                  <StyledTableCell key={column.id} align="center">
+                    {renderCellContent(column, row[column.id])}
+                  </StyledTableCell>
+                ))}
+                <StyledTableCell align="center">
+                  <IconButton
+                    aria-label="view"
+                    onClick={() => handleViewInvoice(row)}
+                  >
+                    <VisibilityIcon />
+                  </IconButton>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={columns.length + 1} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 }
 

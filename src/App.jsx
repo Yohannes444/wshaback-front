@@ -1,38 +1,3 @@
-// import './App.css';
-// import Main from './components/MainComponent';
-// import Master2 from './components/master2'
-// import Spin from './components/spinComponent'
-// import React,{ Component } from 'react';
-//  import { Provider } from 'react-redux';
-// import { BrowserRouter } from 'react-router-dom';
-// import { Routes, Route } from "react-router-dom";
-// import Animation from "./components/animation"
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// // import './index.css'
-// import AnimeDoge  from './components/animeDogComponent';
-// import AnimeHourse from "./components/horsRasingPage";
-
-//  function App() {
-//     return (
-//         <BrowserRouter>
-//             <div className="App">
-//               <Routes>
-//                 <Route path="/" element={<Main/>} />
-//                 <Route path="/keno" element={<Master2/>} />
-//                 <Route path='/spin' element={<Spin/>}/>
-//                 <Route path= '/animation' element={<Animation/>}/>
-//                 <Route path= '/animedog' element= {<AnimeDoge/>}/>
-//                 <Route path="/animehourse" element={<AnimeHourse/>}/>
-//               </Routes>
-              
-//             </div>
-//           </BrowserRouter>
-//     ); 
-// }
-
-// export default App;
-
-
 
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -59,6 +24,7 @@ import HourseAnimeTicketHistroy from "./pages/HourseAnimeTicketHistroy";
 import PayAnime from "./components/PayAnime";
 import PayKeno from "./components/PayKeno";
 import payAnimeDog from "./components/PayAnimeDog";
+import TicketInvoice from "./pages/TicketInvoice";
 
 
 
@@ -112,6 +78,7 @@ const App = () => {
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                   <Route path="/spin" element={<Spin />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
+                  <Route path="/ticketInvoice" element={<TicketInvoice />} />
                 </>
               ) : user.role === "Registral" ? (
                 <>

@@ -13,12 +13,14 @@ import axios from 'axios';
 import MenuItem from "@mui/material/MenuItem";
 
 const columns = [
-  { id: "orderId", label: "Order ID", minWidth: 120 },
-  { id: "customerName", label: "Customer Name", minWidth: 170 },
-  { id: "phoneNumber", label: "Phone Number", minWidth: 170 },
+  { id: "gameId", label: "Game ID", minWidth: 100 },
+  { id: "tiketId", label: "Ticket ID", minWidth: 120 },
+  { id: "payd", label: "Pay status", minWidth: 50 },
+  { id: "canceled", label: "Cancelled", minWidth: 50 },
   { id: "createdAt", label: "Created At", minWidth: 170 },
   { id: "updatedDate", label: "Order Updated Date", minWidth: 170 },
-  { id: "status", label: "Status", minWidth: 150 },
+  { id: "totslPrize", label: "Total Prize", minWidth: 150 },
+  { id: "ticketerName", label: "Ticketer Name", minWidth: 100 },
 ];
 
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
@@ -110,14 +112,16 @@ export default function StickyHeadTable() {
     const value = event.target.value;
     setDropdownValue(value);
     const data = await fetchDataByDropdownValue(value);
-    const formattedData = data.map((order) =>
+    const formattedData = data.map((ticket) =>
       createData(
-        order.order_id,
-        order.name,
-        order.order_receiver_phone_number,
-        order.createdAt,
-        order.updatedAt,
-        order.order_status
+        ticket.gameId,
+        ticket.tiketId,
+        ticket.payd,
+        ticket.canceled,
+        ticket.createdAt,
+        ticket.updatedAt,
+        ticket.totslPrize,
+        ticket.tiketerId.name
       )
     );
     setRows(formattedData);
@@ -128,14 +132,16 @@ export default function StickyHeadTable() {
       return;
     }
     const data = await fetchDataByDate(selectedStartDate, selectedEndDate);
-    const formattedData = data.map((order) =>
+    const formattedData = data.map((ticket) =>
       createData(
-        order.order_id,
-        order.name,
-        order.order_receiver_phone_number,
-        order.createdAt,
-        order.updatedAt,
-        order.order_status
+        ticket.gameId,
+        ticket.tiketId,
+        ticket.payd,
+        ticket.canceled,
+        ticket.createdAt,
+        ticket.updatedAt,
+        ticket.totslPrize,
+        ticket.tiketerId.name
       )
     );
     setRows(formattedData);
@@ -147,12 +153,14 @@ export default function StickyHeadTable() {
     }
     const data = await fetchDataByGameId(gameId);
     const formattedData = createData(
-      data.order_id,
-      data.name,
-      data.order_receiver_phone_number,
+      data.gameId,
+      data.tiketId,
+      data.payd,
+      data.canceled,
       data.createdAt,
       data.updatedAt,
-      data.order_status
+      data.totslPrize,
+      data.tiketerId.name
     );
     setRows([formattedData]);
   };
@@ -260,6 +268,6 @@ export default function StickyHeadTable() {
   );
 }
 
-function createData(orderId, customerName, phoneNumber, createdAt, updatedDate, status) {
-  return { orderId, customerName, phoneNumber, createdAt, updatedDate, status };
+function createData(gameId, tiketId, payd,canceled, createdAt, updatedDate, totslPrize, ticketerName) {
+  return { gameId, tiketId, payd, createdAt,canceled, updatedDate, totslPrize,ticketerName };
 }
