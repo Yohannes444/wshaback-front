@@ -45,16 +45,25 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = "http://localhost:545/anime-hors";
+          const url = "http://localhost:5454/anime-hors";
+          const betlist= []
+          betList.map((bet)=>{
+            betlist.push({
+              selectedButtons: [bet.selectedButtons[0][0],bet.selectedButtons[0][1]],
+              betAmount: bet.betAmount
+            });
+          })
+       
+
           const response = await fetch(url, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              bets: betList,
+              bets: betlist,
               gameId: props.gameID,
-              tiketId: 54564,
+              tiketId: ticketID,
               tiketerId: user._id,
             }),
           });

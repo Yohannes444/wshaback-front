@@ -55,23 +55,30 @@ const ResultModalPage = () => {
     const parsedFormData = {
       gameId: parseInt(formData.gameId),
       First: {
-            [`${lastRenderedComponent}PlaceNum`]: parseInt(formData.firstNumber),
-            [`${lastRenderedComponent}PlaceOdd`]: parseFloat(formData.firstOdd)
+            [`DogPlaceNum`]: parseInt(formData.firstNumber),
+            [`DogPlaceOdd`]: parseFloat(formData.firstOdd)
           },
           Second: {
-            [`${lastRenderedComponent}PlaceNum`]: parseInt(formData.secondNumber),
-            [`${lastRenderedComponent}PlaceOdd`]: parseFloat(formData.secondOdd)
+            [`DogPlaceNum`]: parseInt(formData.secondNumber),
+            [`DogPlaceOdd`]: parseFloat(formData.secondOdd)
           },
       type:[`${lastRenderedComponent}`]
     };
 
     try {
-      const response = await fetch(`http://localhost:5454/gameresult/${lastRenderedComponent}Result`, {
+      console.log("parsedFormData: ",parsedFormData)
+      const dataa={
+        First:parsedFormData.First,
+        Second:parsedFormData.Second,
+        type:parsedFormData.type[0],
+        gameId:parsedFormData.gameId
+      }
+      const response = await fetch(`http://localhost:5454/gameresult`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(parsedFormData)
+        body: JSON.stringify(dataa)
       });
 
       if (response.ok) {
