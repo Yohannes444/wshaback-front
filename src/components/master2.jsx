@@ -35,6 +35,7 @@ const master2 = (props) => {
   };
 
   
+
   const renderButtons = () => {
     const buttons = [];
     for (let i = 1; i <= 80; i++) {
@@ -51,7 +52,7 @@ const master2 = (props) => {
       );
 
       // Add line break after every 10 buttons
-      if (i % 10 === 0) {
+      if (i % 9 === 0) {
         buttons.push(<br key={`br-${i}`} />);
       }
     }
@@ -157,14 +158,7 @@ const incrementGameID = () => {
     <div className="container-lg" style={{backgroundImage: 'url("/keno4.jpeg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
 
             <h1  className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
-            <div style={{display: 'flex'}}>
-            <a href="/animation/Home" className="d-flex">
-              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>DOG</button>
-            </a>
-            <a href="/spin" className="d-flex">
-              <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
-            </a>
-            </div>
+       
             <div className="text-center mb-3">
             <div className=" text-center">
               <h5 htmlFor="gameID" className=" text-white p-3 ">

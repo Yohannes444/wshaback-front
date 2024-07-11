@@ -22,6 +22,14 @@ const HorsRasingTiket = forwardRef((props, ref) => {
   const [totalBetAmount, setTotalBetAmount] = useState(0);
   const [ticketID, setTicketID] = useState('');
 
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  
+  const formattedDate = `${year}${month}${day}`;
+  const gameId=`${formattedDate}${props.gameID}`
+
   useEffect(() => {
     generateTicketID();
   }, []);
@@ -53,7 +61,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
             },
             body: JSON.stringify({
               bets: betlist,
-              gameId: props.gameID,
+              gameId: gameId,
               tiketId: ticketID,
               tiketerId: user._id,
             }),
@@ -124,7 +132,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
             </div>
           </div>
           <CardSubtitle tag="h6" className="mb-2 text-muted ">
-            Game ID: {props.gameID}
+            Game ID: {gameId}
           </CardSubtitle>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <h5>Dog Racing</h5>
@@ -195,10 +203,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                 <Barcode value={ticketID} width={2} height={30} displayValue={false} />
               </div>
             </div>
-            <div>
-              <strong>Date:</strong>{" "}
-              {moment().format("MMMM Do YYYY, h:mm:ss a")}
-            </div>
+          
           </div>
         </CardBody>
       </Card>

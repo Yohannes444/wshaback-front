@@ -3,6 +3,11 @@ import { Card, CardBody, CardTitle, CardSubtitle, ListGroup, ListGroupItem ,Moda
 import moment from 'moment';
 import  { forwardRef } from "react";
 import { FaTrash,FaEdit } from 'react-icons/fa';
+import { useSelector, useDispatch } from "react-redux";
+import { initializeUser, selectUser } from "../redux/slice/userSlice";
+import Barcode from "react-barcode";
+
+
 
 const kenoTikete = forwardRef((props, ref) => {
   const { newBette } = props;
@@ -12,6 +17,16 @@ const kenoTikete = forwardRef((props, ref) => {
   const [newBetAmount, setNewBetAmount] = useState(0);
   const [totalBetAmount, setTotalBetAmount] = useState(0); // New state for total bet amount
   const [totalPossibleWin, setTotalPossibleWin] = useState(0)
+  const user = useSelector(selectUser);
+  const [ticketID, setTicketID] = useState('');
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  
+  const formattedDate = `${year}${month}${day}`;
+  const gameId=`${formattedDate}${props.gameID}`
 
   const openModal = (index) => {
     setSelectedItemIndex(index);
@@ -34,7 +49,13 @@ const kenoTikete = forwardRef((props, ref) => {
     }
   };
 
- 
+  useEffect(() => {
+    const generateTicketID = () => {
+      return Math.floor(1000000 + Math.random() * 900000).toString();
+    };
+    setTicketID(generateTicketID());
+  }, []);
+
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
       // Update bet list when a new bet is received
@@ -48,6 +69,7 @@ const kenoTikete = forwardRef((props, ref) => {
       if (props.isTiketPrinted) {
         try {
           const url = 'http://localhost:5454/keno';
+         
           const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -55,8 +77,10 @@ const kenoTikete = forwardRef((props, ref) => {
             },
             body: JSON.stringify({
               bets: betList,
-              gameId: props.gameID,
-              win: false // Assuming the initial value of win is false
+              gameId: gameId,
+              win: false, // Assuming the initial value of win is false
+              tiketerId: user._id,
+              tiketId: ticketID
             })
           });
           const data = await response.json();
@@ -110,8 +134,11 @@ const calculateTotalPossibleWin = () => {
         <CardBody>
           <div >
             <CardTitle tag="h5">3S  Betting</CardTitle>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+              <CardTitle tag="p" style={{ marginLeft: '10px', fontSize: "18px" }}>Ticket-Number: {ticketID}</CardTitle>
+            </div>
           </div>
-          <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {props.gameID}</CardSubtitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted ">Game ID: {gameId}</CardSubtitle>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <h3>KENO</h3>
             </div>  
@@ -142,9 +169,10 @@ const calculateTotalPossibleWin = () => {
               
             </div>
             <div><strong>Total Possible Win :</strong>{totalPossibleWin}</div>
-            <div>
-              <strong>Date:</strong> {moment().format('MMMM Do YYYY, h:mm:ss a')}
-            </div>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+                <Barcode value={ticketID} width={2} height={30} displayValue={false} />
+              </div>
+            
           </div>
 
         </CardBody>

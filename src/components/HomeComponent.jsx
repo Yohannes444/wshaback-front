@@ -176,14 +176,6 @@ const incrementGameID = () => {
   <div className="container-lg" style={{ backgroundImage: 'url("/dog1.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
     <h1 className="text-white" style={{ textAlign: 'center' }}>3S BETTING</h1>
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div style={{ display: 'flex' }}>
-        <a href="/spin" className="d-flex">
-          <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>SPIN</button>
-        </a>
-        <a href="/Keno/Home" className="d-flex">
-          <button style={{ backgroundColor: '#001f3f', color: 'white', fontWeight: 'bold', padding: '10px 20px', borderRadius: '10px' }}>KENO</button>
-        </a>
-      </div>
     </div>
     <div className="text-center mb-3">
       <div className="text-center">
