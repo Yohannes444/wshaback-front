@@ -28,7 +28,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
   const day = String(currentDate.getDate()).padStart(2, '0');
   
   const formattedDate = `${year}${month}${day}`;
-  const gameId=`${formattedDate}${props.gameID}`
+  const gameId = Number(`${formattedDate}${props.gameID}`);
 
   useEffect(() => {
     generateTicketID();
