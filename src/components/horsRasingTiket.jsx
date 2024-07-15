@@ -13,6 +13,7 @@ import { FaTrash } from "react-icons/fa";
 import Barcode from "react-barcode";
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import './styles.css'; // Import the CSS file
 
 const HorsRasingTiket = forwardRef((props, ref) => {
   const user = useSelector(selectUser);
@@ -161,19 +162,19 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                         <div key={btnIndex} className="d-flex flex-column align-items-start mb-2 w-100">
                           <div className="d-flex align-items-center w-100">
                             <div className="flex-grow-1">
-                              <strong>[{dogNumber}]</strong> {displayValue}
+                              <strong>[{dogNumber}]</strong> 
                               <span className="ml-2">
-                                <strong>________</strong> {bet.betAmount}_____
+                                <strong>________</strong> {bet.betAmount}<div className="no-print">_____</div>
                               </span>
                             </div>
-                            <div className="ml-2">
+                            <div className="ml-2 no-print">
                               <FaTrash
                                 onClick={() => deleteItem(index)}
                                 style={{ cursor: "pointer", marginRight: "10px", color: "red" }}
                               />
                             </div>
                           </div>
-                          <div className="d-flex mt-2">
+                          <div className="d-flex mt-2 no-print">
                             {amountButtons.map((amount) => (
                               <button
                                 key={amount}
