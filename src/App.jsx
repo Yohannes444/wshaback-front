@@ -14,6 +14,7 @@ import Master2 from './components/master2';
 import PostResultTry from "./components/PostResultTry";
 import PostResultAnime from "./components/PostResultAnime";
 import TryFectaTicketHistroy from "./pages/TryFectaTicketHistroy";
+import TryFectaResults from "./pages/tryfectaResult";
 import Dashboard from "./components/Dashboard";
 import Pay from "./components/Pay";
 import TryAnimation from "./components/TtyFectaAnimation";
@@ -65,6 +66,7 @@ const App = () => {
                   <Route path="/tryfecta/Home" element={<TryAnimation />} />
                   <Route path="/tryfecta/TicketResult" element={<PostResultTry />} />
                   <Route path="/tryfecta/TicketHistroy" element={<TryFectaTicketHistroy />} />
+                  <Route path="/tryfecta/Results" element={<TryFectaResults />} />
                   <Route path="/animation/Home" element={<Animation />} />
                   <Route path="/OrderStatusCounDetail" element={<OrderStatusCountDetail />} />
                   <Route path="/Keno/Home" element={<Master2 />} />

@@ -259,9 +259,7 @@ export default function StickyHeadTable() {
             shrink: true,
           }}
           sx={{ marginRight: "16px" }}
-          inputProps={{
-            max: format(new Date(), "yyyy-MM-dd"),
-          }}
+         
         />
 
         <BlackButton variant="contained" sx={{ padding: "5px" }} onClick={handleGetDataByDate}>

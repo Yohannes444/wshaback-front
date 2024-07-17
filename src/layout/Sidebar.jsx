@@ -156,9 +156,16 @@ const Sidebar = ({ userRole }) => {
                   selected={location.pathname === "/tryfecta/TicketHistroy"}
                   button
                 >
-                  <ListItemText primary="Ticket Histroy" />
+                  <ListItemText primary="Ticket History" />
                 </NestedListItem>
-
+                  <NestedListItem
+                  component={Link}
+                  to="/tryfecta/Results"
+                  selected={location.pathname === "/tryfecta/Results"}
+                  button
+                >
+                  <ListItemText primary="Result History" />
+                </NestedListItem>
                 <NestedListItem
                   component={Link}
                   to="/tryfecta/pay"
@@ -167,6 +174,7 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Pay" />
                 </NestedListItem>
+
               </List>
             </Collapse>
 
