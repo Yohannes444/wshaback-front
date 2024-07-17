@@ -105,6 +105,18 @@ const Tikete = forwardRef((props, ref) => {
       return newItems;
     });
   };
+  const handleBetAmountChange = (index, newAmount) => {
+    setBetList((prevList) => {
+      const updatedList = prevList.map((bet, i) => {
+        if (i === index) {
+          return { ...bet, betAmount: newAmount };
+        }
+        return bet;
+      });
+      return updatedList;
+    });
+  };
+  const amountButtons = [10, 20, 30, 50, 100];
 
   return (
     <div className="mt-5" ref={ref}>
@@ -184,14 +196,34 @@ const Tikete = forwardRef((props, ref) => {
               }
 
               return (
-                <ListGroupItem key={index} className="d-flex align-items-center">
+                <ListGroupItem key={index} className="d-flex flex-column align-items-start mb-2 w-100">
+                  <div className="d-flex align-items-center w-100">
                   <div>
                     <strong>{displayValue}</strong>
                   </div>
-                  <div>
-                    <strong>________</strong> {correspondingAmount} _____
-                    <FaTrash onClick={() => deleteItem(index)} /><FaEdit onClick={() => openModal(index)} />
+                  <div className="d-flex ">
+                    <strong>________</strong> {correspondingAmount}<div className="no-print">_____</div>
+                    <div className="ml-2 no-print">
+                              <FaTrash
+                                onClick={() => deleteItem(index)}
+                                style={{ cursor: "pointer", marginRight: "10px", color: "red" }}
+                              />
+                            </div>
                   </div>
+                  </div>
+                  
+                  
+                  <div className="d-flex mt-2 no-print" >
+                            {amountButtons.map((amount) => (
+                              <button
+                                key={amount}
+                                className="btn btn-sm btn-outline-primary ml-1"
+                                onClick={() => handleBetAmountChange(index, amount)}
+                              >
+                                {amount}
+                              </button>
+                            ))}
+                          </div>
                 </ListGroupItem>
               );
             })}
