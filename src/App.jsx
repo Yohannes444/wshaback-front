@@ -16,6 +16,7 @@ import PostResultAnime from "./components/PostResultAnime";
 import TryFectaTicketHistroy from "./pages/TryFectaTicketHistroy";
 import TryFectaResults from "./pages/tryfectaResult";
 import Dashboard from "./components/Dashboard";
+import AnimationResultHistory from "./pages/animeDogResult"
 import Pay from "./components/Pay";
 import TryAnimation from "./components/TtyFectaAnimation";
 import Spin from './components/spinComponent';
@@ -77,6 +78,7 @@ const App = () => {
                   <Route path="/animation/payHourse" element={<PayAnime />} />
                   <Route path="/animation/payDog" element={<PayAnimeDog />} />
                   <Route path="/animation/TicketHistroyDog" element={<DogAnimeTicketHistroy />} />
+                  <Route path="/animation/ResultHistory" element={<AnimationResultHistory />} />
                   <Route path="/tryfecta/Dashboard" element={<Dashboard />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                   <Route path="/spin" element={<Spin />} />

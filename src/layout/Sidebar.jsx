@@ -282,6 +282,15 @@ const Sidebar = ({ userRole }) => {
 
                 <NestedListItem
                   component={Link}
+                  to="/animation/ResultHistory"
+                  selected={location.pathname === "/animation/ResultHistory"}
+                  button
+                >
+                  <ListItemText primary="Result History" />
+                </NestedListItem>
+
+                <NestedListItem
+                  component={Link}
                   to="/animation/TicketHistroyHourse"
                   selected={
                     location.pathname === "/animation/TicketHistroyDogHourse"

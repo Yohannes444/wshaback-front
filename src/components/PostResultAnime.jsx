@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { Form, Row, Col, Spinner, Button, Card } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+import {  selectUser } from "../redux/slice/userSlice";
+
 
 const ResultModalPage = () => {
+  const user = useSelector(selectUser);
+
   const [formData, setFormData] = useState({
     gameId: '',
     firstNumber: '',
@@ -71,7 +76,8 @@ const ResultModalPage = () => {
         First:parsedFormData.First,
         Second:parsedFormData.Second,
         type:parsedFormData.type[0],
-        gameId:parsedFormData.gameId
+        gameId:parsedFormData.gameId,
+        tiketerId: `${user._id}`,
       }
       const response = await fetch(`http://localhost:5454/gameresult`, {
         method: 'POST',
