@@ -28,7 +28,7 @@ const columns = [
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `http://localhost:5454/grayhorn-resulat/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `https://betingserver.onrender.com/grayhorn-resulat/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -43,7 +43,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `http://localhost:5454/grayhorn-resulat/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `https://betingserver.onrender.com/grayhorn-resulat/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -58,7 +58,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `http://localhost:5454/grayhorn-resulat/filter`;
+  const url = `https://betingserver.onrender.com/grayhorn-resulat/filter`;
   try {
     const params = {};
     params[dropdownValue] = true;
@@ -79,7 +79,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
 };
 
 const fetchDefaultData = async () => {
-  const url = `http://localhost:5454/grayhorn-resulat`;
+  const url = `https://betingserver.onrender.com/grayhorn-resulat`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

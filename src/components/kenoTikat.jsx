@@ -68,7 +68,7 @@ const kenoTikete = forwardRef((props, ref) => {
     const saveTicketToDatabase = async () => {
       if (props.isTiketPrinted) {
         try {
-          const url = 'http://localhost:5454/keno';
+          const url = 'https://betingserver.onrender.com/keno';
          
           const response = await fetch(url, {
             method: 'POST',

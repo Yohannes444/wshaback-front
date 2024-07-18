@@ -79,7 +79,7 @@ const ResultModalPage = () => {
         gameId:parsedFormData.gameId,
         tiketerId: `${user._id}`,
       }
-      const response = await fetch(`http://localhost:5454/gameresult`, {
+      const response = await fetch(`https://betingserver.onrender.com/gameresult`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

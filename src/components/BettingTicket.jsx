@@ -63,7 +63,7 @@ const Tikete = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted) {
-          const url = 'http://localhost:5454/grayhorn';
+          const url = 'https://betingserver.onrender.com/grayhorn';
           const response = await fetch(url, {
             method: 'POST',
             headers: {

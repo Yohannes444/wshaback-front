@@ -20,7 +20,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`http://localhost:5454/animeDog/tiketId/${code}`, {
+    fetch(`https://betingserver.onrender.com/animeDog/tiketId/${code}`, {
       method: 'GET',
     })
       .then(response => response.json())

@@ -20,7 +20,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`http://localhost:5454/grayhorn/tiketId/${code}`, {
+    fetch(`https://betingserver.onrender.com/grayhorn/tiketId/${code}`, {
       method: 'Get',
     })
       .then(response => response.json())

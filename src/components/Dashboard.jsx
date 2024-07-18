@@ -36,7 +36,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true); // Set loading to true when fetching data starts
-    fetch(`http://localhost:5454/stat?tiketerId=${user._id}`)
+    fetch(`https://betingserver.onrender.com/stat?tiketerId=${user._id}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);

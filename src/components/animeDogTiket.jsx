@@ -45,7 +45,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted) {
-          const url = "http://localhost:5454/anime-dog";
+          const url = "https://betingserver.onrender.com/anime-dog";
           const betlist= []
           betList.map((bet)=>{
             betlist.push({

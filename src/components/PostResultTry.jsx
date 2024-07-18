@@ -79,7 +79,7 @@ const ResultModalPage = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:5454/grayhorn-resulat`, {
+      const response = await fetch(`https://betingserver.onrender.com/grayhorn-resulat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

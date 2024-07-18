@@ -28,7 +28,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   // const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `http://localhost:5454/anime-hors/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `https://betingserver.onrender.com/anime-hors/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -43,7 +43,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `http://localhost:5454/anime-hors/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `https://betingserver.onrender.com/anime-hors/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -58,7 +58,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `http://localhost:5454/anime-hors/filter`; // Update with your endpoint
+  const url = `https://betingserver.onrender.com/anime-hors/filter`; // Update with your endpoint
   try {
     const params = {};
     params[dropdownValue] = true; // Dynamically create the object with key-value pair
@@ -79,7 +79,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
 };
 
 const fetchDefaultData = async () => {
-  const url = `http://localhost:5454/anime-hors`;
+  const url = `https://betingserver.onrender.com/anime-hors`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
