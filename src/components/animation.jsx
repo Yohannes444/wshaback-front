@@ -22,7 +22,7 @@ const Animation = () => {
     isFetching.current = true;
     try {
       const baseURL = await getBaseURLLogin(); // Fetch the base URL dynamically
-      const response = await fetch(`${baseURL}/`); // Use the fetched baseURL to construct the API route
+      const response = await fetch(`${baseURL}`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
       console.log(data);
       const serverTime = new Date(data.time);
