@@ -7,13 +7,13 @@ import {
   ListGroup,
   ListGroupItem,
 } from "reactstrap";
-import moment from "moment";
 import { forwardRef } from "react";
 import { FaTrash } from "react-icons/fa";
 import Barcode from "react-barcode";
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import './styles.css'; // Import the CSS file
+import {BASE_URL} from "../api/baseURL";
 
 
 const HorsRasingTiket = forwardRef((props, ref) => {
@@ -45,7 +45,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted) {
-          const url = "http://localhost:5454/anime-dog";
+          const url = `${BASE_URL}/anime-dog`;
           const betlist= []
           betList.map((bet)=>{
             betlist.push({

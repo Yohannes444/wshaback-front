@@ -6,6 +6,7 @@ import { FaTrash,FaEdit } from 'react-icons/fa';
 import { useSelector, useDispatch } from "react-redux";
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import Barcode from "react-barcode";
+import {BASE_URL} from "../api/baseURL"
 
 
 
@@ -68,7 +69,7 @@ const kenoTikete = forwardRef((props, ref) => {
     const saveTicketToDatabase = async () => {
       if (props.isTiketPrinted) {
         try {
-          const url = 'http://localhost:5454/keno';
+          const url = `${BASE_URL}/keno`;
          
           const response = await fetch(url, {
             method: 'POST',

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 // import QrScanner from 'react-qr-scanner';
 import { QrReader } from 'react-qr-reader';
+import {BASE_URL} from "../api/baseURL";
 
 const ScanButton = () => {
   const [showScanner, setShowScanner] = useState(false);
@@ -20,7 +21,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`http://localhost:5454/grayhorn/tiketId/${code}`, {
+    fetch(`${BASE_URL}/grayhorn/tiketId/${code}`, {
       method: 'Get',
     })
       .then(response => response.json())

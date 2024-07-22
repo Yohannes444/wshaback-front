@@ -1,10 +1,11 @@
 // src/App.js
 
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, Grid, Box, CircularProgress } from '@mui/material';
 import { styled } from '@mui/system';
 import { selectUser } from "../redux/slice/userSlice";
 import { useSelector } from "react-redux";
+import {BASE_URL} from "../api/baseURL"
 
 const HoverCard = styled(Card)({
   transition: 'transform 0.3s, box-shadow 0.3s',
@@ -36,7 +37,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true); // Set loading to true when fetching data starts
-    fetch(`http://localhost:5454/stat?tiketerId=${user._id}`)
+    fetch(`${BASE_URL}/stat?tiketerId=${user._id}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
