@@ -30,8 +30,7 @@ import TicketInvoice from "./pages/TicketInvoice";
 import DogAnime from "./components/animeDogComponent";
 import  ParentComponent from './components/mach'
 import  TryParentComponent from './components/machTryfectaResulat'
-
-
+import Animepay  from './components/animePay'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -88,6 +87,7 @@ const App = () => {
                   <Route path="/ticketInvoice" element={<TicketInvoice />} />
                   <Route path="/mache" element={<ParentComponent />} />
                   <Route path="/tryfectamache" element={<TryParentComponent />} />
+                  <Route path="/Animepay" element={<Animepay />} />
 
                 </>
               ) : user.role === "Manager" ? (
