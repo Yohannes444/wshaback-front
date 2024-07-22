@@ -29,6 +29,7 @@ import PayAnimeDog from "./components/PayAnimeDog";
 import TicketInvoice from "./pages/TicketInvoice";
 import DogAnime from "./components/animeDogComponent";
 import  ParentComponent from './components/mach'
+import  TryParentComponent from './components/machTryfectaResulat'
 
 
 
@@ -86,6 +87,7 @@ const App = () => {
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                   <Route path="/ticketInvoice" element={<TicketInvoice />} />
                   <Route path="/mache" element={<ParentComponent />} />
+                  <Route path="/tryfectamache" element={<TryParentComponent />} />
 
                 </>
               ) : user.role === "Manager" ? (
