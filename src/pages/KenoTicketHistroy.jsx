@@ -12,6 +12,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Select from "@mui/material/Select";
 import axios from 'axios';
 import MenuItem from "@mui/material/MenuItem";
+import {BASE_URL} from "../api/baseURL"
 
 const columns = [
   { id: "gameId", label: "Game ID", minWidth: 100 },
@@ -28,7 +29,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   // const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `http://localhost:5454/Keno/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `${BASE_URL}/Keno/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -43,7 +44,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `http://localhost:5454/Keno/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `${BASE_URL}/Keno/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -58,7 +59,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `http://localhost:5454/Keno/filter`; // Update with your endpoint
+  const url = `${BASE_URL}/Keno/filter`; // Update with your endpoint
   try {
     const params = {};
     params[dropdownValue] = true; // Dynamically create the object with key-value pair
@@ -79,7 +80,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
 };
 
 const fetchDefaultData = async () => {
-  const url = `http://localhost:5454/Keno`;
+  const url = `${BASE_URL}/Keno`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

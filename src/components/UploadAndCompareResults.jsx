@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import axios from 'axios';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import {BASE_URL} from "../api/baseURL";
 
 const BlackButton = styled(Button)(({ theme }) => ({
   color: theme.palette.common.white,
@@ -39,7 +40,7 @@ const UploadAndCompareResults = ({ onComparisonResults }) => {
     formData.append('date', date);
 
     try {
-      const response = await axios.post('http://localhost:5454/anime-result-checkup/compareResults', formData, {
+      const response = await axios.post(`${BASE_URL}/anime-result-checkup/compareResults`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import AnimeCard from './animeTiketDetail';
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import {BASE_URL} from "../api/baseURL";
 
 const Animepay = () => {
   const [showScanner, setShowScanner] = useState(true);
@@ -41,8 +42,8 @@ const Animepay = () => {
     }
 
     const url = dropdownValue === "Dog"
-      ? `http://localhost:5454/animeDog/tiketId/${scannedCode}`
-      : `http://localhost:5454/anime-hors/tiketId/${scannedCode}`;
+      ? `${BASE_URL}/animeDog/tiketId/${scannedCode}`
+      : `${BASE_URL}/anime-hors/tiketId/${scannedCode}`;
 
     fetch(url, { method: 'GET' })
       .then(response => response.json())

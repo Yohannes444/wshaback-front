@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { QrReader } from 'react-qr-reader';
 import GrayhornCard  from './try'
+import {BASE_URL} from "../api/baseURL";
 
 const ScanButton = () => {
   const [showScanner, setShowScanner] = useState(true);
@@ -26,9 +27,9 @@ const ScanButton = () => {
     console.error(err);
   };
 
-  const sendScannedCodeToServer = () => {
-    fetch(`http://localhost:5454/grayhorn/tiketId/${scannedCode}`, {
-      method: 'GET',
+  const sendScannedCodeToServer = (code) => {
+    fetch(`${BASE_URL}/grayhorn/tiketId/${code}`, {
+      method: 'Get',
     })
       .then(response => response.json())
       .then(data => {

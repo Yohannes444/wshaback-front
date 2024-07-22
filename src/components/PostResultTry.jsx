@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import {BASE_URL} from "../api/baseURL";
 
 const ResultModalPage = () => {
   const user = useSelector(selectUser);
@@ -79,7 +80,7 @@ const ResultModalPage = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:5454/grayhorn-resulat`, {
+      const response = await fetch(`${BASE_URL}/grayhorn-resulat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

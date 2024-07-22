@@ -12,6 +12,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Select from "@mui/material/Select";
 import axios from 'axios';
 import MenuItem from "@mui/material/MenuItem";
+import { BASE_URL } from "../api/baseURL";
 
 const columns = [
   { id: "gameId", label: "Game ID", minWidth: 100 },
@@ -27,7 +28,7 @@ const columns = [
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `http://localhost:5454/grayhorn/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `${BASE_URL}/grayhorn/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -42,7 +43,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `http://localhost:5454/grayhorn/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `${BASE_URL}/grayhorn/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -57,7 +58,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `http://localhost:5454/grayhorn/filter`;
+  const url = `${BASE_URL}/grayhorn/filter`;
   try {
     const params = {};
     params[dropdownValue] = true;
@@ -78,7 +79,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
 };
 
 const fetchDefaultData = async () => {
-  const url = `http://localhost:5454/grayhorn`;
+  const url = `${BASE_URL}/grayhorn`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

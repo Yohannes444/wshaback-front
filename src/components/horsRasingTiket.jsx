@@ -14,6 +14,7 @@ import Barcode from "react-barcode";
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import './styles.css'; // Import the CSS file
+import {BASE_URL} from "../api/baseURL";
 
 const HorsRasingTiket = forwardRef((props, ref) => {
   const user = useSelector(selectUser);
@@ -50,7 +51,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = "http://localhost:5454/anime-hors";
+          const url = `${BASE_URL}/anime-hors`;
           const betlist= []
           betList.map((bet)=>{
             betlist.push({

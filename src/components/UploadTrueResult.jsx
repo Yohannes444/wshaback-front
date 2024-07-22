@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import axios from 'axios';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
+import {BASE_URL} from "../api/baseURL";
+
 
 const BlackButton = styled(Button)(({ theme }) => ({
   color: theme.palette.common.white,
@@ -33,7 +35,7 @@ export default function UploadTrueResult() {
     formData.append('file', file);
 
     try {
-      await axios.post('http://localhost:5454/anime-result-checkup/upload', formData, {
+      await axios.post(`${BASE_URL}/anime-result-checkup/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
