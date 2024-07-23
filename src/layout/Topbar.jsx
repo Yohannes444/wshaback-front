@@ -48,15 +48,22 @@ const Topbar = ({ userRole }) => {
       p={2}
       backgroundColor="#efefef" // Set your desired background color here
     >
+     
       <Box display="flex" borderRadius="3px" backgroundColor="#d7a022">
+        
         {/* Add your search bar component here if needed */}
       </Box>
 
       {/* ICONS */}
+      <h3>{`${import.meta.env.VITE_REACT_APP_VITE_API_URL} --- `}</h3>
       <Box display="flex" color="#d7a022" alignItems="center">
       <IconButton onClick={handleUserIconClick} sx={{ color: "#d7a022", display: 'flex', alignItems: 'center' }}>
-      <PersonOutlinedIcon />
+      {/* <h3>{import.meta.env.VITE_REACT_APP_VITE_API_URL}</h3> */}
+     
+      
+       <PersonOutlinedIcon />
       <Box ml={1}>
+        
         <Typography variant="body1" sx={{ color: "black" }}>
           Welcome, 
         </Typography>

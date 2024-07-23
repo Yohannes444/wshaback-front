@@ -63,7 +63,7 @@ const Tikete = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted) {
-          const url = `${REACT_APP_VITE_API_URL}/grayhorn`;
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/grayhorn`;
           const response = await fetch(url, {
             method: 'POST',
             headers: {
