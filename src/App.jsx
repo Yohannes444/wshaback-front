@@ -30,7 +30,7 @@ import TicketInvoice from "./pages/TicketInvoice";
 import DogAnime from "./components/animeDogComponent";
 import  ParentComponent from './components/mach'
 import  TryParentComponent from './components/machTryfectaResulat'
-
+import UserForm  from './components/UserForm'
 
 
 const App = () => {
@@ -99,6 +99,7 @@ const App = () => {
             ) : (
               <Route path="/" element={<Login />} />
             )}
+            <Route path="signup" element={<UserForm />} />
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </div>
