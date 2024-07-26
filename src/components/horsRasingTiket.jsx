@@ -51,7 +51,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = `${import.meta.env.REACT_APP_VITE_API_URL}/anime-hors`;
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/anime-hors`;
           const betlist= []
           betList.map((bet)=>{
             betlist.push({

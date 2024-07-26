@@ -72,7 +72,7 @@ export const loginUserAsync = (credentials) => async (dispatch) => {
 
 
 export const postUserAsync = createAsyncThunk(
-  `${import.meta.env.REACT_APP_VITE_API_URL}/user/signup`,
+  `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/user/signup`,
   async (userData) => {
     const response = await postUser(userData);
     return response;
