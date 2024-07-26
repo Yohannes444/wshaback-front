@@ -23,7 +23,6 @@ const Animation = () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
-      console.log(data);
       const serverTime = new Date(data.time);
       return serverTime;
     } catch (error) {

@@ -35,7 +35,7 @@ export default function UploadTrueResult() {
     formData.append('file', file);
 
     try {
-      await axios.post(`${BASE_URL}/tryfecta-result-checkup/upload`, formData, {
+      await axios.post(`${import.meta.env.REACT_APP_VITE_API_URL}/tryfecta-result-checkup/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

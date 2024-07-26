@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true); // Set loading to true when fetching data starts
-    fetch(`${BASE_URL}/stat?tiketerId=${user._id}`)
+    fetch(`${import.meta.env.REACT_APP_VITE_API_URL}/stat?tiketerId=${user._id}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);

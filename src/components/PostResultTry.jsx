@@ -80,7 +80,7 @@ const ResultModalPage = () => {
     };
 
     try {
-      const response = await fetch(`${BASE_URL}/grayhorn-resulat`, {
+      const response = await fetch(`${import.meta.env.REACT_APP_VITE_API_URL}/grayhorn-resulat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

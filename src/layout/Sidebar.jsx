@@ -300,24 +300,14 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Ticket Histroy Hourse" />
                 </NestedListItem>
-
+              
                 <NestedListItem
                   component={Link}
-                  to="/animation/payHourse"
-                  selected={location.pathname === "/animaiton/payHourse"}
+                  to="/animepay"
+                  selected={location.pathname === "/animepay"}
                   button
                 >
-                  <ListItemText primary="Pay Hourse" />
-                </NestedListItem>
-
-
-                <NestedListItem
-                  component={Link}
-                  to="/animation/payDog"
-                  selected={location.pathname === "/animaiton/payDog"}
-                  button
-                >
-                  <ListItemText primary="Pay Dog" />
+                  <ListItemText primary="Anime Pay" />
                 </NestedListItem>
 
               </List>
