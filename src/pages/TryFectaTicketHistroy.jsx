@@ -28,7 +28,7 @@ const columns = [
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `${BASE_URL}/grayhorn/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/grayhorn/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -43,7 +43,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `${BASE_URL}/grayhorn/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/grayhorn/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -58,7 +58,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `${BASE_URL}/grayhorn/filter`;
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/grayhorn/filter`;
   try {
     const params = {};
     params[dropdownValue] = true;
@@ -79,7 +79,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
 };
 
 const fetchDefaultData = async () => {
-  const url = `${BASE_URL}/grayhorn`;
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/grayhorn`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

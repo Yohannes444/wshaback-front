@@ -17,7 +17,7 @@ with open(env_file_path, "r") as env_file:
 
 for i, line in enumerate(env_lines):
     if line.startswith("REACT_APP_VITE_API_URL"):
-        env_lines[i] = f'REACT_APP_VITE_API_URL=http://{ip_address}:5454\n'
+        env_lines[i] = f'REACT_APP_VITE_API_URL=http://{ip_address}:5454'
 
 with open(env_file_path, "w") as env_file:
     env_file.writelines(env_lines)

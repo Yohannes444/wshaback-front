@@ -28,7 +28,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`${BASE_URL}/grayhorn/tiketId/${code}`, {
+    fetch(`${import.meta.env.REACT_APP_VITE_API_URL}/grayhorn/tiketId/${code}`, {
       method: 'Get',
     })
       .then(response => response.json())

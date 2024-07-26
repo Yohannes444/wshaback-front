@@ -36,8 +36,9 @@ const App = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const user = useSelector(selectUser);
+const vare=import.meta.env.REACT_APP_VITE_API_URL
+   console.log("user----",vare)
 
-   console.log(user)
 
   useEffect(() => {
     const fetchUser = async () => {

@@ -80,7 +80,7 @@ const ResultModalPage = () => {
         gameId:parsedFormData.gameId,
         tiketerId: `${user._id}`,
       }
-      const response = await fetch(`${BASE_URL}/gameresult`, {
+      const response = await fetch(`${import.meta.env.REACT_APP_VITE_API_URL}/gameresult`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

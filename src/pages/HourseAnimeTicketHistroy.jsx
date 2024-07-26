@@ -29,7 +29,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   // const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `${BASE_URL}/anime-hors/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/anime-hors/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -44,7 +44,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `${BASE_URL}/anime-hors/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/anime-hors/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -59,7 +59,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `${BASE_URL}/anime-hors/filter`; // Update with your endpoint
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/anime-hors/filter`; // Update with your endpoint
   try {
     const params = {};
     params[dropdownValue] = true; // Dynamically create the object with key-value pair
@@ -80,7 +80,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
 };
 
 const fetchDefaultData = async () => {
-  const url = `${BASE_URL}/anime-hors`;
+  const url = `${import.meta.env.REACT_APP_VITE_API_URL}/anime-hors`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
