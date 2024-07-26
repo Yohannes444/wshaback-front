@@ -5,7 +5,6 @@ import ResultModal from './ResultModal';
 import DogRasing from './animeDogComponent';
 import HorsRasingPage from './horsRasingPage';
 import MainHome from "./MainComponent";
-import { BASE_URL } from "../api/baseURL";
 
 const SERVER_TIME_INTERVAL = 60000; // Fetch server time every 1 minute
 
@@ -22,7 +21,7 @@ const Animation = () => {
 
     isFetching.current = true;
     try {
-      const response = await fetch(`${import.meta.env.REACT_APP_VITE_API_URL}/`); // Use the fetched baseURL to construct the API route
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
       const serverTime = new Date(data.time);
       return serverTime;

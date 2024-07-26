@@ -30,6 +30,7 @@ import TicketInvoice from "./pages/TicketInvoice";
 import DogAnime from "./components/animeDogComponent";
 import  ParentComponent from './components/mach'
 import  TryParentComponent from './components/machTryfectaResulat'
+import UserForm  from './components/UserForm'
 import Animepay  from './components/animePay'
 
 const App = () => {
@@ -100,6 +101,7 @@ const vare=import.meta.env.REACT_APP_VITE_API_URL
             ) : (
               <Route path="/" element={<Login />} />
             )}
+            <Route path="signup" element={<UserForm />} />
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import axios from 'axios'
 
 export default function SignIn() {
   const dispatch = useDispatch();
@@ -23,6 +24,23 @@ export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
   const [loading, setLoading] = useState(false); // State to manage loading spinner
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/user`);
+        console.log("fetch users: ",response.data.length );
+        if (response.data.length < 1) {
+          navigate("/signup");
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        navigate("/signup");
+      }
+    };
+
+    fetchUser();
+  }, [navigate]); 
 
   const handleLogin = async () => {
     setLoading(true);
