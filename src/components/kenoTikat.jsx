@@ -69,7 +69,7 @@ const kenoTikete = forwardRef((props, ref) => {
     const saveTicketToDatabase = async () => {
       if (props.isTiketPrinted) {
         try {
-          const url = `${BASE_URL}/keno`;
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/keno`;
          
           const response = await fetch(url, {
             method: 'POST',

@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, postUser } from "../../api/api";
-import { BASE_URL } from "../../api/baseURL";
 
 // Load user from localStorage
 const loadUserFromLocalStorage = () => {
@@ -72,7 +71,7 @@ export const loginUserAsync = (credentials) => async (dispatch) => {
 
 
 export const postUserAsync = createAsyncThunk(
-  `${BASE_URL}/user/signup`,
+  `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/user/signup`,
   async (userData) => {
     const response = await postUser(userData);
     return response;
