@@ -46,9 +46,9 @@ const AnimeCard = ({ anime, handleCancele, dropdownValue }) => {
     try {
       let endpoint;
       if (dropdownValue === "Dog") {
-        endpoint = 'http://localhost:5454/animeDog/pay';
+        endpoint = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog/pay`;
       } else if (dropdownValue === "Horse") {
-        endpoint = 'http://localhost:5454/anime-hors/pay';
+        endpoint = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/anime-hors/pay`;
       }
 
       const response = await fetch(endpoint, {

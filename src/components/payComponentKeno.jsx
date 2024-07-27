@@ -21,7 +21,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`${import.meta.env.REACT_APP_VITE_API_URL}/keno/tiketId/${code}`, {
+    fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/keno/tiketId/${code}`, {
       method: 'POST',
     })
       .then(response => response.json())

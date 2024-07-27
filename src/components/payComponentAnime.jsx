@@ -21,7 +21,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`${import.meta.env.REACT_APP_VITE_API_URL}/animehors/tiketId/${code}`, {
+    fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animehors/tiketId/${code}`, {
       method: 'GET',
     })
       .then(response => response.json())

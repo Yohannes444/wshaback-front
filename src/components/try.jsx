@@ -49,7 +49,7 @@ const formatDate = (dateString) => {
 const GrayhornCard = ({ grayhorn ,handleCancele}) => {
   const handlePay = async () => {
     try {
-      const response = await fetch('http://localhost:5454/grayhorn/pay', {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/grayhorn/pay`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

@@ -45,7 +45,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted) {
-          const url = `${import.meta.env.REACT_APP_VITE_API_URL}/anime-dog`;
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog`;
           const betlist= []
           betList.map((bet)=>{
             betlist.push({
@@ -146,17 +146,16 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                     {bet.selectedButtons.map((selectedBtn, btnIndex) => {
                       const [rank, dogNumber] = selectedBtn;
                       let displayValue;
+                      const ranke= selectedBtn[0]
 
-                      switch (rank) {
-                        case 1:
+                      switch (ranke) {
+                        case 0:
                           displayValue = "WIN";
                           break;
-                        case 2:
+                        case 1:
                           displayValue = "PLACE";
                           break;
-                        case 3:
-                          displayValue = "SHOW";
-                          break;
+                      
                         default:
                           displayValue = "UNKNOWN";
                       }

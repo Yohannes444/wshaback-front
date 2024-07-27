@@ -51,7 +51,7 @@ const SpinTikate = forwardRef((props, ref) => {
   useEffect(() => {
     const sendBetListToBackend = async () => {
       try {
-        const url ='https://localhost:3443'
+        const url =`${import.meta.env.VITE_REACT_APP_VITE_API_URL}`
         // const response = await axios.post(url, betList, {
         //   headers: {
         //     'Content-Type': 'application/json'

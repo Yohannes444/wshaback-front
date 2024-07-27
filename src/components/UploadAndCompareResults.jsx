@@ -40,7 +40,7 @@ const UploadAndCompareResults = ({ onComparisonResults }) => {
     formData.append('date', date);
 
     try {
-      const response = await axios.post(`${import.meta.env.REACT_APP_VITE_API_URL}/anime-result-checkup/compareResults`, formData, {
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/anime-result-checkup/compareResults`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -42,8 +42,8 @@ const Animepay = () => {
     }
 
     const url = dropdownValue === "Dog"
-      ? `${import.meta.env.REACT_APP_VITE_API_URL}/animeDog/tiketId/${scannedCode}`
-      : `${import.meta.env.REACT_APP_VITE_API_URL}/anime-hors/tiketId/${scannedCode}`;
+      ? `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog/tiketId/${scannedCode}`
+      : `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/anime-hors/tiketId/${scannedCode}`;
 
     fetch(url, { method: 'GET' })
       .then(response => response.json())
