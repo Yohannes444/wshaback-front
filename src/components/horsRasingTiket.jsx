@@ -143,18 +143,17 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                   <ListGroupItem key={index} className="d-flex flex-column align-items-start">
                     {bet.selectedButtons.map((selectedBtn, btnIndex) => {
                       const [rank, dogNumber] = selectedBtn;
+                      const ranke= selectedBtn[0]
                       let displayValue;
 
-                      switch (rank) {
-                        case 1:
+                      switch (ranke) {
+                        case 0:
                           displayValue = "WIN";
                           break;
-                        case 2:
+                        case 1:
                           displayValue = "PLACE";
                           break;
-                        case 3:
-                          displayValue = "SHOW";
-                          break;
+                        
                         default:
                           displayValue = "UNKNOWN";
                       }
@@ -163,7 +162,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                         <div key={btnIndex} className="d-flex flex-column align-items-start mb-2 w-100">
                           <div className="d-flex align-items-center w-100">
                             <div className="flex-grow-1">
-                              <strong>[{dogNumber}]</strong> 
+                              <strong>{displayValue}[{dogNumber}]</strong> 
                               <span className="ml-2">
                                 <strong>________</strong> {bet.betAmount}<div className="no-print">_____</div>
                               </span>

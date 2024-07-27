@@ -110,6 +110,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     const loadDefaultData = async () => {
       const data = await fetchDefaultData();
+      console.log("data: ",data)
       const formattedData = data.map((ticket) =>
         createData(
           ticket.gameId,
@@ -305,3 +306,6 @@ export default function StickyHeadTable() {
 function createData(gameId, tiketerId, first, second, third, windOdd, qunelaOdd, exactOdd, tryfectaOdd) {
   return { gameId, tiketerId, first, second, third, windOdd, qunelaOdd, exactOdd, tryfectaOdd };
 }
+
+
+
