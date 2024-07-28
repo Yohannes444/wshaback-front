@@ -33,7 +33,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
 
   useEffect(() => {
     generateTicketID();
-  }, []);
+  }, [props.handlePrint]);
 
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {

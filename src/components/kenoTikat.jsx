@@ -55,7 +55,7 @@ const kenoTikete = forwardRef((props, ref) => {
       return Math.floor(1000000 + Math.random() * 900000).toString();
     };
     setTicketID(generateTicketID());
-  }, []);
+  }, [props.handlePrint]);
 
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
