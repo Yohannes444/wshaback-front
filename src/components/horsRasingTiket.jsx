@@ -51,7 +51,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/anime-hors`;
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeHors`;
           const betlist= []
           betList.map((bet)=>{
             betlist.push({
@@ -147,10 +147,10 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                       let displayValue;
 
                       switch (ranke) {
-                        case 0:
+                        case 1:
                           displayValue = "WIN";
                           break;
-                        case 1:
+                        case 2:
                           displayValue = "PLACE";
                           break;
                         

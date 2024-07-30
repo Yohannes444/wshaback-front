@@ -48,7 +48,7 @@ const AnimeCard = ({ anime, handleCancele, dropdownValue }) => {
       if (dropdownValue === "Dog") {
         endpoint = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog/pay`;
       } else if (dropdownValue === "Horse") {
-        endpoint = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/anime-hors/pay`;
+        endpoint = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeHors/pay`;
       }
 
       const response = await fetch(endpoint, {
@@ -134,18 +134,18 @@ const AnimeCard = ({ anime, handleCancele, dropdownValue }) => {
             {betList.map((bet, index) => {
               let displayValue;
 
-              if (bet.selectedButtons.length === 1) {
+              if (bet.selectedButtons.length > 0 ) {
                 const firstElement = bet.selectedButtons[0];
 
                 switch (firstElement) {
                   case 1:
-                    displayValue = `WIN[${bet.selectedButtons.join(', ')}]`;
+                    displayValue = `WIN[${bet.selectedButtons[1]}]`;
                     break;
                   case 2:
-                    displayValue = `PLACE[${bet.selectedButtons.join(', ')}]`;
+                    displayValue = `PLACE[${bet.selectedButtons[1]}]`;
                     break;
                   case 3:
-                    displayValue = `SHOW[${bet.selectedButtons.join(', ')}]`;
+                    displayValue = `SHOW[${bet.selectedButtons[1]}]`;
                     break;
                   default:
                     displayValue = 'UNKNOWN';

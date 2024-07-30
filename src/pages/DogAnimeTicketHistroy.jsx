@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import * as XLSX from "xlsx";
 import { format } from "date-fns";
 import TextField from "@mui/material/TextField";
-import TableComponent from "./TicketTable";
+import AnimeTableComponent from "./animetable";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Select from "@mui/material/Select";
 import axios from 'axios';
@@ -306,7 +306,7 @@ export default function StickyHeadTable() {
         </Button>
       </div>
       {rows.length > 0 ? (
-        <TableComponent columns={columns} rows={rows} />
+        <AnimeTableComponent columns={columns} rows={rows} />
       ) : (
         <Typography variant="h6" component="div" sx={{ padding: "16px", textAlign: "center" }}>
           No data available

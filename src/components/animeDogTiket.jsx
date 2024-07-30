@@ -149,10 +149,10 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                       const ranke= selectedBtn[0]
 
                       switch (ranke) {
-                        case 0:
+                        case 1:
                           displayValue = "WIN";
                           break;
-                        case 1:
+                        case 2:
                           displayValue = "PLACE";
                           break;
                       
@@ -164,7 +164,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                         <div key={btnIndex} className="d-flex flex-column align-items-start mb-2 w-100">
                           <div className="d-flex align-items-center w-100">
                             <div className="flex-grow-1">
-                              <strong>[{dogNumber}]</strong> 
+                              <strong>{displayValue}[{dogNumber}]</strong> 
                               <span className="ml-2">
                                 <strong>________</strong> {bet.betAmount}<div className="no-print">_____</div>
                               </span>

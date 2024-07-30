@@ -42,7 +42,7 @@ const formatDate = (dateString) => {
   return format(new Date(dateString), "MM/dd/yyyy");
 };
 
-export default function TicketInvoice() {
+export default function AnimeInvoice() {
   const location = useLocation();
   const ticket = location.state?.ticket;
 
@@ -109,86 +109,41 @@ export default function TicketInvoice() {
           Bets
         </StyledTypography>
         <List>
-  {ticket.bets.map((bet, index) => {
-    let displayValue;
-    let correspondingAmount;
+        {ticket.bets.map((bet, index) => {
+  let displayValue;
 
-    if (bet.selectedButtons.length === 1) {
-      const firstElement = bet.selectedButtons[0][0];
+  if (bet.selectedButtons.length > 0) {
+    const firstElement = bet.selectedButtons[0];
 
-      switch (firstElement) {
-        case 1:
-          displayValue = `WIN[${
-            bet.selectedButtons
-              .sort((a, b) => a[0] - b[0])
-              .map(selected => selected[1])
-              .join(', ')
-          }]`;
-          break;
-        case 2:
-          displayValue = `PLACE[${
-            bet.selectedButtons
-              .sort((a, b) => a[0] - b[0])
-              .map(selected => selected[1])
-              .join(', ')
-          }]`;
-          break;
-        case 3:
-          displayValue = `SHOW[${
-            bet.selectedButtons
-              .sort((a, b) => a[0] - b[0])
-              .map(selected => selected[1])
-              .join(', ')
-          }]`;
-          break;
-        default:
-          displayValue = "UNKNOWN";
-      }
-      correspondingAmount = bet.betAmount;
-    } else if (bet.isQuinellaActive) {
-      displayValue = `QUINELLA[${
-        bet.selectedButtons
-          .sort((a, b) => a[0] - b[0])
-          .map(selected => selected[1])
-          .join(', ')
-      }]`;
-      correspondingAmount = bet.betAmount;
-    } else if (bet.isExactaActive) {
-      displayValue = `EXACTA[${
-        bet.selectedButtons
-          .sort((a, b) => a[0] - b[0])
-          .map(selected => selected[1])
-          .join(', ')
-      }]`;
-      correspondingAmount = bet.betAmount;
-    } else {
-      displayValue = `[${
-        bet.selectedButtons
-          .sort((a, b) => a[0] - b[0])
-          .map(selected => selected[1])
-          .join(', ')
-      }]`;
-      correspondingAmount = bet.betAmount;
+    switch (firstElement) {
+      case 1:
+        displayValue = `WIN[${bet.selectedButtons[1]}]`;
+        break;
+      case 2:
+        displayValue = `PLACE[${bet.selectedButtons[1]}]`;
+        break;
+      case 3:
+        displayValue = `SHOW[${bet.selectedButtons[1]}]`;
+        break;
+      default:
+        displayValue = 'UNKNOWN';
     }
+  } else {
+    displayValue = `[${bet.selectedButtons.join(', ')}]`;
+  }
 
-    return (
-      <StyledListItem key={index} className="d-flex flex-column align-items-start mb-2 w-100">
-        <div className="d-flex align-items-center w-100">
-          <div>
-            <strong>{displayValue}</strong>
-          </div>
-          <div className="d-flex">
-            <strong>________</strong> {correspondingAmount}
-            <div className="no-print">_____</div>
-            <div>
-              <strong>Win: {bet.win ? "Yes" : "No"}</strong>
-            </div>
-          </div>
-        </div>
-      </StyledListItem>
-    );
-  })}
-</List>
+  return (
+    <StyledListItem key={index}>
+      <ListItemText
+        primary={`${displayValue}, Bet Amount: ${bet.betAmount}`}
+        secondary={`Win: ${bet.win ? 'Yes' : 'No'}, Prize: ${bet.prize}`}
+      />
+    </StyledListItem>
+  );
+})}
+
+
+        </List>
       </StyledCardContent>
     </StyledCard>
   );
