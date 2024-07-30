@@ -46,7 +46,7 @@ const Animation = () => {
 
     if (currentMinute >= 0 && currentMinute < 4) {
       // First 4 minutes: showHorseRacing
-      newTimer = (4 * 60) - currentSecond;
+      newTimer = (3 * 60) - currentSecond;
       setShowHorseRacing(true);
     } else if (currentMinute === 4) {
       // 5th minute: showModal
@@ -124,16 +124,7 @@ const Animation = () => {
         <Alert variant="primary" style={{ zIndex: '1000' }}>
           <Container fluid>
             <Row className="align-items-center">
-              <Col>
-                <div className="d-flex justify-content-start">
-                  <Button variant="dark" onClick={handleActionClick}>
-                    SPIN
-                  </Button>
-                  <Button variant="dark" style={{ marginLeft: '10px' }} onClick={handleAnotherButtonClick}>
-                    KENO
-                  </Button>
-                </div>
-              </Col>
+             
               <Col className="text-center">
                 <span style={{ fontSize: '24px', color: showModal ? 'red' : 'green', fontWeight: 'bold' }}>
                   {showModal 
@@ -159,5 +150,6 @@ const Animation = () => {
     </div>
   );
 };
+
 
 export default Animation;

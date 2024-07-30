@@ -34,6 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+
 function AnimeTableComponent({ columns, rows }) {
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
