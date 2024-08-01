@@ -32,6 +32,7 @@ import  ParentComponent from './components/mach'
 import  TryParentComponent from './components/machTryfectaResulat'
 import UserForm  from './components/UserForm'
 import Animepay  from './components/animePay'
+import AnimeInvoice from './pages/animetioninvoice'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const vare=import.meta.env.VITE_REACT_APP_VITE_API_URL
                   <Route path="/mache" element={<ParentComponent />} />
                   <Route path="/tryfectamache" element={<TryParentComponent />} />
                   <Route path="/Animepay" element={<Animepay />} />
+                  <Route path = "/animeInvoice" element= {<AnimeInvoice/>} />
 
                 </>
               ) : user.role === "Manager" ? (
