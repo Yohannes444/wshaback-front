@@ -39,26 +39,26 @@ const Animation = () => {
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
 
-    const currentMinute = minutes % 10; // Current position within the 10-minute cycle
+    const currentMinute = minutes % 8; // Current position within the 8-minute cycle
     const currentSecond = currentMinute * 60 + seconds;
 
     let newTimer = 0;
     let isModal = false;
 
-    if (currentMinute >= 0 && currentMinute < 4) {
-      // First 4 minutes: showHorseRacing
-      newTimer = (4 * 60) - currentSecond;
+    if (currentMinute >= 0 && currentMinute < 3) {
+      // First 3 minutes: showHorseRacing
+      newTimer = (3 * 60) - currentSecond;
       setShowHorseRacing(true);
-    } else if (currentMinute === 4) {
-      // 5th minute: showModal
+    } else if (currentMinute === 3) {
+      // 4th minute: showModal
       newTimer = 60 - seconds;
       isModal = true;
-    } else if (currentMinute >= 5 && currentMinute < 9) {
-      // Next 4 minutes: showDogRasing
-      newTimer = (9 * 60) - currentSecond;
+    } else if (currentMinute >= 4 && currentMinute < 7) {
+      // Next 3 minutes: showDogRasing
+      newTimer = (7 * 60) - currentSecond;
       setShowHorseRacing(false);
     } else {
-      // 10th minute: showModal
+      // 8th minute: showModal
       newTimer = 60 - seconds;
       isModal = true;
     }

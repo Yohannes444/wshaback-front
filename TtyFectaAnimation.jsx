@@ -6,7 +6,6 @@ import DogRasing from './animeDogComponent';
 import HorsRasingPage from './horsRasingPage';
 import MainHome from "./MainComponent";
 
-
 const SERVER_TIME_INTERVAL = 60000; // Fetch server time every 1 minute
 
 const Animation = () => {
@@ -24,7 +23,6 @@ const Animation = () => {
     try {
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
-      console.log(data);
       const serverTime = new Date(data.time);
       return serverTime;
     } catch (error) {
@@ -40,26 +38,26 @@ const Animation = () => {
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
 
-    const currentMinute = minutes % 8; // Current position within the 8-minute cycle
+    const currentMinute = minutes % 10; // Current position within the 10-minute cycle
     const currentSecond = currentMinute * 60 + seconds;
 
     let newTimer = 0;
     let isModal = false;
 
-    if (currentMinute >= 0 && currentMinute < 3) {
-      // First 3 minutes: showHorseRacing
-      newTimer = (3 * 60) - currentSecond;
+    if (currentMinute >= 0 && currentMinute < 4) {
+      // First 4 minutes: showHorseRacing
+      newTimer = (4 * 60) - currentSecond;
       setShowHorseRacing(true);
-    } else if (currentMinute === 3) {
-      // 4th minute: showModal
+    } else if (currentMinute === 4) {
+      // 5th minute: showModal
       newTimer = 60 - seconds;
       isModal = true;
-    } else if (currentMinute >= 4 && currentMinute < 7) {
-      // Next 3 minutes: showDogRasing
-      newTimer = (7 * 60) - currentSecond;
+    } else if (currentMinute >= 5 && currentMinute < 9) {
+      // Next 4 minutes: showDogRasing
+      newTimer = (9 * 60) - currentSecond;
       setShowHorseRacing(false);
     } else {
-      // 8th minute: showModal
+      // 10th minute: showModal
       newTimer = 60 - seconds;
       isModal = true;
     }
@@ -153,7 +151,7 @@ const Animation = () => {
       <Container fluid>
         <Row>
           <Col md={12} style={{ marginTop: '15px', paddingLeft: '0px', paddingRight: '0px' }}>
-          {showHorseRacing ? <MainHome /> : <MainHome />}
+            {showHorseRacing ? <MainHome /> : <MainHome />}
           </Col>
         </Row>
       </Container>
