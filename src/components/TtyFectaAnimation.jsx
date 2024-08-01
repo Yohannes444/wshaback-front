@@ -1,16 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Alert, Button } from 'react-bootstrap';
+import { Container, Row, Col, Alert } from 'react-bootstrap';
 import ResultModal from './ResultModal';
-import DogRasing from './animeDogComponent';
-import HorsRasingPage from './horsRasingPage';
-import MainHome from "./MainComponent";
-
-const SERVER_TIME_INTERVAL = 60000; // Fetch server time every 1 minute
+import MainHome from './MainComponent';
 
 const Animation = () => {
   const navigate = useNavigate();
-  const [showHorseRacing, setShowHorseRacing] = useState(true);
+  const [showMainComponent, setShowMainComponent] = useState(true);
   const [timer, setTimer] = useState(0);
   const [modalTimer, setModalTimer] = useState(60); // 1 minute for modal
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +23,6 @@ const Animation = () => {
       return serverTime;
     } catch (error) {
       console.error('Failed to fetch server time:', error);
-      // return new Date(); // Fallback to local time if server time fetch fails
     } finally {
       isFetching.current = false;
     }
@@ -35,31 +30,25 @@ const Animation = () => {
 
   const calculateTimers = useCallback(async (initial = false) => {
     const now = await fetchServerTime();
+    if (!now) return;
+
     const minutes = now.getMinutes();
     const seconds = now.getSeconds();
 
-    const currentMinute = minutes % 10; // Current position within the 10-minute cycle
-    const currentSecond = currentMinute * 60 + seconds;
+    const totalSeconds = minutes * 60 + seconds;
+    const cycleSeconds = totalSeconds % 240; // 4-minute cycle (240 seconds)
 
     let newTimer = 0;
     let isModal = false;
 
-    if (currentMinute >= 0 && currentMinute < 4) {
-      // First 4 minutes: showHorseRacing
-      newTimer = (3 * 60) - currentSecond;
-      setShowHorseRacing(true);
-    } else if (currentMinute === 4) {
-      // 5th minute: showModal
-      newTimer = 60 - seconds;
+    if (cycleSeconds < 60) {
+      // First 1 minute: showModal
+      newTimer = 60 - cycleSeconds;
       isModal = true;
-    } else if (currentMinute >= 5 && currentMinute < 9) {
-      // Next 4 minutes: showDogRasing
-      newTimer = (9 * 60) - currentSecond;
-      setShowHorseRacing(false);
     } else {
-      // 10th minute: showModal
-      newTimer = 60 - seconds;
-      isModal = true;
+      // Next 3 minutes: showMainComponent
+      newTimer = 240 - cycleSeconds;
+      setShowMainComponent(true);
     }
 
     setShowModal(isModal);
@@ -71,7 +60,7 @@ const Animation = () => {
     if (initial) {
       setInterval(() => {
         calculateTimers();
-      }, SERVER_TIME_INTERVAL);
+      }, 60000);
     }
   }, [fetchServerTime]);
 
@@ -108,15 +97,7 @@ const Animation = () => {
     }
   }, [showModal, calculateTimers]);
 
-  const handleActionClick = () => {
-    navigate("/spin");
-  };
-
-  const handleAnotherButtonClick = () => {
-    navigate("/Keno");
-  };
-
-  const lastComponentType = showHorseRacing ? 'Horse' : 'Dog';
+  const lastComponentType = showMainComponent ? 'Main' : 'Modal';
 
   return (
     <div>
@@ -124,7 +105,6 @@ const Animation = () => {
         <Alert variant="primary" style={{ zIndex: '1000' }}>
           <Container fluid>
             <Row className="align-items-center">
-             
               <Col className="text-center">
                 <span style={{ fontSize: '24px', color: showModal ? 'red' : 'green', fontWeight: 'bold' }}>
                   {showModal 
@@ -142,7 +122,7 @@ const Animation = () => {
       <Container fluid>
         <Row>
           <Col md={12} style={{ marginTop: '15px', paddingLeft: '0px', paddingRight: '0px' }}>
-            {showHorseRacing ? <MainHome /> : <MainHome />}
+            {showMainComponent ? <MainHome /> : <MainHome />}
           </Col>
         </Row>
       </Container>
@@ -150,6 +130,5 @@ const Animation = () => {
     </div>
   );
 };
-
 
 export default Animation;
