@@ -40,21 +40,31 @@ const Animation = () => {
 
     const currentMinute = minutes % 10; // Current position within the 10-minute cycle
     const currentSecond = currentMinute * 60 + seconds;
+    console.log("Server Time:", now);
+    console.log("Current Minute:", currentMinute);
+    console.log("Current Second:", currentSecond);
+
 
     let newTimer = 0;
     let isModal = false;
 
-    if (currentMinute >= 0 && currentMinute < 4) {
+    if (currentMinute === 2 || currentMinute ===3 || currentMinute === 4 || currentMinute === 5) {
       // First 4 minutes: showHorseRacing
-      newTimer = (4 * 60) - currentSecond;
+    console.log("Current under 5 value:", currentMinute);
+
+      
+    newTimer = 360 - currentSecond;
+    console.log("newTimer1:", newTimer);
+
       setShowHorseRacing(true);
-    } else if (currentMinute === 4) {
-      // 5th minute: showModal
-      newTimer = 60 - seconds;
-      isModal = true;
-    } else if (currentMinute >= 5 && currentMinute < 9) {
+    } else if(currentMinute === 7 || currentMinute ===8 || currentMinute === 9 || currentMinute === 0) {
+
       // Next 4 minutes: showDogRasing
-      newTimer = (9 * 60) - currentSecond;
+    console.log("Current over 5 value:", currentMinute);
+
+      newTimer = 660 - currentSecond;
+    console.log("newTimer2:", newTimer);
+
       setShowHorseRacing(false);
     } else {
       // 10th minute: showModal
