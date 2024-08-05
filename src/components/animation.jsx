@@ -51,7 +51,6 @@ const Animation = () => {
     if (currentMinute === 2 || currentMinute ===3 || currentMinute === 4 || currentMinute === 5) {
       // First 4 minutes: showHorseRacing
     console.log("Current under 5 value:", currentMinute);
-
       
     newTimer = 360 - currentSecond;
     console.log("newTimer1:", newTimer);
@@ -59,12 +58,11 @@ const Animation = () => {
       setShowHorseRacing(true);
     } else if(currentMinute === 7 || currentMinute ===8 || currentMinute === 9 || currentMinute === 0) {
 
-      // Next 4 minutes: showDogRasing
-    console.log("Current over 5 value:", currentMinute);
-
-      newTimer = 660 - currentSecond;
-    console.log("newTimer2:", newTimer);
-
+      if(currentMinute === 0){
+        newTimer= 60 - currentSecond
+      }else{
+        newTimer = 660 - currentSecond;
+      }
       setShowHorseRacing(false);
     } else {
       // 10th minute: showModal
