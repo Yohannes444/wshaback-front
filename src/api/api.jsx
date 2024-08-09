@@ -1,22 +1,14 @@
 import axios from "axios";
-import { getBaseURLLogin } from "./baseURL";
+import { BASE_URL } from "./baseURL";
 
 const api = axios.create({
-  baseURL: "", // Initial empty baseURL
+  baseURL: BASE_URL, // Initial empty baseURL
   headers: {
     "Content-Type": "application/json", // Add Accept header for application/json
   },
 });
 
-// Function to set baseURL dynamically
-const setAPIBaseURL = async () => {
-  const baseURL = await getBaseURLLogin();
-  api.defaults.baseURL = baseURL;
-  console.log("defolt set: ", api.defaults.baseURL)
-};
 
-// Call setAPIBaseURL to set the baseURL when the module is imported
-setAPIBaseURL();
 
 // Function to set the Authorization header for requests requiring authentication
 export const setAuthHeaders = () => {

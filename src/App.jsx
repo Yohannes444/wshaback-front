@@ -28,15 +28,19 @@ import PayKeno from "./components/PayKeno";
 import PayAnimeDog from "./components/PayAnimeDog";
 import TicketInvoice from "./pages/TicketInvoice";
 import DogAnime from "./components/animeDogComponent";
-
-
+import  ParentComponent from './components/mach'
+import  TryParentComponent from './components/machTryfectaResulat'
+import UserForm  from './components/UserForm'
+import Animepay  from './components/animePay'
+import AnimeInvoice from './pages/animetioninvoice'
 
 const App = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const user = useSelector(selectUser);
+const vare=import.meta.env.VITE_REACT_APP_VITE_API_URL
+   console.log("user----",vare)
 
-   console.log(user)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -84,6 +88,11 @@ const App = () => {
                   <Route path="/spin" element={<Spin />} />
                   <Route path="/tryfecta/Pay" element={<Pay />} />
                   <Route path="/ticketInvoice" element={<TicketInvoice />} />
+                  <Route path="/mache" element={<ParentComponent />} />
+                  <Route path="/tryfectamache" element={<TryParentComponent />} />
+                  <Route path="/Animepay" element={<Animepay />} />
+                  <Route path = "/animeInvoice" element= {<AnimeInvoice/>} />
+
                 </>
               ) : user.role === "Manager" ? (
                 <>
@@ -94,6 +103,7 @@ const App = () => {
             ) : (
               <Route path="/" element={<Login />} />
             )}
+            <Route path="signup" element={<UserForm />} />
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </div>

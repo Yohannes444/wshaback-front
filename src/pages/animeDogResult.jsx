@@ -12,6 +12,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Select from "@mui/material/Select";
 import axios from 'axios';
 import MenuItem from "@mui/material/MenuItem";
+import { BASE_URL } from "../api/baseURL";
 
 const columns = [
   { id: "gameId", label: "Game ID", minWidth: 100 },
@@ -26,7 +27,7 @@ const columns = [
 const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `https://betingserver.onrender.com/gameresult/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameresult/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -41,7 +42,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `https://betingserver.onrender.com/gameresult/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameresult/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -56,7 +57,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-    const url = `https://betingserver.onrender.com/gameresult/filter`;
+    const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameresult/filter`;
     try {
       const params = {};
       if (dropdownValue === 'Dog'){
@@ -82,7 +83,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
   };
 
 const fetchDefaultData = async () => {
-  const url = `https://betingserver.onrender.com/gameresult`;
+  const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameresult`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

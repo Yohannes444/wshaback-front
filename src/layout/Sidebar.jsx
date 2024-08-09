@@ -106,6 +106,7 @@ const Sidebar = ({ userRole }) => {
           <SpeedIcon />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
+
       </ListItemStyled>
 
 
@@ -299,28 +300,62 @@ const Sidebar = ({ userRole }) => {
                 >
                   <ListItemText primary="Ticket Histroy Hourse" />
                 </NestedListItem>
-
+              
                 <NestedListItem
                   component={Link}
-                  to="/animation/payHourse"
-                  selected={location.pathname === "/animaiton/payHourse"}
+                  to="/animepay"
+                  selected={location.pathname === "/animepay"}
                   button
                 >
-                  <ListItemText primary="Pay Hourse" />
-                </NestedListItem>
-
-
-                <NestedListItem
-                  component={Link}
-                  to="/animation/payDog"
-                  selected={location.pathname === "/animaiton/payDog"}
-                  button
-                >
-                  <ListItemText primary="Pay Dog" />
+                  <ListItemText primary="Anime Pay" />
                 </NestedListItem>
 
               </List>
             </Collapse>
+            <ListItemStyled
+        component={Link}
+        to="/mache"
+        button
+        className={
+          location.pathname.startsWith("/mache")
+            ? SelectedListItem.className
+            : ""
+        }
+      >
+        <ListItemIcon
+          style={{
+            color: location.pathname.startsWith("/mache")
+              ? "black"
+              : "#d7a022",
+          }}
+        >
+          <SpeedIcon />
+        </ListItemIcon>
+        <ListItemText primary="Anime Mach" />
+        
+      </ListItemStyled>
+      <ListItemStyled
+        component={Link}
+        to="/tryfectamache"
+        button
+        className={
+          location.pathname.startsWith("/tryfectamache")
+            ? SelectedListItem.className
+            : ""
+        }
+      >
+        <ListItemIcon
+          style={{
+            color: location.pathname.startsWith("/tryfectamache")
+              ? "black"
+              : "#d7a022",
+          }}
+        >
+          <SpeedIcon />
+        </ListItemIcon>
+        <ListItemText primary="Tryfecta Mache" />
+        
+      </ListItemStyled>
           </>
         )}
       </List>

@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
+import {BASE_URL} from "../api/baseURL";
 
 const ResultModalPage = () => {
   const user = useSelector(selectUser);
@@ -79,7 +80,7 @@ const ResultModalPage = () => {
     };
 
     try {
-      const response = await fetch(`https://betingserver.onrender.com/grayhorn-resulat`, {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/grayhorn-resulat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

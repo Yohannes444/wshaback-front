@@ -7,11 +7,12 @@ import Button from "@mui/material/Button";
 import * as XLSX from "xlsx";
 import { format } from "date-fns";
 import TextField from "@mui/material/TextField";
-import TableComponent from "./TicketTable";
+import AnimeTableComponent from "./animetable";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Select from "@mui/material/Select";
 import axios from 'axios';
 import MenuItem from "@mui/material/MenuItem";
+import { BASE_URL } from "../api/baseURL";
 
 const columns = [
   { id: "gameId", label: "Game ID", minWidth: 100 },
@@ -28,7 +29,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
   // const formattedStartDate = format(selectedStartDate, "yyyy-MM-dd");
   const formattedStartDate = format(selectedStartDate, "MM-dd-yyyy");
   const formattedEndDate = format(selectedEndDate, "MM-dd-yyyy");
-  const url = `https://betingserver.onrender.com/animeDog/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
+  const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog/filter?startDate=${formattedStartDate}&endDate=${formattedEndDate}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -43,7 +44,7 @@ const fetchDataByDate = async (selectedStartDate, selectedEndDate) => {
 };
 
 const fetchDataByGameId = async (gameId) => {
-  const url = `https://betingserver.onrender.com/anime-dog/filter?gameId=${encodeURIComponent(gameId)}`;
+  const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog/filter?gameId=${encodeURIComponent(gameId)}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -58,7 +59,7 @@ const fetchDataByGameId = async (gameId) => {
 };
 
 const fetchDataByDropdownValue = async (dropdownValue) => {
-  const url = `https://betingserver.onrender.com/anime-dog/filter`; // Update with your endpoint
+  const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog/filter`; // Update with your endpoint
   try {
     const params = {};
     params[dropdownValue] = true; // Dynamically create the object with key-value pair
@@ -79,7 +80,7 @@ const fetchDataByDropdownValue = async (dropdownValue) => {
 };
 
 const fetchDefaultData = async () => {
-  const url = `https://betingserver.onrender.com/anime-dog`;
+  const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeDog`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -111,6 +112,7 @@ export default function StickyHeadTable() {
   useEffect(() => {
     const loadDefaultData = async () => {
       const data = await fetchDefaultData();
+      console.log(data)
       const formattedData = data.map((ticket) =>
         createData(
           ticket.gameId,
@@ -304,7 +306,7 @@ export default function StickyHeadTable() {
         </Button>
       </div>
       {rows.length > 0 ? (
-        <TableComponent columns={columns} rows={rows} />
+        <AnimeTableComponent columns={columns} rows={rows} />
       ) : (
         <Typography variant="h6" component="div" sx={{ padding: "16px", textAlign: "center" }}>
           No data available

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Form, Row, Col, Spinner, Button, Card } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from "react-redux";
 import {  selectUser } from "../redux/slice/userSlice";
+import {BASE_URL} from "../api/baseURL";
 
 
 const ResultModalPage = () => {
@@ -79,7 +80,7 @@ const ResultModalPage = () => {
         gameId:parsedFormData.gameId,
         tiketerId: `${user._id}`,
       }
-      const response = await fetch(`https://betingserver.onrender.com/gameresult`, {
+      const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameresult`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

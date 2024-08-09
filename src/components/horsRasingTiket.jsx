@@ -14,6 +14,7 @@ import Barcode from "react-barcode";
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import './styles.css'; // Import the CSS file
+import {BASE_URL} from "../api/baseURL";
 
 const HorsRasingTiket = forwardRef((props, ref) => {
   const user = useSelector(selectUser);
@@ -37,7 +38,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
       return Math.floor(1000000 + Math.random() * 900000).toString();
     };
     setTicketID(generateTicketID());
-  }, []);
+  }, [props.handlePrint]);
 
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
@@ -50,7 +51,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted === true) {
-          const url = "https://betingserver.onrender.com/anime-hors";
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/animeHors`;
           const betlist= []
           betList.map((bet)=>{
             betlist.push({
@@ -142,18 +143,17 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                   <ListGroupItem key={index} className="d-flex flex-column align-items-start">
                     {bet.selectedButtons.map((selectedBtn, btnIndex) => {
                       const [rank, dogNumber] = selectedBtn;
+                      const ranke= selectedBtn[0]
                       let displayValue;
 
-                      switch (rank) {
+                      switch (ranke) {
                         case 1:
                           displayValue = "WIN";
                           break;
                         case 2:
                           displayValue = "PLACE";
                           break;
-                        case 3:
-                          displayValue = "SHOW";
-                          break;
+                        
                         default:
                           displayValue = "UNKNOWN";
                       }
@@ -162,7 +162,7 @@ const HorsRasingTiket = forwardRef((props, ref) => {
                         <div key={btnIndex} className="d-flex flex-column align-items-start mb-2 w-100">
                           <div className="d-flex align-items-center w-100">
                             <div className="flex-grow-1">
-                              <strong>[{dogNumber}]</strong> 
+                              <strong>{displayValue}[{dogNumber}]</strong> 
                               <span className="ml-2">
                                 <strong>________</strong> {bet.betAmount}<div className="no-print">_____</div>
                               </span>

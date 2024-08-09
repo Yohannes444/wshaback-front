@@ -6,6 +6,7 @@ import { FaTrash,FaEdit } from 'react-icons/fa';
 import { useSelector, useDispatch } from "react-redux";
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import Barcode from "react-barcode";
+import {BASE_URL} from "../api/baseURL"
 
 
 
@@ -54,7 +55,7 @@ const kenoTikete = forwardRef((props, ref) => {
       return Math.floor(1000000 + Math.random() * 900000).toString();
     };
     setTicketID(generateTicketID());
-  }, []);
+  }, [props.handlePrint]);
 
   useEffect(() => {
     if (newBette && Object.keys(newBette).length > 0) {
@@ -68,7 +69,7 @@ const kenoTikete = forwardRef((props, ref) => {
     const saveTicketToDatabase = async () => {
       if (props.isTiketPrinted) {
         try {
-          const url = 'https://betingserver.onrender.com/keno';
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/keno`;
          
           const response = await fetch(url, {
             method: 'POST',

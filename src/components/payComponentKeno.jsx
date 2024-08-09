@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 // import QrScanner from 'react-qr-scanner';
 import { QrReader } from 'react-qr-reader';
+import {BASE_URL} from "../api/baseURL";
 
 const ScanButton = () => {
   const [showScanner, setShowScanner] = useState(false);
@@ -20,7 +21,7 @@ const ScanButton = () => {
   };
 
   const sendScannedCodeToServer = (code) => {
-    fetch(`https://betingserver.onrender.com/keno/tiketId/${code}`, {
+    fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/keno/tiketId/${code}`, {
       method: 'POST',
     })
       .then(response => response.json())

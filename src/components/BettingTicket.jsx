@@ -18,6 +18,8 @@ const Tikete = forwardRef((props, ref) => {
   const [totalBetAmount, setTotalBetAmount] = useState(0);
   const [ticketID, setTicketID] = useState('');
 
+ console.log(props)
+
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
@@ -26,12 +28,18 @@ const Tikete = forwardRef((props, ref) => {
   const formattedDate = `${year}${month}${day}`;
   const gameId=`${formattedDate}${props.gameID}`
 
-  useEffect(() => {
+
+   useEffect(() => {
     const generateTicketID = () => {
       return Math.floor(1000000 + Math.random() * 900000).toString();
     };
+
+     
     setTicketID(generateTicketID());
-  }, []);
+    generateTicketID();
+  }, [props.handlePrint]);
+
+
   const openModal = (index) => {
     setSelectedItemIndex(index);
     setModalIsOpen(true);
@@ -63,7 +71,7 @@ const Tikete = forwardRef((props, ref) => {
     const saveTicket = async () => {
       try {
         if (props.isTiketPrinted) {
-          const url = 'https://betingserver.onrender.com/grayhorn';
+          const url = `${import.meta.env.VITE_REACT_APP_VITE_API_URL}/grayhorn`;
           const response = await fetch(url, {
             method: 'POST',
             headers: {

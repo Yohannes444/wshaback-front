@@ -1,3 +1,5 @@
+export const BASE_URL = import.meta.env.VITE_REACT_APP_VITE_API_URL;
+
 // config.js
 let BASE_URL_LOGIN;
 
@@ -5,8 +7,7 @@ async function getPublicIP() {
   try {
 console.log();
 
-    const data = import.meta.env.VITE_API_URL;
-    // console.log("response: ",process.env.NEXT_PUBLIC_API_URL)
+    const data = import.meta.env.VITE_REACT_APP_VITE_API_URL;
     return data;
   } catch (error) {
     console.error('Error fetching IP address:', error);
@@ -17,10 +18,9 @@ console.log();
 async function setBaseURLLogin() {
   const ip = await getPublicIP();
   if (ip) {
-    BASE_URL_LOGIN = import.meta.env.VITE_API_URL;
+    BASE_URL_LOGIN = import.meta.env.VITE_REACT_APP_VITE_API_URL;
   } else {
-    console.error('Failed to get IP address. Using default BASE_URL_LOGIN.');
-    // BASE_URL_LOGIN = 'http://192.168.10.25:5454'; // fallback to default
+    BASE_URL_LOGIN = import.meta.env.VITE_REACT_APP_VITE_API_URL; // fallback to default
   }
 }
 
