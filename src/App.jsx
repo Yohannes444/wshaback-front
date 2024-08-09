@@ -52,7 +52,7 @@ const vare=import.meta.env.VITE_REACT_APP_VITE_API_URL
   }, [dispatch]);
 
   if (loading) {
-    return null; // Or a loading spinner
+    return null; // Or a loading spinn
   }
 
   return (
