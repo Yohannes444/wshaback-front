@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Spinner, Button, Card } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { initializeUser, selectUser } from "../redux/slice/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import {BASE_URL} from "../api/baseURL";
+import axios from 'axios'
 
 const ResultModalPage = () => {
   const user = useSelector(selectUser);
+  const [gameIdList, setGameIdList] = useState([]);
   const [formData, setFormData] = useState({
     gameId: '',
     firstNumber: '',
@@ -31,7 +32,20 @@ const ResultModalPage = () => {
     tryfectaOdd: '',
   });
 
-  console.log(user._id)
+  console.log(user._id);
+  useEffect(() => {
+    const fetchGameIds = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameid/latest?gameType=tryfecta`);
+        setGameIdList(response.data);
+        console.log("Fetched game IDs: ", response.data);
+      } catch (error) {
+        console.error("Error fetching game IDs:", error);
+      }
+    };
+
+    fetchGameIds();
+  }, []);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -43,6 +57,14 @@ const ResultModalPage = () => {
     }
   };
 
+  const handleSelectChange = (e) => {
+    const selectedGameId = e.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      gameId: selectedGameId
+    }));
+  };
+
   const validateForm = () => {
     const newErrors = {};
     if (!formData.gameId) newErrors.gameId = 'GameId is required';
@@ -51,8 +73,8 @@ const ResultModalPage = () => {
     if (!formData.secondNumber) newErrors.secondNumber = 'Second winner number is required';
     if (!formData.secondOdd) newErrors.secondOdd = 'Second odd number is required';
     if (!formData.thridNumber) newErrors.thridNumber = 'Thrid winner number is required';
-    if (!formData.exactOdd) newErrors.exactOdd = ' Exact odd number is required';
-    if (!formData.tryfectaOdd) newErrors.tryfectaOdd = ' tryfectaOdd number is required';
+    if (!formData.exactOdd) newErrors.exactOdd = 'Exact odd number is required';
+    if (!formData.tryfectaOdd) newErrors.tryfectaOdd = 'Tryfecta odd number is required';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -117,16 +139,21 @@ const ResultModalPage = () => {
         <h2>Insert TryFecta Result</h2>
         <Form>
           <Row>
-            <Col md={12}>
+            <Col md={7}>
               <Form.Group controlId="gameId">
                 <Form.Label style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '15px' }}>GameId</Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="Enter GameId"
+                <Form.Select
                   value={formData.gameId}
-                  onChange={handleInputChange}
+                  onChange={handleSelectChange}
                   isInvalid={!!errors.gameId}
-                />
+                >
+                  <option value="">Select GameId</option>
+                  {gameIdList.map((gameId) => (
+                    <option key={gameId} value={gameId}>
+                      {gameId}
+                    </option>
+                  ))}
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">{errors.gameId}</Form.Control.Feedback>
               </Form.Group>
             </Col>

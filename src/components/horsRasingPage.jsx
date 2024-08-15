@@ -4,12 +4,13 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Row, Col} from 'reactstrap';
 import  Ticket  from './horsRasingTiket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
+import axios from 'axios'
 
 
 const HorsRasingPage = () => {
     const [selectedButtons, setSelectedButtons] = useState([]);
     const [betAmount, setBetAmount] = useState(20);
-    const [gameID, setGameID] = useState(1000); 
+    const [gameID, setGameID] = useState(0); 
     const [newBette, setNewBette] = useState([])
     const [isQuinellaActive, setQuinellaActive] = useState(false);
     const [isExactaActive, setExactaActive] = useState(false);
@@ -27,6 +28,20 @@ const HorsRasingPage = () => {
       marginBottom: '10px',
     };
 
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameid?gameType=animehorse`);
+          setGameID(response.data)
+          console.log("fetch users: ",response.data );
+       
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      };
+  
+      fetchUser();
+    }, []); 
 
   const handleAmountChange = (event) => {
     setBetAmount(Number(event.target.value));
@@ -168,7 +183,7 @@ const HorsRasingPage = () => {
 
 
   };
-
+  
   useEffect(() => {
     if (selectedButtons.length > 0) {
       console.log("go gogo goggogo gog o googoggo");
@@ -191,22 +206,6 @@ const HorsRasingPage = () => {
     }
   }, [selectedButtons]);
   
-  
-
-    
-
-const handleGameIDChange= (event)=>{
-  var newNumber = Number(event.target.value);
-  setGameID(newNumber)
-}
-const incrementGameID = () => {
-    setGameID(() => gameID + 4);
-  };
-
-  const decrementGameID = () => {
-    setGameID(() => Math.max(gameID - 4, 0));
-  };
-
  
   return (
     <div>
@@ -224,19 +223,7 @@ const incrementGameID = () => {
               <h5 htmlFor="gameID" className=" text-white p-3 ">
                 Game ID
               </h5>
-                <input
-                  type="number"
-                  id="gameID"
-                  className=" mb-2"
-                  value={gameID}
-                  onChange={handleGameIDChange}
-                />
-                <FaPlus
-                  className="text-warning me-2 "
-                  style={{ cursor: 'pointer' }}
-                  onClick={incrementGameID}
-                />
-                <FaMinus className="text-warning" style={{ cursor: 'pointer' }} onClick={decrementGameID} />
+              <h3 className="text-white  ">{gameID}</h3>
             </div>
               </div>
             <Row>

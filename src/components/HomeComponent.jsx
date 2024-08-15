@@ -1,12 +1,11 @@
-import React, { useState, useRef }  from 'react';
+import React, { useState, useRef, useEffect }  from 'react';
 import './homePage.css';
-import { FaPlus, FaMinus } from 'react-icons/fa';
 import { Button, Row, Col} from 'reactstrap';
 import  Ticket  from './BettingTicket'
 import ReactToPrint from "react-to-print"; // Import the ReactToPrint component
 import '../index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import axios from 'axios'
 
 const Home = () => {
     const [selectedButtons, setSelectedButtons] = useState([]);
@@ -22,6 +21,21 @@ const Home = () => {
     
   const tiket =useRef();
     
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameid?gameType=tryfecta`);
+        setGameID(response.data)
+        console.log("fetch users: ",response.data );
+      
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
+  }, []); 
+
   const handleAmountChange = (event) => {
     setBetAmount(Number(event.target.value));
   };
@@ -33,6 +47,7 @@ const Home = () => {
     setQuinellaActive(false);
     setExactaActive(true)
   };
+
 
   
 
@@ -156,13 +171,7 @@ const handleGameIDChange= (event)=>{
   var newNumber = Number(event.target.value);
   setGameID(newNumber)
 }
-const incrementGameID = () => {
-    setGameID(() => gameID + 4);
-  };
 
-  const decrementGameID = () => {
-    setGameID(() => Math.max(gameID - 4, 0));
-  };
 
  
   return (
@@ -180,19 +189,8 @@ const incrementGameID = () => {
     <div className="text-center mb-3">
       <div className="text-center">
         <h5 htmlFor="gameID" className="text-white p-3">Game ID</h5>
-        <input
-          type="number"
-          id="gameID"
-          className="mb-2"
-          value={gameID}
-          onChange={handleGameIDChange}
-        />
-        <FaPlus
-          className="text-warning me-2"
-          style={{ cursor: 'pointer' }}
-          onClick={incrementGameID}
-        />
-        <FaMinus className="text-warning" style={{ cursor: 'pointer' }} onClick={decrementGameID} />
+        <h3 className="text-white  ">{gameID}</h3>
+       
       </div>
     </div>
     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

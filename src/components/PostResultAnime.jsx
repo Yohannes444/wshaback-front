@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Row, Col, Spinner, Button, Card } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from "react-redux";
-import {  selectUser } from "../redux/slice/userSlice";
-import {BASE_URL} from "../api/baseURL";
-
+import axios from 'axios';
+import { selectUser } from "../redux/slice/userSlice";
+import { BASE_URL } from "../api/baseURL";
 
 const ResultModalPage = () => {
   const user = useSelector(selectUser);
@@ -18,13 +18,30 @@ const ResultModalPage = () => {
     secondOdd: ''
   });
 
-  const [lastRenderedComponent, setLastRenderedComponent] = useState(''); // Default to empty string
+  const [gameIdList, setGameIdList] = useState([]);
+  const [lastRenderedComponent, setLastRenderedComponent] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({}); // State to store validation errors
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const fetchGameIds = async () => {
+      if (lastRenderedComponent) {
+        try {
+          const gameType = lastRenderedComponent === 'Dog' ? 'animedog' : 'animehorse';
+          const response = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameid/latest?gameType=${gameType}`);
+          setGameIdList(response.data);
+          console.log("Fetched game IDs: ", response.data);
+        } catch (error) {
+          console.error("Error fetching game IDs:", error);
+        }
+      }
+    };
+
+    fetchGameIds();
+  }, [lastRenderedComponent]);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    // Ensure only numbers or valid float numbers are entered
     if (/^\d*\.?\d*$/.test(value)) {
       setFormData((prevData) => ({
         ...prevData,
@@ -35,6 +52,10 @@ const ResultModalPage = () => {
 
   const handleComponentChange = (e) => {
     setLastRenderedComponent(e.target.value);
+    setFormData((prevData) => ({
+      ...prevData,
+      gameId: '', // Reset gameId when component changes
+    }));
   };
 
   const validateForm = () => {
@@ -57,35 +78,34 @@ const ResultModalPage = () => {
 
     setLoading(true);
 
-    // Parse numeric values
     const parsedFormData = {
       gameId: parseInt(formData.gameId),
       First: {
-            [`DogPlaceNum`]: parseInt(formData.firstNumber),
-            [`DogPlaceOdd`]: parseFloat(formData.firstOdd)
-          },
-          Second: {
-            [`DogPlaceNum`]: parseInt(formData.secondNumber),
-            [`DogPlaceOdd`]: parseFloat(formData.secondOdd)
-          },
-      type:[`${lastRenderedComponent}`]
+        [`DogPlaceNum`]: parseInt(formData.firstNumber),
+        [`DogPlaceOdd`]: parseFloat(formData.firstOdd)
+      },
+      Second: {
+        [`DogPlaceNum`]: parseInt(formData.secondNumber),
+        [`DogPlaceOdd`]: parseFloat(formData.secondOdd)
+      },
+      type: [`${lastRenderedComponent}`]
     };
 
     try {
-      console.log("parsedFormData: ",parsedFormData)
-      const dataa={
-        First:parsedFormData.First,
-        Second:parsedFormData.Second,
-        type:parsedFormData.type[0],
-        gameId:parsedFormData.gameId,
+      console.log("parsedFormData: ", parsedFormData);
+      const data = {
+        First: parsedFormData.First,
+        Second: parsedFormData.Second,
+        type: parsedFormData.type[0],
+        gameId: parsedFormData.gameId,
         tiketerId: `${user._id}`,
-      }
+      };
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameresult`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(dataa)
+        body: JSON.stringify(data)
       });
 
       if (response.ok) {
@@ -114,7 +134,7 @@ const ResultModalPage = () => {
         <h2>{`Insert ${lastRenderedComponent} Result`}</h2>
         <Form>
           <Form.Group controlId="componentSelect">
-            <Form.Label style={{ fontSize: '20px',  fontWeight: 'bold', backgroundColor: '', marginTop:"15px" }}>Select Component</Form.Label>
+            <Form.Label style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '15px' }}>Select Game Type</Form.Label>
             <Form.Control
               as="select"
               value={lastRenderedComponent || ''}
@@ -128,15 +148,23 @@ const ResultModalPage = () => {
             </Form.Control>
             <Form.Control.Feedback type="invalid">{errors.lastRenderedComponent}</Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group controlId="gameId">
-            <Form.Label style={{ fontSize: '20px',  fontWeight: 'bold', backgroundColor: '' }}>GameId</Form.Label>
+            <Form.Label style={{ fontSize: '20px', fontWeight: 'bold' }}>Game ID</Form.Label>
             <Form.Control
-              type="number"
-              placeholder="Enter GameId"
+              as="select"
               value={formData.gameId}
               onChange={handleInputChange}
               isInvalid={!!errors.gameId}
-            />
+              disabled={!lastRenderedComponent || gameIdList.length === 0}
+            >
+              <option value="" disabled>Select Game ID</option>
+              {gameIdList.map((gameId) => (
+                    <option key={gameId} value={gameId}>
+                      {gameId}
+                    </option>
+                  ))}
+            </Form.Control>
             <Form.Control.Feedback type="invalid">{errors.gameId}</Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="firstNumber">
