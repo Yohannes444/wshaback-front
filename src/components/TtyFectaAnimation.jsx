@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import ResultModal from './ResultModal';
-import MainHome from './MainComponent';
-
+import MainHome from './HomeComponent';
+import axios from "axios"
 const Animation = () => {
   const navigate = useNavigate();
   const [showMainComponent, setShowMainComponent] = useState(true);
@@ -11,15 +11,22 @@ const Animation = () => {
   const [modalTimer, setModalTimer] = useState(60); // 1 minute for modal
   const [showModal, setShowModal] = useState(false);
   const isFetching = useRef(false); // Track ongoing fetch with useRef
+  const [fetchGameId, setFetchGameId] = useState(null)
+
 
   const fetchServerTime = useCallback(async () => {
     if (isFetching.current) return; // Skip if a fetch is already in progress
 
     isFetching.current = true;
     try {
+
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/`); // Use the fetched baseURL to construct the API route
       const data = await response.json();
       const serverTime = new Date(data.time);
+
+      const responsee = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameid?gameType=tryfecta`);
+      setFetchGameId(responsee.data)
+
       return serverTime;
     } catch (error) {
       console.error('Failed to fetch server time:', error);
@@ -47,6 +54,7 @@ const Animation = () => {
       isModal = true;
     } else {
       // Next 3 minutes: showMainComponent
+
       newTimer = 240 - cycleSeconds;
       setShowMainComponent(true);
     }
@@ -122,7 +130,8 @@ const Animation = () => {
       <Container fluid>
         <Row>
           <Col md={12} style={{ marginTop: '15px', paddingLeft: '0px', paddingRight: '0px' }}>
-            {showMainComponent ? <MainHome /> : <MainHome />}
+       { console.log("fetch: ", fetchGameId)}
+            {showMainComponent ? <MainHome fetchGameId={fetchGameId} /> : <MainHome fetchGameId={fetchGameId} />}
           </Col>
         </Row>
       </Container>

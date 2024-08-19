@@ -7,10 +7,10 @@ import '../index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'
 
-const Home = () => {
+const Home = ({ fetchGameId }) => {
     const [selectedButtons, setSelectedButtons] = useState([]);
     const [betAmount, setBetAmount] = useState(20);
-    const [gameID, setGameID] = useState(1000); 
+    const [gameID, setGameID] = useState(fetchGameId); 
     const [newBette, setNewBette] = useState([])
     const [isQuinellaActive, setQuinellaActive] = useState(false);
     const [isExactaActive, setExactaActive] = useState(false);
@@ -24,17 +24,18 @@ const Home = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameid?gameType=tryfecta`);
-        setGameID(response.data)
-        console.log("fetch users: ",response.data );
+        
+        // const response = await axios.get(`${import.meta.env.VITE_REACT_APP_VITE_API_URL}/gameid?gameType=tryfecta`);
+        console.log("fetcheee: ", fetchGameId)
+        setGameID(fetchGameId)
+        // console.log("fetch users: ",response.data );
       
       } catch (error) {
         console.error("Error fetching user:", error);
       }
     };
-
     fetchUser();
-  }, []); 
+  }, [fetchGameId]);
 
   const handleAmountChange = (event) => {
     setBetAmount(Number(event.target.value));
