@@ -15,7 +15,7 @@ const ResultModalPage = () => {
     firstNumber: '',
     firstOdd: '',
     secondNumber: '',
-    secondOdd: ''
+    secondOdd: '',
   });
 
   const [gameIdList, setGameIdList] = useState([]);
@@ -88,6 +88,10 @@ const ResultModalPage = () => {
         [`DogPlaceNum`]: parseInt(formData.secondNumber),
         [`DogPlaceOdd`]: parseFloat(formData.secondOdd)
       },
+      Third: {
+        [`DogPlaceNum`]: parseInt(formData.thirdNumber),
+        [`DogPlaceOdd`]: parseFloat(formData.secondOdd)
+      },
       type: [`${lastRenderedComponent}`]
     };
 
@@ -96,6 +100,7 @@ const ResultModalPage = () => {
       const data = {
         First: parsedFormData.First,
         Second: parsedFormData.Second,
+        Third: parsedFormData.Third,
         type: parsedFormData.type[0],
         gameId: parsedFormData.gameId,
         tiketerId: `${user._id}`,
@@ -115,7 +120,8 @@ const ResultModalPage = () => {
           firstNumber: '',
           firstOdd: '',
           secondNumber: '',
-          secondOdd: ''
+          secondOdd: '',
+          thirdNumber: ''
         });
         setErrors({});
       } else {
@@ -219,6 +225,23 @@ const ResultModalPage = () => {
                 />
                 <Form.Control.Feedback type="invalid">{errors.secondOdd}</Form.Control.Feedback>
               </Col>
+            </Row>
+          </Form.Group>
+          <Form.Group controlId="secondNumber">
+            <Form.Label style={{ontSize: '20px', fontWeight: 'bold', backgroundColor: '' }}>Third Winner</Form.Label>
+            <Row>
+              <Col>
+                <Form.Control
+                  type="number"
+                  placeholder={`Enter ${lastRenderedComponent} Third number`}
+                  value={formData.thirdNumber}
+                  onChange={handleInputChange}
+                  id="thirdNumber"
+                  isInvalid={!!errors.thirdNumber}
+                />
+                <Form.Control.Feedback type="invalid">{errors.thirdNumber}</Form.Control.Feedback>
+              </Col>
+              
             </Row>
           </Form.Group>
           <Button

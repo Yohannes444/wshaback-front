@@ -9,7 +9,8 @@ const api = axios.create({
 });
 
 
-
+   // "typescript": "5.6.0-dev.20240620",
+    // "typescript-eslint": "8.3.0",
 // Function to set the Authorization header for requests requiring authentication
 export const setAuthHeaders = () => {
   const token = localStorage.getItem("token");
